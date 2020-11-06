@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "782694570974",
+    "firebase_url": "https://stocktake-63bcd.firebaseio.com",
+    "project_id": "stocktake-63bcd",
+    "storage_bucket": "stocktake-63bcd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782694570974:android:c7e9f8d6430650359bdb4f",
+        "android_client_info": {
+          "package_name": "com.infosys.stocktake"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782694570974-ptbut1348u27d3rphujv7pe4k3iadmdv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWwcLdshnLePWus8NPd3pU24F3n39nIvc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782694570974-7g6a86dq1o09grv10q5pd77bjndfc4rb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
