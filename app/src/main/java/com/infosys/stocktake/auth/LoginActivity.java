@@ -3,6 +3,7 @@ package com.infosys.stocktake.auth;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -72,7 +73,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void login() {}
+    public void login() {
+        Intent intent = new Intent(this, GoogleLoginActivity.class);
+        startActivity(intent);
+    }
 
     // TODO: add in validation of input
     public int validate(String email) {
