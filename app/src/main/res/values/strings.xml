@@ -16,4 +16,6 @@
     -->
     <string name="hello_world">Hello Square World!</string>
     <string name="login_with_google">Login With Google</string>
+    <string name="your_telegram_handle">Your Telegram Handle</string>
+    <string name="your_student_id">Your Student ID</string>
 </resources>
