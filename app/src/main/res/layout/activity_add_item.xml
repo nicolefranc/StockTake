@@ -22,6 +22,12 @@
             android:layout_marginVertical="@dimen/components_sm_margin"
             android:text="Select Image" />
 
+        <Button
+            android:id="@+id/uploadBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload File" />
+
         <EditText
             android:id="@+id/editTextItemName"
             android:layout_width="match_parent"
@@ -54,7 +60,6 @@
             android:id="@+id/imgPreview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
