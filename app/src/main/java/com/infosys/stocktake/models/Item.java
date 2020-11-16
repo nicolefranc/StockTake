@@ -1,23 +1,80 @@
 package com.infosys.stocktake.models;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class Item {
+    // Constants
+    private static final String ITEM_ID = "itemID";
+    private static final String ITEM_NAME = "itemName";
+    private static final String ITEM_DESC = "itemDescription";
+    private static final String ITEM_PICTURE = "itemPicture";
+    private static final String QTY_STATUS = "qtyStatus";
+    private static final String LOANEE_ID = "loaneeID";
+    private static final String CLUB_ID = "clubID";
+    // Variables
     private String itemID;
     private String itemName;
     private String itemDescription;
-    private Map<ItemStatus, Integer> qtyStatus;
+    private String itemPicture;
+    private Map<String, Integer> qtyStatus;
     private String loaneeID;
     private String clubID;
-    private String itemPicture;
 
-    public Item(String itemID, String itemName, String itemDescription, Map<ItemStatus, Integer> qtyStatus, String loaneeID, String clubID, String itemPicture) {
-        this.itemID = itemID;
+    // Constructor when inserting item
+    // Accepts integer qty automatically indicating ALL AVAILABLE as its status
+    public Item(String itemName, String itemDescription, String itemPicture, int qtyAvailable, String loaneeID, String clubID) {
+        this.itemID = UUID.randomUUID().toString();
         this.itemName = itemName;
         this.itemDescription = itemDescription;
-        this.qtyStatus = qtyStatus;
+        this.itemPicture = itemPicture;
+
+        // Qty Status Map
+        this.qtyStatus = new HashMap<String, Integer>();
+        this.qtyStatus.put(ItemStatus.AVAILABLE.toString(), qtyAvailable);
+        this.qtyStatus.put(ItemStatus.BROKEN.toString(), 0);
+        this.qtyStatus.put(ItemStatus.ON_LOAN.toString(), 0);
+        this.qtyStatus.put(ItemStatus.ON_REPAIR.toString(), 0);
+
         this.loaneeID = loaneeID;
         this.clubID = clubID;
-        this.itemPicture = itemPicture;
+    }
+
+    public void insertItem() {
+        Map<String, Object> item = new HashMap<>();
+        item.put(ITEM_ID, UUID.randomUUID());
+        item.put(ITEM_NAME, this.itemName);
+        item.put(ITEM_DESC, this.itemDescription);
+        item.put(ITEM_PICTURE, this.itemPicture);
+        item.put(QTY_STATUS, this.qtyStatus);
+        item.put(LOANEE_ID, this.loaneeID);
+        item.put(CLUB_ID, this.clubID);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("items").document(this.clubID.concat("-" + this.itemID))
+                .set(item)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("DEBUG", "Successfully added to Items");
+                        System.out.println("YAAAAAYYYYYYYYYYYYYYY");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG", "Failed to add to items");
+                        System.out.println("NOOOOOOOOOOOO");
+                    }
+                });
     }
 }

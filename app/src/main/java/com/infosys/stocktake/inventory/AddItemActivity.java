@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -22,15 +23,21 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.infosys.stocktake.R;
+import com.infosys.stocktake.models.Item;
 
 import java.io.IOException;
 
 public class AddItemActivity extends AppCompatActivity {
+    private final int PICK_IMAGE_REQUEST = 22;
+    private Uri filePath;
+
+    // UI Components
     private Button selectImgBtn;
     private ImageView imagePreview;
     private Button uploadBtn;
-    private final int PICK_IMAGE_REQUEST = 22;
-    private Uri filePath;
+    private EditText etItemName;
+    private EditText etItemDesc;
+    private EditText etQty;
 
     // Instance for Firebase Storage, Storage Reference
     FirebaseStorage storage;
@@ -49,6 +56,9 @@ public class AddItemActivity extends AppCompatActivity {
         selectImgBtn = findViewById(R.id.selectImgBtn);
         imagePreview = findViewById(R.id.imgPreview);
         uploadBtn = findViewById(R.id.uploadBtn);
+        etItemName = findViewById(R.id.editTextItemName);
+        etItemDesc = findViewById(R.id.editTextItemDescription);
+        etQty = findViewById(R.id.editTextQty);
 
         // Event Listeners
         selectImgBtn.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +70,7 @@ public class AddItemActivity extends AppCompatActivity {
         uploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uploadFile();
+                AddItemActivity.this.uploadFile();
             }
         });
     }
@@ -104,6 +114,7 @@ public class AddItemActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Toast.makeText(AddItemActivity.this, "Successfully uploaded", Toast.LENGTH_SHORT).show();
+                            AddItemActivity.this.addToFirestore(taskSnapshot.getMetadata().getPath());
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -118,8 +129,21 @@ public class AddItemActivity extends AppCompatActivity {
                             Toast.makeText(AddItemActivity.this, "Uploading...", Toast.LENGTH_SHORT).show();
                         }
                     });
+
         } else {
             Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void addToFirestore(String storageLocation) {
+        // Retrieve Item Details
+        String itemName = etItemName.getText().toString();
+        String itemDesc = etItemDesc.getText().toString();
+        int qty = Integer.parseInt(etQty.getText().toString());
+        String loaneeID = "1233278";
+        String clubID = "748379437";
+
+        Item item = new Item(itemName, itemDesc, storageLocation, qty, loaneeID, clubID);
+        item.insertItem();
     }
 }
