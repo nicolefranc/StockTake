@@ -16,6 +16,8 @@ import com.squareup.picasso.Picasso;
 
 public class ItemDetailsActivity extends AppCompatActivity {
     Item item;
+    private static final int QR_HEIGHT = 200;
+    private static final int QR_WIDTH = 200;
     TextView tvItemName, tvQtyAvailable, tvQtyBroken, tvQtyOnLoan, tvQtyOnRepair, tvItemDesc;
     ImageView ivItemPicture, ivQrCode;
 
@@ -43,11 +45,13 @@ public class ItemDetailsActivity extends AppCompatActivity {
         tvQtyOnRepair.setText(item.getQtyStatus().get(ItemStatus.ON_REPAIR.toString()).toString());
         tvItemDesc.setText(item.getItemDescription());
 
+        // Display item image from the download url
         Uri imageUri = Uri.parse(item.getItemPicture());
         Picasso.get().load(imageUri)
                 .fit().centerCrop().into(ivItemPicture);
 
-        QrCode qr = new QrCode(200, 200);
+        // Display QR code based on encoded QR string
+        QrCode qr = new QrCode(QR_HEIGHT, QR_WIDTH);
         Bitmap bitmap = qr.stringToBitmap(item.getEncodedQr());
         ivQrCode.setImageBitmap(bitmap);
     }

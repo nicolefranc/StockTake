@@ -45,8 +45,6 @@ import java.io.IOException;
 public class AddItemActivity extends AppCompatActivity {
     private final int PICK_IMAGE_REQUEST = 22;
     private Uri filePath;
-    private final int QR_WIDTH = 200;
-    private final int QR_HEIGHT = 200;
 
     // UI Components
     private Button selectImgBtn;
@@ -121,6 +119,7 @@ public class AddItemActivity extends AppCompatActivity {
         }
     }
 
+    // TODO: Add some validation
     private void uploadFile() {
         if (filePath != null) {
             // Upload to Firebase Storage
@@ -175,9 +174,6 @@ public class AddItemActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d("DEBUG", "Successfully added to Items");
-                        System.out.println("YAAAAAYYYYYYYYYYYYYYY");
-
                         // Pass item to display details in ItemDetailsActivity
                         Intent intent = new Intent(AddItemActivity.this, ItemDetailsActivity.class);
                         intent.putExtra("ItemIntent", item);
@@ -188,56 +184,8 @@ public class AddItemActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d("DEBUG", "Failed to add to items");
-                        System.out.println("NOOOOOOOOOOOO");
+                        Toast.makeText(AddItemActivity.this, "Failed to save", Toast.LENGTH_SHORT).show();
                     }
-                });;
+                });
     }
-
-//    public void generateQrCode(String data) {
-//        QRCodeWriter qrCodeWriter = new QRCodeWriter();
-//
-//        try {
-//            BitMatrix bitMatrix = qrCodeWriter.encode(data, BarcodeFormat.QR_CODE, QR_WIDTH, QR_HEIGHT);
-//            Bitmap bitmap = Bitmap.createBitmap(QR_WIDTH, QR_HEIGHT, Bitmap.Config.RGB_565);
-//
-//            for (int x = 0; x < QR_WIDTH; x++) {
-//                for (int y = 0; y < QR_HEIGHT; y++) {
-//                    bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
-//                }
-//            }
-//
-//            // Convert to string to store in firebase
-//            // Test the methods
-//            String qrString = bitmapToString(bitmap);
-//            Bitmap decodedBitmap = stringToBitmap(qrString);
-//            imagePreview.setImageBitmap(decodedBitmap);
-//        } catch (WriterException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-//    public String bitmapToString(Bitmap bitmap) {
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-//        byte[] b = baos.toByteArray();
-//        String qrString = Base64.encodeToString(b, Base64.DEFAULT);
-//
-//        return qrString;
-//    }
-
-    /*
-    * @param qrString (encoded string from bitmap
-    * @return bitmap (decoded from the encoded string
-    */
-//    public Bitmap stringToBitmap(String qrString) {
-//        try {
-//            byte[] encodedByte = Base64.decode(qrString, Base64.DEFAULT);
-//            Bitmap bitmap = BitmapFactory.decodeByteArray(encodedByte, 0, encodedByte.length);
-//            return bitmap;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
 }

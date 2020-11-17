@@ -23,7 +23,6 @@ public class InventoryActivity extends AppCompatActivity {
         fab_add_item.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("FAB Clicked");
                 Intent intent = new Intent(InventoryActivity.this, AddItemActivity.class);
                 startActivity(intent);
             }

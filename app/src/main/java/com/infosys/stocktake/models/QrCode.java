@@ -42,11 +42,6 @@ public class QrCode {
             }
 
             return bitmap;
-            // Convert to string to store in firebase
-            // Test the methods
-//            String qrString = bitmapToString(bitmap);
-//            Bitmap decodedBitmap = stringToBitmap(qrString);
-//            imagePreview.setImageBitmap(decodedBitmap);
         } catch (WriterException e) {
             e.printStackTrace();
             return null;

@@ -58,19 +58,6 @@ public class Item implements Serializable {
         this.clubID = clubID;
     }
 
-//    public Map<String, Object> insertItem() {
-//        Map<String, Object> item = new HashMap<>();
-//        item.put(ITEM_ID, UUID.randomUUID());
-//        item.put(ITEM_NAME, this.itemName);
-//        item.put(ITEM_DESC, this.itemDescription);
-//        item.put(ITEM_PICTURE, this.itemPicture);
-//        item.put(QTY_STATUS, this.qtyStatus);
-//        item.put(LOANEE_ID, this.loaneeID);
-//        item.put(CLUB_ID, this.clubID);
-//
-//        return item;
-//    }
-
     public String getItemID() {
         return itemID;
     }
