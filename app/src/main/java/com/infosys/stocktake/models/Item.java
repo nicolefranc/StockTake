@@ -8,11 +8,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class Item {
+public class Item implements Serializable {
     // Constants
     private static final String ITEM_ID = "itemID";
     private static final String ITEM_NAME = "itemName";
@@ -49,7 +50,7 @@ public class Item {
         this.clubID = clubID;
     }
 
-    public void insertItem() {
+    public Map<String, Object> insertItem() {
         Map<String, Object> item = new HashMap<>();
         item.put(ITEM_ID, UUID.randomUUID());
         item.put(ITEM_NAME, this.itemName);
@@ -59,22 +60,34 @@ public class Item {
         item.put(LOANEE_ID, this.loaneeID);
         item.put(CLUB_ID, this.clubID);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("items").document(this.clubID.concat("-" + this.itemID))
-                .set(item)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("DEBUG", "Successfully added to Items");
-                        System.out.println("YAAAAAYYYYYYYYYYYYYYY");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("DEBUG", "Failed to add to items");
-                        System.out.println("NOOOOOOOOOOOO");
-                    }
-                });
+        return item;
+    }
+
+    public String getItemID() {
+        return itemID;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public String getItemDescription() {
+        return itemDescription;
+    }
+
+    public String getItemPicture() {
+        return itemPicture;
+    }
+
+    public Map<String, Integer> getQtyStatus() {
+        return qtyStatus;
+    }
+
+    public String getLoaneeID() {
+        return loaneeID;
+    }
+
+    public String getClubID() {
+        return clubID;
     }
 }

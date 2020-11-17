@@ -9,15 +9,21 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -107,26 +113,29 @@ public class AddItemActivity extends AppCompatActivity {
     private void uploadFile() {
         if (filePath != null) {
             // Upload to Firebase Storage
-            StorageReference ref = storageReference
+            final StorageReference ref = storageReference
                     .child("testingImages/" + System.currentTimeMillis());
-            ref.putFile(filePath)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            UploadTask uploadTask = ref.putFile(filePath);
+            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+
+                    // Continue with the task to get the download URL
+                    return ref.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                         @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(AddItemActivity.this, "Successfully uploaded", Toast.LENGTH_SHORT).show();
-                            AddItemActivity.this.addToFirestore(taskSnapshot.getMetadata().getPath());
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(AddItemActivity.this, "Upload FAILED", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                            Toast.makeText(AddItemActivity.this, "Uploading...", Toast.LENGTH_SHORT).show();
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Uri downloadUri = task.getResult();
+                                Toast.makeText(AddItemActivity.this, "Successfully uploaded", Toast.LENGTH_SHORT).show();
+                                AddItemActivity.this.addToFirestore(downloadUri.toString());
+                            } else {
+                                Toast.makeText(AddItemActivity.this, "Upload FAILED", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
 
@@ -143,7 +152,32 @@ public class AddItemActivity extends AppCompatActivity {
         String loaneeID = "1233278";
         String clubID = "748379437";
 
-        Item item = new Item(itemName, itemDesc, storageLocation, qty, loaneeID, clubID);
-        item.insertItem();
+        final Item item = new Item(itemName, itemDesc, storageLocation, qty, loaneeID, clubID);
+//        item.insertItem();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("items").document(item.getClubID().concat("-" + item.getItemID().substring(0, 8)))
+                .set(item)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("DEBUG", "Successfully added to Items");
+                        System.out.println("YAAAAAYYYYYYYYYYYYYYY");
+
+                        // Pass item to display details in ItemDetailsActivity
+                        Intent intent = new Intent(AddItemActivity.this, ItemDetailsActivity.class);
+                        intent.putExtra("ItemIntent", item);
+                        intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG", "Failed to add to items");
+                        System.out.println("NOOOOOOOOOOOO");
+                    }
+                });;
+
     }
 }
