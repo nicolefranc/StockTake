@@ -6,10 +6,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-<<<<<<< HEAD
 import android.os.AsyncTask;
-=======
->>>>>>> 4a80ce5... Added Navbar Stuff
+
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -24,10 +22,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.infosys.stocktake.MainActivity;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.auth.GoogleLoginActivity;
-<<<<<<< HEAD
+
 import com.infosys.stocktake.models.User;
-=======
->>>>>>> 4a80ce5... Added Navbar Stuff
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,18 +45,12 @@ public class Profile extends AppCompatActivity {
 
         GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 4a80ce5... Added Navbar Stuff
         if (signInAccount  != null) {
             name.setText(signInAccount.getDisplayName());
             email.setText(signInAccount.getEmail());
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> 4a80ce5... Added Navbar Stuff
 //
 
 
@@ -74,7 +65,7 @@ public class Profile extends AppCompatActivity {
 
             }
         });
-<<<<<<< HEAD
+
 
 //        class getUser extends AsyncTask<> {
 //
@@ -93,8 +84,7 @@ public class Profile extends AppCompatActivity {
 //                }
 //            }
 //        }
-=======
->>>>>>> 4a80ce5... Added Navbar Stuff
+
     }
 
 

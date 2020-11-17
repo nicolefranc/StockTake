@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
+
         android:paddingTop="32dp"
         android:clickable="true"
         app:tabTextColor="@color/gray"
         app:tabSelectedTextColor="@color/black"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        app:layout_constraintHorizontal_bias="0.0">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/loginTab"

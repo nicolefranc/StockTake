@@ -4,46 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
-    tools:context=".Profile">
 
-    <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.789" />
-
-    <TextView
-        android:id="@+id/emailTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="48dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
-
-    <TextView
-        android:id="@+id/nameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="300dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-
-=======
     android:background="@drawable/background"
     tools:context=".Profile">
 
@@ -121,5 +82,5 @@
 
     </RelativeLayout>
     </LinearLayout>
->>>>>>> 4a80ce5... Added Navbar Stuff
+
 </androidx.constraintlayout.widget.ConstraintLayout>

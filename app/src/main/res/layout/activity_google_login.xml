@@ -3,11 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-<<<<<<< HEAD
-    android:layout_height="match_parent"
-=======
+
     android:layout_height="wrap_content"
->>>>>>> 4a80ce5... Added Navbar Stuff
     android:outlineProvider="none"
     tools:context=".auth.GoogleLoginActivity">
 
@@ -20,41 +17,7 @@
     <!--        app:layout_constraintEnd_toEndOf="parent"-->
     <!--        app:layout_constraintStart_toStartOf="parent"-->
     <!--        app:layout_constraintTop_toTopOf="parent" />-->
-<<<<<<< HEAD
 
-    <ImageButton
-        android:id="@+id/googleLoginIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:backgroundTint="#FFFFFF"
-        android:src="@drawable/common_google_signin_btn_icon_dark"
-        app:layout_constraintBottom_toTopOf="@+id/googleLoginDesc"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        style ="?android:attr/borderlessButtonStyle"/>
-
-    <TextView
-        android:id="@+id/googleLoginDesc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="336dp"
-        android:text="Login with Google"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-    <!--    <ImageView-->
-    <!--        android:id="@+id/googleLoginIcon"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:src="@drawable/common_google_signin_btn_icon_dark"-->
-
-    <!--        app:layout_constraintBottom_toTopOf="@+id/googleLoginButton"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent" />-->
-=======
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -93,5 +56,5 @@
         <!--        app:layout_constraintEnd_toEndOf="parent"-->
         <!--        app:layout_constraintStart_toStartOf="parent" />-->
     </RelativeLayout>
->>>>>>> 4a80ce5... Added Navbar Stuff
+
 </androidx.constraintlayout.widget.ConstraintLayout>

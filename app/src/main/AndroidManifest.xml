@@ -4,10 +4,8 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 4a80ce5... Added Navbar Stuff
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,12 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
+
         <activity android:name=".auth.ProfileSetupActivity"></activity>
         <activity android:name=".Profile" />
-=======
-        <activity android:name=".Profile"></activity>
->>>>>>> 4a80ce5... Added Navbar Stuff
+
+
+
         <activity android:name=".auth.GoogleLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,10 +26,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
-=======
 
->>>>>>> 4a80ce5... Added Navbar Stuff
+
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
@@ -39,7 +35,7 @@
         <activity
             android:name=".auth.LoginActivity"
             android:label="@string/title_activity_login" />
-<<<<<<< HEAD
+
         <activity android:name=".MainActivity">
 
             <!-- <intent-filter> -->
@@ -49,17 +45,7 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-=======
 
-        <activity android:name=".MainActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
-
->>>>>>> 4a80ce5... Added Navbar Stuff
     </application>
 
 </manifest>
