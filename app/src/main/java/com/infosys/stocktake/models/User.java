@@ -43,14 +43,14 @@ public class User {
         this.uuid = currentUser.getUid();
     }
     //Account Creation during first sign up
-    public void createUser(final User user){
+    public void createUser(){
         db = FirebaseFirestore.getInstance();
         db.collection("users").document(this.uuid)
                 .set(this)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "USER "+ user.studentID + "has been successfully added!");
+                        Log.d(TAG, "USER "+ studentID + "has been successfully added!");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -88,6 +88,7 @@ public class User {
     public void deleteClubMembership(String clubID){
         this.clubMembership.remove(clubID);
     }
+
     //call this when user is prompted to tap the card
     public void setNfcTag(String nfcTag){
         this.nfcTag= nfcTag;
