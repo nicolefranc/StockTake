@@ -51,7 +51,9 @@ public class GoogleLoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_google_login);
+//        setContentView(R.layout.activity_google_login);
+
+        setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
 
 
@@ -60,6 +62,7 @@ public class GoogleLoginActivity extends AppCompatActivity {
         findViewById(R.id.googleLoginIcon).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG, "pressed");
                 signIn();
             }
         });
@@ -102,7 +105,7 @@ public class GoogleLoginActivity extends AppCompatActivity {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
                 // ...
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         }

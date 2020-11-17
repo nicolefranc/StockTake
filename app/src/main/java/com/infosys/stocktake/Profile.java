@@ -31,7 +31,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 public class Profile extends AppCompatActivity {
-    TextView name, email;
+    TextView nameView, telegramView;
     Button logoutButton;
 
     @Override
@@ -40,15 +40,15 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         logoutButton = findViewById(R.id.logoutButton);
-        name = findViewById(R.id.nameTextView);
-        email = findViewById(R.id.emailTextView);
+        nameView = findViewById(R.id.name);
+        telegramView = findViewById(R.id.telegramhandle);
 
         GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
 
 
         if (signInAccount  != null) {
-            name.setText(signInAccount.getDisplayName());
-            email.setText(signInAccount.getEmail());
+            nameView.setText(signInAccount.getDisplayName());
+            telegramView.setText(signInAccount.getEmail());
         }
 
 //
