@@ -40,7 +40,12 @@ public class User {
         this.fullName = signInAccount.getDisplayName();
         this.telegramHandle = telegramHandle;
         this.clubMembership = new HashMap<>();
-        this.uuid = currentUser.getUid();
+        if(currentUser != null){
+            this.uuid = currentUser.getUid();
+        }
+        else{
+            Log.e(TAG,"USER GOOGLE ACCOUNT NOT AUTHENTICATED");
+        }
     }
     //Account Creation during first sign up
     public void createUser(){
