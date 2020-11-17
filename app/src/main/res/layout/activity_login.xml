@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
     tools:context=".auth.LoginActivity">
 
@@ -88,5 +89,56 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/components_md_margin"
             android:text="@string/action_register" />
+=======
+    android:background="@drawable/background"
+    tools:context=".auth.LoginActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="60dp"
+        android:text="@string/app_name"
+        android:textSize="@dimen/text_title"
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif"
+        android:font="@font/orienta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+        <include layout="@layout/login_tab"
+            android:id="@+id/loginTab"
+            android:layout_below="@+id/textView2"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="292dp"
+            android:layout_marginBottom="241dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout">
+
+            <include  layout="@layout/activity_google_login"
+                    android:id="@+id/googleBtn" />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+>>>>>>> 4a80ce5... Added Navbar Stuff
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

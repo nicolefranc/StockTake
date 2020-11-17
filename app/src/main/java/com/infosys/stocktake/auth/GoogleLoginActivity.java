@@ -26,7 +26,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.Profile;
+<<<<<<< HEAD
 import com.infosys.stocktake.models.User;
+=======
+>>>>>>> 4a80ce5... Added Navbar Stuff
 
 public class GoogleLoginActivity extends AppCompatActivity {
     private final String TAG = GoogleLoginActivity.class.getSimpleName();
@@ -117,11 +120,16 @@ public class GoogleLoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+<<<<<<< HEAD
                             User customUser = new User();
 
 
 //                            Intent intent = new Intent(getApplicationContext(), Profile.class);
                             Intent intent = new Intent(getApplicationContext(), ProfileSetupActivity.class);
+=======
+                            Intent intent = new Intent(getApplicationContext(), Profile.class);
+
+>>>>>>> 4a80ce5... Added Navbar Stuff
                             startActivity(intent);
 
                         } else {

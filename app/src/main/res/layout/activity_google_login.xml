@@ -3,7 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+<<<<<<< HEAD
     android:layout_height="match_parent"
+=======
+    android:layout_height="wrap_content"
+>>>>>>> 4a80ce5... Added Navbar Stuff
     android:outlineProvider="none"
     tools:context=".auth.GoogleLoginActivity">
 
@@ -16,6 +20,7 @@
     <!--        app:layout_constraintEnd_toEndOf="parent"-->
     <!--        app:layout_constraintStart_toStartOf="parent"-->
     <!--        app:layout_constraintTop_toTopOf="parent" />-->
+<<<<<<< HEAD
 
     <ImageButton
         android:id="@+id/googleLoginIcon"
@@ -49,4 +54,44 @@
     <!--        app:layout_constraintBottom_toTopOf="@+id/googleLoginButton"-->
     <!--        app:layout_constraintEnd_toEndOf="parent"-->
     <!--        app:layout_constraintStart_toStartOf="parent" />-->
+=======
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/googleLoginIcon"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="#FFFFFF"
+            android:src="@drawable/common_google_signin_btn_icon_dark"
+            android:layout_below="@+id/googleLoginDesc"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/googleLoginDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:textAlignment="center"
+            android:textSize="12dp"
+            android:text="-------------------- SIGN IN WITH --------------------"
+            android:textColor="@color/gray"
+            />
+        <!--    <ImageView-->
+        <!--        android:id="@+id/googleLoginIcon"-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:src="@drawable/common_google_signin_btn_icon_dark"-->
+
+        <!--        app:layout_constraintBottom_toTopOf="@+id/googleLoginButton"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        app:layout_constraintStart_toStartOf="parent" />-->
+    </RelativeLayout>
+>>>>>>> 4a80ce5... Added Navbar Stuff
 </androidx.constraintlayout.widget.ConstraintLayout>

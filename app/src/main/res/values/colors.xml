@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<<<<<<< HEAD
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+=======
+    <color name="blue_main1">#0C4FFA</color>
+    <color name="blue_main2">#4378FF</color>
+    <color name="gray">#707070</color>
+    <color name="off_white">#F2F2F2</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+>>>>>>> 4a80ce5... Added Navbar Stuff
 </resources>

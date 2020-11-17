@@ -9,6 +9,11 @@ import android.os.Bundle;
 import com.google.firebase.auth.FirebaseAuth;
 import com.infosys.stocktake.auth.LoginActivity;
 
+<<<<<<< HEAD
+=======
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
+>>>>>>> 4a80ce5... Added Navbar Stuff
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
