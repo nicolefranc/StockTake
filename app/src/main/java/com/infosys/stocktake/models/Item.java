@@ -1,5 +1,6 @@
 package com.infosys.stocktake.models;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ public class Item implements Serializable {
     private String itemName;
     private String itemDescription;
     private String itemPicture;
+    private String encodedQr;
     private Map<String, Integer> qtyStatus;
     private String loaneeID;
     private String clubID;
@@ -34,10 +36,16 @@ public class Item implements Serializable {
     // Constructor when inserting item
     // Accepts integer qty automatically indicating ALL AVAILABLE as its status
     public Item(String itemName, String itemDescription, String itemPicture, int qtyAvailable, String loaneeID, String clubID) {
-        this.itemID = UUID.randomUUID().toString();
+        // ItemID: clubID-<8d-uuid>
+        this.itemID = clubID.concat("-").concat(UUID.randomUUID().toString().substring(0, 8));
         this.itemName = itemName;
         this.itemDescription = itemDescription;
         this.itemPicture = itemPicture;
+
+        // Generate QR
+        QrCode qr = new QrCode(200, 200, getItemID());
+        Bitmap bitmap = qr.generateQrCode();
+        this.encodedQr = qr.bitmapToString(bitmap);
 
         // Qty Status Map
         this.qtyStatus = new HashMap<String, Integer>();
@@ -50,18 +58,18 @@ public class Item implements Serializable {
         this.clubID = clubID;
     }
 
-    public Map<String, Object> insertItem() {
-        Map<String, Object> item = new HashMap<>();
-        item.put(ITEM_ID, UUID.randomUUID());
-        item.put(ITEM_NAME, this.itemName);
-        item.put(ITEM_DESC, this.itemDescription);
-        item.put(ITEM_PICTURE, this.itemPicture);
-        item.put(QTY_STATUS, this.qtyStatus);
-        item.put(LOANEE_ID, this.loaneeID);
-        item.put(CLUB_ID, this.clubID);
-
-        return item;
-    }
+//    public Map<String, Object> insertItem() {
+//        Map<String, Object> item = new HashMap<>();
+//        item.put(ITEM_ID, UUID.randomUUID());
+//        item.put(ITEM_NAME, this.itemName);
+//        item.put(ITEM_DESC, this.itemDescription);
+//        item.put(ITEM_PICTURE, this.itemPicture);
+//        item.put(QTY_STATUS, this.qtyStatus);
+//        item.put(LOANEE_ID, this.loaneeID);
+//        item.put(CLUB_ID, this.clubID);
+//
+//        return item;
+//    }
 
     public String getItemID() {
         return itemID;
@@ -89,5 +97,9 @@ public class Item implements Serializable {
 
     public String getClubID() {
         return clubID;
+    }
+
+    public String getEncodedQr() {
+        return encodedQr;
     }
 }

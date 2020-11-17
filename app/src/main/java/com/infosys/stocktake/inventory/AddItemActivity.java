@@ -7,10 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,14 +31,22 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.models.Item;
+import com.infosys.stocktake.models.QrCode;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class AddItemActivity extends AppCompatActivity {
     private final int PICK_IMAGE_REQUEST = 22;
     private Uri filePath;
+    private final int QR_WIDTH = 200;
+    private final int QR_HEIGHT = 200;
 
     // UI Components
     private Button selectImgBtn;
@@ -116,6 +127,8 @@ public class AddItemActivity extends AppCompatActivity {
             final StorageReference ref = storageReference
                     .child("testingImages/" + System.currentTimeMillis());
             UploadTask uploadTask = ref.putFile(filePath);
+            // Retrieve the download url for the image uploaded to Firebase Storage
+            // Download url is to be used to store in Firestore and to display later using Picasso
             Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
@@ -153,10 +166,11 @@ public class AddItemActivity extends AppCompatActivity {
         String clubID = "748379437";
 
         final Item item = new Item(itemName, itemDesc, storageLocation, qty, loaneeID, clubID);
-//        item.insertItem();
+
+        String documentId = item.getItemID();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("items").document(item.getClubID().concat("-" + item.getItemID().substring(0, 8)))
+        db.collection("items").document(documentId)
                 .set(item)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -178,6 +192,52 @@ public class AddItemActivity extends AppCompatActivity {
                         System.out.println("NOOOOOOOOOOOO");
                     }
                 });;
-
     }
+
+//    public void generateQrCode(String data) {
+//        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+//
+//        try {
+//            BitMatrix bitMatrix = qrCodeWriter.encode(data, BarcodeFormat.QR_CODE, QR_WIDTH, QR_HEIGHT);
+//            Bitmap bitmap = Bitmap.createBitmap(QR_WIDTH, QR_HEIGHT, Bitmap.Config.RGB_565);
+//
+//            for (int x = 0; x < QR_WIDTH; x++) {
+//                for (int y = 0; y < QR_HEIGHT; y++) {
+//                    bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+//                }
+//            }
+//
+//            // Convert to string to store in firebase
+//            // Test the methods
+//            String qrString = bitmapToString(bitmap);
+//            Bitmap decodedBitmap = stringToBitmap(qrString);
+//            imagePreview.setImageBitmap(decodedBitmap);
+//        } catch (WriterException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+//    public String bitmapToString(Bitmap bitmap) {
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+//        byte[] b = baos.toByteArray();
+//        String qrString = Base64.encodeToString(b, Base64.DEFAULT);
+//
+//        return qrString;
+//    }
+
+    /*
+    * @param qrString (encoded string from bitmap
+    * @return bitmap (decoded from the encoded string
+    */
+//    public Bitmap stringToBitmap(String qrString) {
+//        try {
+//            byte[] encodedByte = Base64.decode(qrString, Base64.DEFAULT);
+//            Bitmap bitmap = BitmapFactory.decodeByteArray(encodedByte, 0, encodedByte.length);
+//            return bitmap;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 }

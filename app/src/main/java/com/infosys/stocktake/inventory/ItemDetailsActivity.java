@@ -2,6 +2,7 @@ package com.infosys.stocktake.inventory;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -10,12 +11,13 @@ import android.widget.TextView;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.ItemStatus;
+import com.infosys.stocktake.models.QrCode;
 import com.squareup.picasso.Picasso;
 
 public class ItemDetailsActivity extends AppCompatActivity {
     Item item;
     TextView tvItemName, tvQtyAvailable, tvQtyBroken, tvQtyOnLoan, tvQtyOnRepair, tvItemDesc;
-    ImageView ivItemPicture;
+    ImageView ivItemPicture, ivQrCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         tvQtyOnRepair = findViewById(R.id.tvQtyOnRepair);
         tvItemDesc = findViewById(R.id.tvItemDesc);
         ivItemPicture = findViewById(R.id.ivItemPicture);
+        ivQrCode = findViewById(R.id.ivQrCode);
 
         // Populate components with Item data from passed Intent
         item = (Item) getIntent().getSerializableExtra("ItemIntent");
@@ -43,5 +46,9 @@ public class ItemDetailsActivity extends AppCompatActivity {
         Uri imageUri = Uri.parse(item.getItemPicture());
         Picasso.get().load(imageUri)
                 .fit().centerCrop().into(ivItemPicture);
+
+        QrCode qr = new QrCode(200, 200);
+        Bitmap bitmap = qr.stringToBitmap(item.getEncodedQr());
+        ivQrCode.setImageBitmap(bitmap);
     }
 }
