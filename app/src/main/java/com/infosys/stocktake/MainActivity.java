@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.infosys.stocktake.auth.GoogleLoginActivity;
 import com.infosys.stocktake.auth.LoginActivity;
+import com.infosys.stocktake.inventory.InventoryActivity;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;

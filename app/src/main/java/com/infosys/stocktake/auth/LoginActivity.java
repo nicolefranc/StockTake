@@ -17,6 +17,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.infosys.stocktake.R;
+import com.infosys.stocktake.inventory.InventoryActivity;
 
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
