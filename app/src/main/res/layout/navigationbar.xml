@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    tools:openDrawer="start"
     tools:context=".navigationdrawer.navbar">
 
     <RelativeLayout
@@ -27,6 +28,8 @@
         android:id="@+id/nav_view"
         app:menu="@menu/navigation_menu"
         android:layout_gravity="start"
+        app:headerLayout="@layout/navigation_header"
+        android:fitsSystemWindows="true"
         android:layout_height="match_parent"
         android:layout_width="wrap_content"/>
 
