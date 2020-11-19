@@ -38,21 +38,21 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="43dp"
-            android:layout_marginTop="120dp"
             android:layout_below="@+id/userprofile"
-            android:text="Name:"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="39dp"
+            android:text="Name:"
             android:textColor="@color/gray"
             android:textSize="25dp" />
 
         <TextView
-            android:id="@+id/role"
+            android:id="@+id/studentID"
             android:layout_width="match_parent"
             android:layout_height="43dp"
-            android:layout_marginTop="30dp"
             android:layout_below="@+id/name"
-            android:text="Role:"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:text="Student Id:"
             android:textColor="@color/gray"
             android:textSize="25dp" />
 
@@ -60,11 +60,33 @@
             android:id="@+id/telegramhandle"
             android:layout_width="match_parent"
             android:layout_height="43dp"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/role"
-            android:text="Telegram Handle:"
+            android:layout_below="@+id/studentID"
             android:layout_marginLeft="20dp"
-            android:layout_marginBottom="80dp"
+            android:layout_marginTop="34dp"
+            android:text="Telegram Handle:"
+            android:textColor="@color/gray"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/profileClubName"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_below="@+id/telegramhandle"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="24dp"
+            android:text="Club Name:"
+            android:textColor="@color/gray"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/profileMembershipInfo"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_below="@+id/profileClubName"
+
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="28dp"
+            android:text="Membership Info:"
             android:textColor="@color/gray"
             android:textSize="25dp" />
 
@@ -72,7 +94,8 @@
             android:id="@+id/logoutButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/telegramhandle"
+            android:layout_below="@+id/profileMembershipInfo"
+            android:layout_marginTop="22dp"
             android:background="@drawable/rounded_rectangle"
             android:font="@font/orienta"
             android:text="Logout"

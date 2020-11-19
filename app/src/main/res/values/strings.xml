@@ -27,4 +27,10 @@
     <string name="your_telegram_handle">Your Telegram Handle</string>
     <string name="your_student_id">Your Student ID</string>
 
+
+    <string-array name="test_array">
+        <item>Hello</item>
+        <item>Test!</item>
+    </string-array>
+
 </resources>
