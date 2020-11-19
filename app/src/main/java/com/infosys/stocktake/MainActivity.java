@@ -5,14 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.infosys.stocktake.auth.LoginActivity;
+import com.infosys.stocktake.loans.AddLoanActivity;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-
+    Button goToLoanBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +35,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+        goToLoanBtn = findViewById(R.id.goToLoanBtn);
+        goToLoanBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, AddLoanActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
