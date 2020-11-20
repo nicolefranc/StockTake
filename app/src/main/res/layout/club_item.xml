@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <com.infosys.stocktake.inventory.items.SquareCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/club_view_parent"
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <com.infosys.stocktake.inventory.items.SquareImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_launcher"
+                android:id="@+id/club_image"
+                android:layout_gravity="top"/>
+
+            <TextView
+                android:id="@+id/club_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/club_image"
+                android:layout_centerHorizontal="true"
+                android:text="GENERIC CLUB" />
+    </RelativeLayout>
+</com.infosys.stocktake.inventory.items.SquareCardView>

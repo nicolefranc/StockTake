@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.infosys.stocktake.R;
-import com.infosys.stocktake.inventory.items.RecyclerViewAdapter;
+import com.infosys.stocktake.inventory.items.ItemRecyclerViewAdapter;
 
 import java.util.ArrayList;
 
@@ -44,58 +44,91 @@ public class InventoryFragment extends Fragment {
     private void populateItems(){
         mImages.add("SDF");
         mItemDescriptions.add("Question: Which bear is best");
-        mItemNames.add("Jimothy");
+        mItemNames.add("Jim");
+
+        mImages.add("SDF");
+        mItemDescriptions.add("That's a ridiculous question");
+        mItemNames.add("Dwight");
+
+        mImages.add("SDF");
+        mItemDescriptions.add("False. Black bear.");
+        mItemNames.add("Jim");
+
+        mImages.add("SDF");
+        mItemDescriptions.add("That's debatable. There are basically two schools of thought.");
+        mItemNames.add("Dwight");
+
+        mImages.add("SDF");
+        mItemDescriptions.add("Fact. Bears eat beets. Bears. Beats. Battlestar Galactica.");
+        mItemNames.add("Jim");
 
         mImages.add("SDF");
         mItemDescriptions.add("Question: Which bear is best");
-        mItemNames.add("Jimothy");
+        mItemNames.add("Jim");
+
+        mImages.add("SDF");
+        mItemDescriptions.add("That's a ridiculous question");
+        mItemNames.add("Dwight");
+
+        mImages.add("SDF");
+        mItemDescriptions.add("False. Black bear.");
+        mItemNames.add("Jim");
+
+        mImages.add("SDF");
+        mItemDescriptions.add("That's debatable. There are basically two schools of thought.");
+        mItemNames.add("Dwight");
+
+        mImages.add("SDF");
+        mItemDescriptions.add("Fact. Bears eat beets. Bears. Beats. Battlestar Galactica.");
+        mItemNames.add("Jim");
+        mImages.add("SDF");
+        mItemDescriptions.add("Question: Which bear is best");
+        mItemNames.add("Jim");
+
+        mImages.add("SDF");
+        mItemDescriptions.add("That's a ridiculous question");
+        mItemNames.add("Dwight");
+
+        mImages.add("SDF");
+        mItemDescriptions.add("False. Black bear.");
+        mItemNames.add("Jim");
+
+        mImages.add("SDF");
+        mItemDescriptions.add("That's debatable. There are basically two schools of thought.");
+        mItemNames.add("Dwight");
+
+        mImages.add("SDF");
+        mItemDescriptions.add("Fact. Bears eat beets. Bears. Beats. Battlestar Galactica.");
+        mItemNames.add("Jim");
 
         mImages.add("SDF");
         mItemDescriptions.add("Question: Which bear is best");
-        mItemNames.add("Jimothy");
+        mItemNames.add("Jim");
 
         mImages.add("SDF");
-        mItemDescriptions.add("Question: Which bear is best");
-        mItemNames.add("Jimothy");
+        mItemDescriptions.add("That's a ridiculous question");
+        mItemNames.add("Dwight");
 
         mImages.add("SDF");
-        mItemDescriptions.add("Question: Which bear is best");
-        mItemNames.add("Jimothy");
+        mItemDescriptions.add("False. Black bear.");
+        mItemNames.add("Jim");
 
         mImages.add("SDF");
-        mItemDescriptions.add("Question: Which bear is best");
-        mItemNames.add("Jimothy");
+        mItemDescriptions.add("That's debatable. There are basically two schools of thought.");
+        mItemNames.add("Dwight");
 
         mImages.add("SDF");
-        mItemDescriptions.add("Question: Which bear is best");
-        mItemNames.add("Jimothy");
+        mItemDescriptions.add("Fact. Bears eat beets. Bears. Beats. Battlestar Galactica.");
+        mItemNames.add("Jim");
 
-        mImages.add("SDF");
-        mItemDescriptions.add("Question: Which bear is best");
-        mItemNames.add("Jimothy");
-
-        mImages.add("SDF");
-        mItemDescriptions.add("Question: Which bear is best");
-        mItemNames.add("Jimothy");
-
-        mImages.add("SDF");
-        mItemDescriptions.add("Question: Which bear is best");
-        mItemNames.add("Jimothy");
-
-        mImages.add("SDF");
-        mItemDescriptions.add("Question: Which bear is best");
-        mItemNames.add("Jimothy");
-
-        mImages.add("SDF");
-        mItemDescriptions.add("Question: Which bear is best");
-        mItemNames.add("Jimothy");
         initRecyclerView();
     }
 
     private void initRecyclerView(){
         RecyclerView recyclerView = getView().findViewById(R.id.recyclerView);
-        RecyclerViewAdapter recyclerAdapter = new RecyclerViewAdapter(mItemNames,mItemDescriptions,mImages, getActivity());
+        ItemRecyclerViewAdapter recyclerAdapter = new ItemRecyclerViewAdapter(mItemNames,mItemDescriptions,mImages, getActivity());
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
     }
 }

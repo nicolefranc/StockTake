@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,18 +17,16 @@ import com.infosys.stocktake.R;
 
 import java.util.ArrayList;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class ClubRecyclerViewAdapter extends RecyclerView.Adapter<ClubRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "RecyclerViewAdapter";
 
-    private ArrayList<String> mItemNames = new ArrayList<>();
-    private ArrayList<String> mItemDescriptions = new ArrayList<>();
+    private ArrayList<String> mClubNames = new ArrayList<>();
     private ArrayList<String> mImages = new ArrayList<>();
     private Context mContext;
 
 //    #TODO: Change this method to populate the arraylists from a single itemID
-    public RecyclerViewAdapter(ArrayList<String> itemNames, ArrayList<String> itemDescriptions, ArrayList<String> images, Context context){
-        mItemNames = itemNames;
-        mItemDescriptions = itemDescriptions;
+    public ClubRecyclerViewAdapter(ArrayList<String> clubNames, ArrayList<String> images, Context context){
+        mClubNames = clubNames;
         mImages = images;
         mContext = context;
         Log.d(TAG, "recycler adapter initiated");
@@ -38,7 +35,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.inventory_item,parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.club_item,parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -50,8 +47,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //        #TODO: insert method to get images from database from itemID
 //Temporarily putting in placeholders
         holder.itemImage.setImageResource(R.drawable.ic_launcher_foreground);
-        holder.itemDescription.setText(mItemDescriptions.get(position));
-        holder.itemName.setText((mItemNames.get(position)));
+        holder.itemName.setText((mClubNames.get(position)));
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +61,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return mItemNames.size();
+        return mClubNames.size();
     }
 
 
@@ -74,14 +70,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         ImageView itemImage;
         TextView itemName;
         TextView itemDescription;
-        ConstraintLayout parentLayout;
+        SquareCardView parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemImage = itemView.findViewById(R.id.item_image);
-            itemName = itemView.findViewById(R.id.item_name);
-            itemDescription = itemView.findViewById(R.id.item_description);
-            parentLayout = itemView.findViewById(R.id.item_parent_layout);
+            itemImage = itemView.findViewById(R.id.club_image);
+            itemName = itemView.findViewById(R.id.club_name);
+            parentLayout = itemView.findViewById(R.id.club_view_parent);
 
 
 

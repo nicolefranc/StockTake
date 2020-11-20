@@ -1,18 +1,11 @@
 package com.infosys.stocktake.inventory;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.infosys.stocktake.R;
 
@@ -27,12 +20,22 @@ public class InventoryAdapter extends FragmentPagerAdapter{
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        InventoryFragment inventoryFragment = new InventoryFragment();
-        position = position+1;
-        Bundle bundle = new Bundle();
-        bundle.putString("message", "Fragement: " + position);
-        inventoryFragment.setArguments(bundle);
-        return inventoryFragment;
+        if(position ==0){
+            InventoryFragment inventoryFragment = new InventoryFragment();
+            position = position+1;
+            Bundle bundle = new Bundle();
+            bundle.putString("message", "Fragement: " + position);
+            inventoryFragment.setArguments(bundle);
+            return inventoryFragment;
+        }
+        else{
+            ClubFragment clubFragment = new ClubFragment();
+            position = position+1;
+            Bundle bundle = new Bundle();
+            bundle.putString("message", "Fragement: " + position);
+            clubFragment.setArguments(bundle);
+            return clubFragment;
+        }
     }
 
     @Override
@@ -43,7 +46,11 @@ public class InventoryAdapter extends FragmentPagerAdapter{
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        position = position+1;
-        return "Fragment " + position;
+        if(position ==0){
+            return "My Club";
+        }
+        else{
+            return "Other Clubs";
+        }
     }
 }
