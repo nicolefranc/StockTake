@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,6 +19,8 @@
                             <category android:name="android.intent.category.LAUNCHER" />
                         </intent-filter>
         </activity>
+        <activity android:name=".auth.ProfileSetupActivity"></activity>
+        <activity android:name=".Profile" />
         <activity android:name=".auth.GoogleLoginActivity">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
@@ -36,15 +37,15 @@
         <activity
             android:name=".auth.LoginActivity"
             android:label="@string/title_activity_login" />
-
         <activity android:name=".MainActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
-
     </application>
 
 </manifest>
