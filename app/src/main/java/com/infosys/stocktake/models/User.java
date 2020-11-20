@@ -47,6 +47,9 @@ public class User {
             Log.e(TAG,"USER GOOGLE ACCOUNT NOT AUTHENTICATED");
         }
     }
+    /*
+    createUser and getUser to be done in the activities
+     */
     //Account Creation during first sign up
     public void createUser(){
         db = FirebaseFirestore.getInstance();
