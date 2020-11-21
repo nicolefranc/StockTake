@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/club_image"
                 android:layout_centerHorizontal="true"
-                android:text="GENERIC CLUB" />
+                android:text="GENERIC CLUB"
+                android:paddingBottom="7dp"/>
     </RelativeLayout>
 </com.infosys.stocktake.inventory.items.SquareCardView>

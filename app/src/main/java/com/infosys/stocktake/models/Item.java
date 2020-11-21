@@ -2,13 +2,15 @@ package com.infosys.stocktake.models;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class Item {
     private String itemName;
     private String itemDescription;
-    private LinkedList<HashMap<Status,Integer>> qtyStatus;
+    private Map<String, Integer> qtyStatus;
     private String loaneeID;
     private String clubID;
+    private String itemPicture;
 
     /**
      ACCESSORs
@@ -29,11 +31,11 @@ public class Item {
         this.itemDescription = itemDescription;
     }
 
-    public LinkedList<HashMap<Status, Integer>> getQtyStatus() {
+    public Map<String, Integer> getQtyStatus() {
         return qtyStatus;
     }
 
-    public void setQtyStatus(LinkedList<HashMap<Status, Integer>> qtyStatus) {
+    public void setQtyStatus(Map<String, Integer> qtyStatus) {
         this.qtyStatus = qtyStatus;
     }
 
@@ -53,14 +55,13 @@ public class Item {
         this.clubID = clubID;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getItemPicture() {
+        return itemPicture;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setItemPicture(String itemPicture) {
+        this.itemPicture = itemPicture;
     }
 
     //how to upload/download the images: create a StorageReference with the imagePath as the path
-    private String imagePath;
 }

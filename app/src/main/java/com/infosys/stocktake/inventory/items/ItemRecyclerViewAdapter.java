@@ -13,7 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.infosys.stocktake.R;
+import com.infosys.stocktake.inventory.InventoryFragment;
 
 import java.util.ArrayList;
 
@@ -45,10 +47,14 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called");
-
 //        #TODO: insert method to get images from database from itemID
-//Temporarily putting in placeholders
-        holder.itemImage.setImageResource(R.drawable.ic_launcher_foreground);
+        String imageURL = mImages.get(position);
+        Glide.with(mContext)
+                .load(imageURL)
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .error(R.drawable.ic_launcher_background)
+                .into(holder.itemImage);
+//        holder.itemImage.setImageResource(R.drawable.ic_launcher_foreground);
         holder.itemDescription.setText(mItemDescriptions.get(position));
         holder.itemName.setText((mItemNames.get(position)));
 

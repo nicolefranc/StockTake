@@ -20,7 +20,6 @@
                         </intent-filter>
         </activity>
         <activity android:name=".auth.ProfileSetupActivity"></activity>
-        <activity android:name=".Profile" />
         <activity android:name=".auth.GoogleLoginActivity">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
