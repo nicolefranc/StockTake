@@ -5,12 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.infosys.stocktake.auth.LoginActivity;
 
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,6 +42,22 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+        final DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+
+        findViewById(R.id.imageMenu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setItemIconTintList(null);
+
+        NavController navController = Navigation.findNavController(this, R.id.navHost_fragment);
+
+        NavigationUI.setupWithNavController(navigationView, navController);
+
     }
 
     @Override

@@ -4,48 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/gray_light"
     tools:context=".auth.LoginActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relative_reg"
+        android:background="@drawable/white_rectangle">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/stock_take"
+            android:layout_marginLeft="10dp">
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="60dp"
+            android:text="@string/app_name"
+            android:textSize="@dimen/text_title"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif"
+            android:font="@font/orienta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        </RelativeLayout>
+
+        <include layout="@layout/login_tab"
+            android:id="@+id/loginTab"
+            android:layout_below="@id/stock_take"
+            app:layout_constraintTop_toBottomOf="@+id/stock_take"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="18dp"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_height="match_parent">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/relative_reg">
+        app:layout_constraintTop_toBottomOf="@+id/relative_reg">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="60dp"
-        android:text="@string/app_name"
-        android:textSize="@dimen/text_title"
-        android:textColor="@color/black"
-        android:fontFamily="sans-serif"
-        android:font="@font/orienta"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-        <include layout="@layout/login_tab"
-            android:id="@+id/loginTab"
-            android:layout_below="@+id/textView2"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"/>
-
-        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/relative_reg">
+            android:layout_marginHorizontal="@dimen/components_sm_margin">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,7 +69,6 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
                 android:hint="@string/prompt_studentId">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -76,7 +87,6 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
                 android:hint="@string/prompt_password">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -96,7 +106,6 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
                 android:hint="@string/prompt_repassword">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -113,18 +122,12 @@
                 android:font="@font/orienta"
                 android:textColor="@color/black"
                 android:textSize="19dp"/>
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:hint="@string/prompt_fifthRow">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/fifthRow"
-                    android:inputType="textPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
+            <Spinner android:id="@+id/fifth_row"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -133,18 +136,12 @@
                 android:font="@font/orienta"
                 android:textColor="@color/black"
                 android:textSize="19dp"/>
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:hint="@string/role">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/role"
-                    android:inputType="textPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
+            <Spinner android:id="@+id/role"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown"/>
 
 
 
@@ -153,7 +150,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/components_md_margin"
-                android:text="@string/action_register" />
+                android:background="@drawable/rounded_rectangle"
+                android:text="@string/action_register"
+                android:textColor="@color/white"
+                android:font="@font/orienta"
+                android:textSize="15dp"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
