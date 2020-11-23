@@ -38,7 +38,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Available" />
+                android:text="Available: " />
             <TextView
                 android:id="@+id/tvQtyAvailable"
                 android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Broken" />
+                android:text="Broken: " />
             <TextView
                 android:id="@+id/tvQtyBroken"
                 android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="On Repair" />
+                android:text="On Repair: " />
             <TextView
                 android:id="@+id/tvQtyOnRepair"
                 android:layout_width="wrap_content"
@@ -86,7 +86,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="On Loan" />
+                android:text="On Loan: " />
             <TextView
                 android:id="@+id/tvQtyOnLoan"
                 android:layout_width="wrap_content"

@@ -39,7 +39,7 @@ public class InventoryFragment extends Fragment {
     private ArrayList<String> mImages= new ArrayList<>();
     private StockTakeFirebase<Item> itemStockTakeFirebase;
     private StockTakeFirebase<User> userStockTakeFirebase;
-    private Object Item;
+    private ArrayList<Item> mItems = new ArrayList<>();
     private static final String TAG = "Inventory Fragment: ";
     private User currentUser;
     private ArrayList<String> clubs;
@@ -105,13 +105,8 @@ public class InventoryFragment extends Fragment {
             @Override
             public void onSuccess(ArrayList<com.infosys.stocktake.models.Item> items) {
                 Log.d(TAG,"Accessed firebase! populating items now...");
-                for(Item item:items){
-                    mItemNames.add(item.getItemName());
-                    mItemDescriptions.add(item.getItemDescription());
-                    mImages.add(item.getItemPicture());
-                    Log.d(TAG, "Image URL: " + item.getItemPicture());
-                    initRecyclerView();
-                }
+                mItems = items;
+                initRecyclerView();
             }
         });
         populateTask.addOnFailureListener(new OnFailureListener() {
@@ -126,7 +121,7 @@ public class InventoryFragment extends Fragment {
     private void initRecyclerView(){
         Log.d(TAG,"Initializing recycler view...");
         RecyclerView recyclerView = getView().findViewById(R.id.recyclerView);
-        ItemRecyclerViewAdapter recyclerAdapter = new ItemRecyclerViewAdapter(mItemNames,mItemDescriptions,mImages, getActivity());
+        ItemRecyclerViewAdapter recyclerAdapter = new ItemRecyclerViewAdapter(mItems, getActivity());
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));

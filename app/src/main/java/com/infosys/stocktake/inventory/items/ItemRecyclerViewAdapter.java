@@ -1,13 +1,13 @@
 package com.infosys.stocktake.inventory.items;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -15,24 +15,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.infosys.stocktake.R;
-import com.infosys.stocktake.inventory.InventoryFragment;
+import com.infosys.stocktake.inventory.ItemDetailsActivity;
+import com.infosys.stocktake.models.Item;
 
 import java.util.ArrayList;
 
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "RecyclerViewAdapter";
 
-    private ArrayList<String> mItemNames = new ArrayList<>();
-    private ArrayList<String> mItemDescriptions = new ArrayList<>();
-    private ArrayList<String> mImages = new ArrayList<>();
     private Context mContext;
+    private ArrayList<Item> mItems;
 
-//    #TODO: Change this method to populate the arraylists from a single itemID
-    public ItemRecyclerViewAdapter(ArrayList<String> itemNames, ArrayList<String> itemDescriptions, ArrayList<String> images, Context context){
-        mItemNames = itemNames;
-        mItemDescriptions = itemDescriptions;
-        mImages = images;
+    public ItemRecyclerViewAdapter(ArrayList<Item> items, Context context){
         mContext = context;
+        mItems = items;
         Log.d(TAG, "recycler adapter initiated");
     }
 
@@ -47,21 +43,23 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called");
-        String imageURL = mImages.get(position);
+        String imageURL = mItems.get(position).getItemPicture();
         Glide.with(mContext)
                 .load(imageURL)
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .error(R.drawable.ic_launcher_background)
                 .into(holder.itemImage);
 //        holder.itemImage.setImageResource(R.drawable.ic_launcher_foreground);
-        holder.itemDescription.setText(mItemDescriptions.get(position));
-        holder.itemName.setText((mItemNames.get(position)));
+        holder.itemDescription.setText(mItems.get(position).getItemDescription());
+        holder.itemName.setText((mItems.get(position).getItemName()));
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                #TODO: create intent to bring it to the itemView
-                Toast.makeText(mContext, "IDENTITY THEFT IS NOT A JOKE", Toast.LENGTH_SHORT);
+                Intent intent = new Intent(mContext, ItemDetailsActivity.class);
+                intent.putExtra("ItemIntent", mItems.get(position));
+                mContext.startActivity(intent);
                 Log.d(TAG, "tapped");
             }
         });
@@ -69,7 +67,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
     @Override
     public int getItemCount() {
-        return mItemNames.size();
+        return mItems.size();
     }
 
 
@@ -86,9 +84,6 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
             itemName = itemView.findViewById(R.id.item_name);
             itemDescription = itemView.findViewById(R.id.item_description);
             parentLayout = itemView.findViewById(R.id.item_parent_layout);
-
-
-
         }
     }
 }

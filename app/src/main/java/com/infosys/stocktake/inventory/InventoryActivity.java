@@ -22,9 +22,6 @@ public class InventoryActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private FloatingActionButton fab_add_item;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -37,14 +34,14 @@ public class InventoryActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         // Floating Action Button that directs to Add Item Activity
-//        fab_add_item = (FloatingActionButton) findViewById(R.id.fab_add_item);
-//        fab_add_item.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(InventoryActivity.this, AddItemActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        fab_add_item = (FloatingActionButton) findViewById(R.id.fab_add_item);
+        fab_add_item.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(InventoryActivity.this, AddItemActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 };
