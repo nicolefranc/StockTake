@@ -47,7 +47,6 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called");
-//        #TODO: insert method to get images from database from itemID
         String imageURL = mImages.get(position);
         Glide.with(mContext)
                 .load(imageURL)

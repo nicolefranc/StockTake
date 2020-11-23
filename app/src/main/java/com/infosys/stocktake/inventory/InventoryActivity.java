@@ -8,6 +8,8 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 
 //import info.androidhive.viewpager2.databinding.ActivityFragmentViewPagerBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.infosys.stocktake.R;
 //import com.infosys.stocktake.inventory.databinding.ActivityFragmentViewPagerBinding;
 
@@ -15,6 +17,7 @@ public class InventoryActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private InventoryAdapter inventoryAdapter;
     private TabLayout tabLayout;
+
 
 
 
@@ -28,7 +31,6 @@ public class InventoryActivity extends AppCompatActivity {
         viewPager.setAdapter(inventoryAdapter);
         tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
-
     }
 
 }
