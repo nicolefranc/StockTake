@@ -23,6 +23,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.infosys.stocktake.MainActivity;
 import com.infosys.stocktake.Profile;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
@@ -69,7 +70,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
                     if (clubChoice.equals("Not a Club Exco")) {
                         newUser.setClubMembership( NOT_EXCO_ID, Membership.MEMBER );
                         newUser.createUser();
-                        Intent intent = new Intent(getApplicationContext(), Profile.class);
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
 
                     } else {
@@ -102,7 +103,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
                                     Log.d(TAG, clubId);
                                     user.setClubMembership(clubId, Membership.ADMIN);
                                     user.createUser();
-                                    Intent intent = new Intent(getApplicationContext(), Profile.class);
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
 
                                 }

@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="60dp"
-                android:text="@string/profile_setup"
+                android:text="@string/app_name"
                 android:textSize="@dimen/text_title"
                 android:textColor="@color/black"
                 android:fontFamily="sans-serif"

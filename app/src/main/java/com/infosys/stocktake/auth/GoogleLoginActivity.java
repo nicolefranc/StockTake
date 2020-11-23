@@ -30,6 +30,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.infosys.stocktake.MainActivity;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.Profile;
 import com.infosys.stocktake.models.User;
@@ -150,7 +151,7 @@ public class GoogleLoginActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d(TAG, "Document exists!");
-                        Intent profileIntent = new Intent(getApplicationContext(), Profile.class);
+                        Intent profileIntent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(profileIntent);
                     } else {
                         Log.d(TAG, "Document does not exist!");

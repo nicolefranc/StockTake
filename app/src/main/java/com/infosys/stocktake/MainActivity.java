@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.infosys.stocktake.auth.GoogleLoginActivity;
 import com.infosys.stocktake.auth.LoginActivity;
 import com.infosys.stocktake.loans.AddLoanActivity;
 
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 // Check if user is logged in
                 if(firebaseAuth.getCurrentUser() == null) {
-                    Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+                    Intent loginIntent = new Intent(MainActivity.this, GoogleLoginActivity.class);
                     loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // prevent user from accessing previous activity
                     startActivity(loginIntent);
                 }
