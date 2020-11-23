@@ -3,9 +3,12 @@ package com.infosys.stocktake.inventory;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
 import androidx.viewpager.widget.ViewPager;
+import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 //import info.androidhive.viewpager2.databinding.ActivityFragmentViewPagerBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,6 +20,7 @@ public class InventoryActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private InventoryAdapter inventoryAdapter;
     private TabLayout tabLayout;
+    private FloatingActionButton fab_add_item;
 
 
 
@@ -31,18 +35,16 @@ public class InventoryActivity extends AppCompatActivity {
         viewPager.setAdapter(inventoryAdapter);
         tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
+
+        // Floating Action Button that directs to Add Item Activity
+//        fab_add_item = (FloatingActionButton) findViewById(R.id.fab_add_item);
+//        fab_add_item.setOnClickListener( new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(InventoryActivity.this, AddItemActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
-}
-import android.content.Intent;
-import android.view.View;
-    private FloatingActionButton fab_add_item;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-        fab_add_item = (FloatingActionButton) findViewById(R.id.fab_add_item);
-        fab_add_item.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(InventoryActivity.this, AddItemActivity.class);
-                startActivity(intent);
-            }
-        });
+};

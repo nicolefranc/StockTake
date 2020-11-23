@@ -33,6 +33,8 @@ public class Item implements Serializable {
     private String loaneeID;
     private String clubID;
 
+    public Item() {}
+
     // Constructor when inserting item
     // Accepts integer qty automatically indicating ALL AVAILABLE as its status
     public Item(String itemName, String itemDescription, String itemPicture, int qtyAvailable, String loaneeID, String clubID) {

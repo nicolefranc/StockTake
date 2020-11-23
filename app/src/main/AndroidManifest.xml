@@ -14,11 +14,11 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Profile"></activity>
         <activity android:name=".inventory.InventoryActivity">
-                        <intent-filter>
-                            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                            <category android:name="android.intent.category.LAUNCHER" />
-                        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".auth.ProfileSetupActivity"></activity>
         <activity android:name=".inventory.ItemDetailsActivity"></activity>
@@ -41,9 +41,6 @@
 
             android:label="@string/title_activity_login" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
 <!--             <intent-filter>-->
 <!--             <action android:name="android.intent.action.MAIN" />-->
 
