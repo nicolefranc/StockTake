@@ -14,4 +14,9 @@
         android:name="com.infosys.stocktake.auth.Home_Screen_PlaceHolder"
         android:label="Home_Placeholder"
         tools:layout="@layout/fragment_home__screen__place_holder" />
+    <activity
+        android:id="@+id/nav_inventory"
+        android:name="com.infosys.stocktake.inventory.InventoryActivity"
+        android:label="activity_inventory"
+        tools:layout="@layout/activity_inventory" />
 </navigation>

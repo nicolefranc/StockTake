@@ -57,7 +57,7 @@
         android:layout_marginBottom="76dp"
         app:layout_constraintBottom_toTopOf="@+id/finProfileSetupBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:entries="@array/test_array"/>
+        app:layout_constraintStart_toStartOf="parent" />
+<!--        android:entries="@array/test_array"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".inventory.InventoryActivity"/>
 
-        
+        <activity android:name=".Profile"></activity>
         <activity android:name=".auth.ProfileSetupActivity"></activity>
         <activity android:name=".inventory.ItemDetailsActivity"></activity>
         <activity android:name=".inventory.AddItemActivity" />

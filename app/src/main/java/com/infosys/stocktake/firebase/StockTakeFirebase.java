@@ -30,7 +30,7 @@ public class StockTakeFirebase<TEntity> {
         this.entityClass = entityClass;
         db = FirebaseFirestore.getInstance();
         this.collectionRef = db.collection(collectionName);
-        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//        currentUser = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     /**
