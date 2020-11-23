@@ -52,44 +52,7 @@ public class Loan {
         this.dueDate = dueDate;
         this.returned = false;
     }
-    /*
-    createLoan and getLoan to be done in the activities
-     */
-    public void createLoan(){
-        db = FirebaseFirestore.getInstance();
-        loans = db.collection("loans");
-        loanerClub = new Club().getClub(this.clubID);
-        loanID = clubID+"-"+loanerClub.getLoanCounter();
-        loans.document(loanID)
-                .set(this)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.i(TAG, "LOAN  "+ loanID + "has been successfully added!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error creating LOAN "+loanID, e);
-                    }
-                });
-    }
-    public Loan getLoan(final String loanID) {
-        FirebaseAuth fbAuth = FirebaseAuth.getInstance();
-        db= FirebaseFirestore.getInstance();
-        loans = db.collection("loans");
-
-        DocumentReference loanRef = loans.document(loanID);
-        loanRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                queryLoan = documentSnapshot.toObject(Loan.class);
-                Log.d(TAG, "Loan "+ loanID + "has been successfully fetched!");
-            }
-        });
-        return queryLoan;
-    }
+//        loanID = clubID+"-"+loanerClub.getLoanCounter();
 
     public String getItemID() {
         return itemID;
