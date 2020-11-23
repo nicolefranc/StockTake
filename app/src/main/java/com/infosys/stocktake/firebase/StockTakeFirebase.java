@@ -30,6 +30,7 @@ public class StockTakeFirebase<TEntity> {
         this.entityClass = entityClass;
         db = FirebaseFirestore.getInstance();
         this.collectionRef = db.collection(collectionName);
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     /**
@@ -78,6 +79,28 @@ public class StockTakeFirebase<TEntity> {
             }
         });
     }
+
+    public Task<ArrayList<TEntity>> getCollection() {
+        return collectionRef.get().continueWith(new Continuation<QuerySnapshot, ArrayList<TEntity>>() {
+            @Override
+            public ArrayList<TEntity> then(@NonNull Task<QuerySnapshot> task) throws Exception {
+                QuerySnapshot querySnap = task.getResult();
+                if (querySnap.isEmpty()) {
+                    Log.w(TAG, "Collection is empty");
+                    return null;
+                } else {
+                    List<DocumentSnapshot> docList = querySnap.getDocuments();
+                    ArrayList<TEntity> returnList = new ArrayList<>();
+                    for (DocumentSnapshot doc : docList) {
+                        returnList.add(doc.toObject(entityClass));
+                    }
+                    return returnList;
+                }
+
+            }
+        });
+    }
+
     public Task<Void> create(TEntity entity, String uuid){
         final String uuidString = uuid;
         DocumentReference docRef = collectionRef.document(uuidString);

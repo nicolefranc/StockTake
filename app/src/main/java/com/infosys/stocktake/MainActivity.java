@@ -13,6 +13,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.infosys.stocktake.auth.GoogleLoginActivity;
 import com.infosys.stocktake.auth.LoginActivity;
+import com.infosys.stocktake.inventory.InventoryActivity;
 import com.infosys.stocktake.loans.AddLoanActivity;
 
 

@@ -27,13 +27,8 @@
     <string name="login_with_google">Login With Google</string>
     <string name="your_telegram_handle">Your Telegram Handle</string>
     <string name="your_student_id">Your Student ID</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-    <string-array name="test_array">
-        <item>Hello</item>
-        <item>Test!</item>
-    </string-array>
-
+    <!--  Inventory String Constants-->
+    <string name="fab_add_item">Add Inventory Item</string>
 </resources>
