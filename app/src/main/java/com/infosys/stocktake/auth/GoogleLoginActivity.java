@@ -1,6 +1,7 @@
 package com.infosys.stocktake.auth;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -18,15 +19,22 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.infosys.stocktake.MainActivity;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.Profile;
 import com.infosys.stocktake.models.User;
+
 
 public class GoogleLoginActivity extends AppCompatActivity {
     private final String TAG = GoogleLoginActivity.class.getSimpleName();
@@ -42,15 +50,17 @@ public class GoogleLoginActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
 
         if (user!=null) {
-            Intent intent = new Intent(getApplicationContext(), Profile.class);
-            startActivity(intent);
+                checkUserExistsAndSetup();
+
         }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_google_login);
+//        setContentView(R.layout.activity_google_login);
+
+        setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
 
 
@@ -59,6 +69,7 @@ public class GoogleLoginActivity extends AppCompatActivity {
         findViewById(R.id.googleLoginIcon).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG, "pressed");
                 signIn();
             }
         });
@@ -101,7 +112,7 @@ public class GoogleLoginActivity extends AppCompatActivity {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
                 // ...
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         }
@@ -114,25 +125,44 @@ public class GoogleLoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            User customUser = new User();
-
-
-//                            Intent intent = new Intent(getApplicationContext(), Profile.class);
-                            Intent intent = new Intent(getApplicationContext(), ProfileSetupActivity.class);
-                            startActivity(intent);
-
+                            // Check whether his telegram handle , student ID and Club exist on Firebase
+                            checkUserExistsAndSetup();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(GoogleLoginActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
-
                         }
-
-                        // ...
                     }
                 });
+
+
     }
+
+    private void checkUserExistsAndSetup() {
+        FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
+        String docId= FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        DocumentReference docIdRef = rootRef.collection("users").document(docId);
+        docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "Document exists!");
+                        Intent profileIntent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(profileIntent);
+                    } else {
+                        Log.d(TAG, "Document does not exist!");
+                        Intent noProfileIntent = new Intent(getApplicationContext(), ProfileSetupActivity.class);
+                        startActivity(noProfileIntent);
+                    }
+                } else {
+                    Log.d(TAG, "Failed with: ", task.getException());
+                }
+            }
+        });
+    }
+
 }

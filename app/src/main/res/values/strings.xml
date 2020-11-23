@@ -1,10 +1,19 @@
 <resources>
-    <string name="app_name">StockTake</string>
+
+    <string name="app_name">Stock Take</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
+    <string name="prompt_studentId">Student ID</string>
+    <string name="prompt_fifthRow">Fifth Row</string>
+    <string name="role">Role</string>
     <string name="prompt_password">Password</string>
+    <string name="prompt_repassword">Retype Password</string>
     <string name="action_register">Register</string>
     <string name="action_login">Login</string>
+    <string name="user_profile">User Profile</string>
+    <string name="profile_setup">Profile Setup</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
+
     <string name="welcome">"Welcome!"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
@@ -18,4 +27,13 @@
     <string name="login_with_google">Login With Google</string>
     <string name="your_telegram_handle">Your Telegram Handle</string>
     <string name="your_student_id">Your Student ID</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string-array name="test_array">
+        <item>Hello</item>
+        <item>Test!</item>
+    </string-array>
+
 </resources>

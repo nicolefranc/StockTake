@@ -4,89 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+
+    android:background="@drawable/background"
     tools:context=".auth.LoginActivity">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="90dp"
-        android:text="@string/app_name"
-        android:textSize="@dimen/text_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:clickable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        android:id="@+id/relative_reg"
+        android:background="@drawable/white_rectangle">
 
-        <com.google.android.material.tabs.TabItem
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/stock_take"
+            android:layout_marginLeft="10dp">
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="60dp"
+                android:text="@string/app_name"
+                android:textSize="@dimen/text_title"
+                android:textColor="@color/black"
+                android:fontFamily="sans-serif"
+                android:font="@font/orienta"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </RelativeLayout>
+
+        <include layout="@layout/login_tab"
             android:id="@+id/loginTab"
-            android:layout_width="wrap_content"
+            android:layout_below="@id/stock_take"
+            app:layout_constraintTop_toBottomOf="@+id/stock_take"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/action_login" />
+            android:layout_marginHorizontal="18dp"/>
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/registerTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/action_register" />
-    </com.google.android.material.tabs.TabLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/components_lg_margin"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout">
+        app:layout_constraintTop_toBottomOf="@id/relative_reg">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/components_xs_margin"
-            android:hint="@string/prompt_email">
+            <include
+                android:id="@+id/googleBtn"
+                layout="@layout/activity_google_login"
+                android:clickable="true" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailField"
-                android:inputType="textEmailAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+    </RelativeLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/components_xs_margin"
-            android:hint="@string/prompt_password">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/pwField"
-                android:inputType="textPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/loginBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/components_md_margin"
-            android:text="@string/action_login" />
-
-        <Button
-            android:id="@+id/registerBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/components_md_margin"
-            android:text="@string/action_register" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

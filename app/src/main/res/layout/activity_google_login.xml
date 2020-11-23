@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+
+    android:layout_height="wrap_content"
     android:outlineProvider="none"
     tools:context=".auth.GoogleLoginActivity">
 
@@ -17,36 +18,43 @@
     <!--        app:layout_constraintStart_toStartOf="parent"-->
     <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <ImageButton
-        android:id="@+id/googleLoginIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:backgroundTint="#FFFFFF"
-        android:src="@drawable/common_google_signin_btn_icon_dark"
-        app:layout_constraintBottom_toTopOf="@+id/googleLoginDesc"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        style ="?android:attr/borderlessButtonStyle"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/googleLoginIcon"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="#FFFFFF"
+            android:src="@drawable/common_google_signin_btn_icon_dark"
+            android:layout_below="@+id/googleLoginDesc"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
-    <TextView
-        android:id="@+id/googleLoginDesc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="336dp"
-        android:text="Login with Google"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-    <!--    <ImageView-->
-    <!--        android:id="@+id/googleLoginIcon"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:src="@drawable/common_google_signin_btn_icon_dark"-->
+        <TextView
+            android:id="@+id/googleLoginDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:textAlignment="center"
+            android:textSize="12dp"
+            android:text="-------------------- SIGN IN WITH --------------------"
+            android:textColor="@color/gray"
+            />
+        <!--    <ImageView-->
+        <!--        android:id="@+id/googleLoginIcon"-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:src="@drawable/common_google_signin_btn_icon_dark"-->
 
-    <!--        app:layout_constraintBottom_toTopOf="@+id/googleLoginButton"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent" />-->
+        <!--        app:layout_constraintBottom_toTopOf="@+id/googleLoginButton"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        app:layout_constraintStart_toStartOf="parent" />-->
+    </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
