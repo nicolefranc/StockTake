@@ -3,43 +3,51 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".auth.ProfileSetupActivity">
+    android:layout_height="wrap_content"
+    tools:context=".auth.ProfileSetupActivity"
+    android:background="@color/gray_light">
 
-    <Button
-        android:id="@+id/finProfileSetupBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Complete Registration"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.793" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/teleHandleField"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="188dp"
-        android:layout_weight="1"
-        android:hint="@string/your_telegram_handle"
-        app:layout_constraintBottom_toTopOf="@+id/finProfileSetupBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginHorizontal="@dimen/components_md_margin">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/studentIdField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/your_student_id"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/teleHandleField"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.692" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/studentIdField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:hint="@string/your_student_id"
+            android:inputType="number"
+            app:layout_constraintBottom_toTopOf="@+id/teleHandleField" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/teleHandleField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_below="@id/studentIdField"
+            android:hint="@string/your_telegram_handle"
+            app:layout_constraintBottom_toTopOf="@+id/finProfileSetupBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <Button
+            android:id="@+id/finProfileSetupBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/teleHandleField"
+            android:layout_marginTop="50dp"
+            android:text="Complete Registration"
+            android:textColor="@color/white"
+            android:font="@font/orienta"
+            android:background="@drawable/rounded_rectangle"
+            />
+
+
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

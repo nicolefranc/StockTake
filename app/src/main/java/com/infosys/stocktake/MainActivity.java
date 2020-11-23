@@ -9,18 +9,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.infosys.stocktake.auth.LoginActivity;
 import com.infosys.stocktake.loans.AddLoanActivity;
 
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    Button goToLoanBtn;
+   
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,15 +45,23 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-        goToLoanBtn = findViewById(R.id.goToLoanBtn);
-        goToLoanBtn.setOnClickListener(new View.OnClickListener() {
+        final DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+
+        findViewById(R.id.imageMenu).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, AddLoanActivity.class);
-                startActivity(intent);
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
             }
         });
+
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setItemIconTintList(null);
+
+        NavController navController = Navigation.findNavController(this, R.id.navHost_fragment);
+
+        NavigationUI.setupWithNavController(navigationView, navController);
+
+        
     }
 
     @Override
