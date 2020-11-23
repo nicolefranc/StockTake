@@ -34,3 +34,15 @@ public class InventoryActivity extends AppCompatActivity {
     }
 
 }
+import android.content.Intent;
+import android.view.View;
+    private FloatingActionButton fab_add_item;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+        fab_add_item = (FloatingActionButton) findViewById(R.id.fab_add_item);
+        fab_add_item.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(InventoryActivity.this, AddItemActivity.class);
+                startActivity(intent);
+            }
+        });

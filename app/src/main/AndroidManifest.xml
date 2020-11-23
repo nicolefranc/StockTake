@@ -3,6 +3,7 @@
     package="com.infosys.stocktake">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -20,6 +21,8 @@
                         </intent-filter>
         </activity>
         <activity android:name=".auth.ProfileSetupActivity"></activity>
+        <activity android:name=".inventory.ItemDetailsActivity"></activity>
+        <activity android:name=".inventory.AddItemActivity" />
         <activity android:name=".auth.GoogleLoginActivity">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
@@ -38,6 +41,8 @@
 
             android:label="@string/title_activity_login" />
         <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
 <!--             <intent-filter>-->
 <!--             <action android:name="android.intent.action.MAIN" />-->

@@ -18,4 +18,8 @@
     <string name="login_with_google">Login With Google</string>
     <string name="your_telegram_handle">Your Telegram Handle</string>
     <string name="your_student_id">Your Student ID</string>
+
+
+    <!--  Inventory String Constants-->
+    <string name="fab_add_item">Add Inventory Item</string>
 </resources>
