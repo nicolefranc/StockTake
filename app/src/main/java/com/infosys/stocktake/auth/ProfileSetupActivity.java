@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.infosys.stocktake.Profile;
 import com.infosys.stocktake.R;
+import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Membership;
 import com.infosys.stocktake.models.User;
@@ -64,9 +65,9 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
                 if (!TextUtils.isEmpty(studentId) && !TextUtils.isEmpty(telegramHandle) && signInAccount != null) {
                     User newUser = new User( Integer.parseInt(studentId) , telegramHandle , signInAccount);
-
+                    String NOT_EXCO_ID = "q93pgnhj3q5g";
                     if (clubChoice.equals("Not a Club Exco")) {
-                        newUser.setClubMembership("00000", Membership.MEMBER );
+                        newUser.setClubMembership( NOT_EXCO_ID, Membership.MEMBER );
                         newUser.createUser();
                         Intent intent = new Intent(getApplicationContext(), Profile.class);
                         startActivity(intent);
@@ -119,6 +120,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
     private void loadClubData() {
         clubSpinner = findViewById(R.id.clubSpinner);
+//        StockTakeFirebase<Club> stockTakeFirebase = new StockTakeFirebase<>(Club.class, "clubs");
 
         final List<String> mArrayList = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();

@@ -33,6 +33,8 @@ import com.infosys.stocktake.MainActivity;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.auth.GoogleLoginActivity;
 
+import com.infosys.stocktake.firebase.StockTakeFirebase;
+import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Membership;
 import com.infosys.stocktake.models.User;
 
@@ -66,7 +68,7 @@ public class Profile extends AppCompatActivity {
         if (signInAccount  != null) {
             nameView.setText(signInAccount.getDisplayName());
         }
-        loadUserInfo();
+        loadUserInfo2();
 //
 
 
@@ -87,6 +89,32 @@ public class Profile extends AppCompatActivity {
 
     }
 
+
+    private void loadUserInfo2() {
+        final String documentId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        StockTakeFirebase<User> stockTakeFirebase = new StockTakeFirebase<>(User.class, "users");
+        stockTakeFirebase.query(documentId).addOnSuccessListener(new OnSuccessListener<User>() {
+            @Override
+            public void onSuccess(User user) {
+                String telegramHandle = user.getTelegramHandle();
+                String studentId = Integer.toString(user.getStudentID());
+
+
+                HashMap<String, Membership> userClubInfo = user.getClubMembership();
+                for (String clubId: userClubInfo.keySet()) {
+                    Membership membershipInfo = userClubInfo.get(clubId);
+                    profileMembershipView.setText(membershipInfo.toString());
+                    // QUERY THE CLUBS COLLECTION AND SET THE CLUB NAME, PASSING IN THE CLUB ID
+                    updateClubNameField(clubId);
+
+                }
+
+                telegramView.setText(telegramHandle);
+                studentIDView.setText(studentId);
+            }
+        });
+    }
     private void loadUserInfo() {
 //        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
 
@@ -128,6 +156,21 @@ public class Profile extends AppCompatActivity {
     }
 
     private void updateClubNameField(String clubId) {
+//        StockTakeFirebase<Club> stockTakeFirebase = new StockTakeFirebase<>(Club.class, "clubs");
+//        stockTakeFirebase.query(clubId).addOnSuccessListener(new OnSuccessListener<Club>() {
+//            @Override
+//            public void onSuccess(Club club) {
+//                String clubName = club.getClubName();
+//                profileClubView.setText(clubName);
+//                Log.d(TAG, "Set Club Info Successfully");
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Log.w(TAG, "Failed to set ClubInfo" + e.toString());
+//            }
+//        });
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("clubs")
                 .whereEqualTo("clubID", clubId)
