@@ -24,14 +24,12 @@ public class StockTakeFirebase<TEntity> {
     private static final String TAG = "StockTake Firebase Operation";
     private final Class<TEntity> entityClass;
     private final CollectionReference collectionRef;
-    FirebaseUser currentUser;
     FirebaseFirestore db;
 
     public StockTakeFirebase(Class<TEntity> entityClass, String collectionName){
         this.entityClass = entityClass;
-        this.collectionRef = db.collection(collectionName);
         db = FirebaseFirestore.getInstance();
-        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        this.collectionRef = db.collection(collectionName);
     }
 
     /**

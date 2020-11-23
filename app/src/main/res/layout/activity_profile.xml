@@ -55,6 +55,16 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layout_marginVertical="@dimen/components_xs_margin">
+        <TextView
+            android:id="@+id/studentID"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_below="@+id/name"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:text="Student Id:"
+            android:textColor="@color/gray"
+            android:textSize="25dp" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -62,9 +72,19 @@
                     android:layout_weight="1"
                     android:textSize="25dp"
                     android:text="Role:"/>
+        <TextView
+            android:id="@+id/profileClubName"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_below="@+id/telegramhandle"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="24dp"
+            android:text="Club Name:"
+            android:textColor="@color/gray"
+            android:textSize="25dp" />
 
                 <TextView
-                    android:id="@+id/role"
+                    android:id="@+id/profileMembershipInfo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
