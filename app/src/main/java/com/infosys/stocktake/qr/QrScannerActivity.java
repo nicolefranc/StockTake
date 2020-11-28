@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.budiyev.android.codescanner.ErrorCallback;
 import com.google.zxing.Result;
+import com.infosys.stocktake.MainActivity;
 import com.infosys.stocktake.R;
 
 public class QrScannerActivity extends AppCompatActivity {
@@ -37,7 +39,9 @@ public class QrScannerActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(QrScannerActivity.this, result.getText(), Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(QrScannerActivity.this, result.getText(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(QrScannerActivity.this, MainActivity.class);
+                        startActivity(intent);
                     }
                 });
             }
