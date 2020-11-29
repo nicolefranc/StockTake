@@ -20,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -63,14 +64,18 @@ public class ProfileSetupActivity extends AppCompatActivity {
                 String studentId = studentIdField.getText().toString().trim();
                 String telegramHandle = teleHandleField.getText().toString().trim();
                 String clubChoice =  clubSpinner.getSelectedItem().toString();
+                final String documentId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                 if (!TextUtils.isEmpty(studentId) && !TextUtils.isEmpty(telegramHandle) && signInAccount != null) {
                     User newUser = new User( Integer.parseInt(studentId) , telegramHandle , signInAccount);
                     String NOT_EXCO_ID = "q93pgnhj3q5g";
+
                     if (clubChoice.equals("Not a Club Exco")) {
                         newUser.setClubMembership( NOT_EXCO_ID, Membership.MEMBER );
-                        newUser.createUser();
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        StockTakeFirebase<User> stockTakeFirebase = new StockTakeFirebase<>(User.class, "users");
+                        stockTakeFirebase.create( newUser , documentId);
+//                        newUser.createUser();
+                        Intent intent = new Intent(getApplicationContext(), Profile.class);
                         startActivity(intent);
 
                     } else {
@@ -91,6 +96,8 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
         private void setClubIdFromName (final String clubName, final User user) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
+            final String documentId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
             db.collection("clubs")
                     .whereEqualTo("clubName", clubName)
                     .get()
@@ -102,8 +109,11 @@ public class ProfileSetupActivity extends AppCompatActivity {
                                     String clubId = document.get("clubID").toString();
                                     Log.d(TAG, clubId);
                                     user.setClubMembership(clubId, Membership.ADMIN);
-                                    user.createUser();
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    StockTakeFirebase<User> stockTakeFirebase = new StockTakeFirebase<>(User.class, "users");
+                                    stockTakeFirebase.create( user , documentId);
+
+//                                    user.createUser();
+                                    Intent intent = new Intent(getApplicationContext(), Profile.class);
                                     startActivity(intent);
 
                                 }
