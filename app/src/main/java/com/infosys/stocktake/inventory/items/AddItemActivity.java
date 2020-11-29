@@ -26,12 +26,16 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.models.Item;
+import com.infosys.stocktake.models.User;
 
 import java.io.IOException;
 
 public class AddItemActivity extends AppCompatActivity {
     private final int PICK_IMAGE_REQUEST = 22;
     private Uri filePath;
+
+    private String currentClub;
+    private User currentUser;
 
     // UI Components
     private Button selectImgBtn;
@@ -49,6 +53,10 @@ public class AddItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+
+        //Get club name
+        currentClub = getIntent().getStringExtra("club");
+        currentUser = (User) getIntent().getSerializableExtra("User");
 
         // Initialise Firebase Storage, Storage Reference
         storage = FirebaseStorage.getInstance();
@@ -148,8 +156,8 @@ public class AddItemActivity extends AppCompatActivity {
         String itemName = etItemName.getText().toString();
         String itemDesc = etItemDesc.getText().toString();
         int qty = Integer.parseInt(etQty.getText().toString());
-        String loaneeID = "1233278";
-        String clubID = "748379437";
+        String loaneeID = null;
+        String clubID = currentClub;
 
         final Item item = new Item(itemName, itemDesc, storageLocation, qty, loaneeID, clubID);
 

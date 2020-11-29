@@ -58,8 +58,9 @@ public class ClubFragment extends Fragment {
             public void onSuccess(ArrayList<com.infosys.stocktake.models.Club> clubs) {
                 Log.d(TAG,"Accessed firebase! populating clubs now...");
                 for(Club club:clubs){
-                    if (club.getClubName()!= currentClub) {
+                    if (!club.getClubID().matches(currentClub)) {
                         mClubs.add(club);
+                        Log.d(TAG, "onSuccess: Club ID is " + club.getClubID() + " and current club is " + currentClub);
                     }
                 }
                 initRecyclerView();

@@ -24,6 +24,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
     private Context mContext;
     private ArrayList<Item> mItems;
+    private Boolean isEmpty;
 
     public ItemRecyclerViewAdapter(ArrayList<Item> items, Context context){
         mContext = context;
@@ -42,36 +43,46 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called");
-        String imageURL = mItems.get(position).getItemPicture();
-        Glide.with(mContext)
-                .load(imageURL)
-                .placeholder(R.drawable.ic_launcher_foreground)
-                .error(R.drawable.ic_launcher_background)
-                .into(holder.itemImage);
+        if (!isEmpty) {
+            Log.d(TAG, "onBindViewHolder: non-empty - " + mItems.size());
+            String imageURL = mItems.get(position).getItemPicture();
+            Glide.with(mContext)
+                    .load(imageURL)
+                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .error(R.drawable.ic_launcher_background)
+                    .into(holder.itemImage);
 //        holder.itemImage.setImageResource(R.drawable.ic_launcher_foreground);
-        holder.itemDescription.setText(mItems.get(position).getItemDescription());
-        holder.itemName.setText((mItems.get(position).getItemName()));
+            holder.itemDescription.setText(mItems.get(position).getItemDescription());
+            holder.itemName.setText((mItems.get(position).getItemName()));
 
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, ItemDetailsActivity.class);
-                intent.putExtra("ItemIntent", mItems.get(position));
-                mContext.startActivity(intent);
-                Log.d(TAG, "tapped");
-            }
-        });
+            holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, ItemDetailsActivity.class);
+                    intent.putExtra("ItemIntent", mItems.get(position));
+                    mContext.startActivity(intent);
+                    Log.d(TAG, "tapped");
+                }
+            });
+        }
+        else{
+            Log.d(TAG, "onBindViewHolder: setting empty message");
+            holder.itemDescription.setText("Looks like there isn't anything here...");
+            holder.itemName.setText("oops.");
+            holder.itemImage.setImageResource(R.drawable.ic_outline_help_outline_24);
+        }
     }
 
     @Override
     public int getItemCount() {
-        try {
+        if (mItems.size() ==0){
+            isEmpty = true;
+            return 1;
+        }
+        else{
+            isEmpty = false;
             return mItems.size();
         }
-        catch (Exception e){
-            Log.d(TAG, "getItemCount: Size issue:", e);
-            return 0;
-            }
         }
 
 

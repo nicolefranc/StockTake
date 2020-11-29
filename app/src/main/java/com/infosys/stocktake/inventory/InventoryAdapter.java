@@ -17,17 +17,24 @@ public class InventoryAdapter extends FragmentPagerAdapter{
 
     private User currentUser;
     private String currentClub;
+    private boolean hasClub;
 
     public InventoryAdapter(@NonNull FragmentManager fm, User user, String club) {
         super(fm);
         currentUser = user;
         currentClub = club;
+        if (currentClub == ""){
+            hasClub = false;
+        }
+        else{
+            hasClub = true;
+        }
     }
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        if(position ==0){
+        if(position ==0 && hasClub){
             InventoryFragment inventoryFragment = new InventoryFragment();
             position = position+1;
             Bundle bundle = new Bundle();
@@ -51,14 +58,22 @@ public class InventoryAdapter extends FragmentPagerAdapter{
 
     @Override
     public int getCount() {
-        return 2;
+        if(hasClub) {
+            return 2;
+        }
+        else{
+            return 1;
+        }
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        if(position ==0){
+        if(position ==0 && hasClub){
             return "My Club";
+        }
+        else if(position == 0 && !hasClub){
+            return "Clubs";
         }
         else{
             return "Other Clubs";

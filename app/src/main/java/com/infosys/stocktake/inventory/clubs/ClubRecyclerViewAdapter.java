@@ -46,14 +46,12 @@ public class ClubRecyclerViewAdapter extends RecyclerView.Adapter<ClubRecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Log.d(TAG, "onBindViewHolder: Club is " + mClubs.get(position).getClubName());
-
 //        #TODO: insert method to get images from database from itemID
+        if(getItemCount() != 0) {
 //Temporarily putting in placeholders
-        holder.itemImage.setImageResource(R.drawable.ic_launcher_foreground);
-//        holder.itemName.setText((mClubNames.get(position)));
-        holder.itemName.setText((mClubs.get(position).getClubName()));
-
+            holder.clubImage.setImageResource(R.drawable.ic_launcher_foreground);
+            holder.clubName.setText((mClubs.get(position).getClubName()));
+        }
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,15 +72,14 @@ public class ClubRecyclerViewAdapter extends RecyclerView.Adapter<ClubRecyclerVi
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView itemImage;
-        TextView itemName;
-        TextView itemDescription;
+        ImageView clubImage;
+        TextView clubName;
         SquareCardView parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemImage = itemView.findViewById(R.id.club_image);
-            itemName = itemView.findViewById(R.id.club_name);
+            clubImage = itemView.findViewById(R.id.club_image);
+            clubName = itemView.findViewById(R.id.club_name);
             parentLayout = itemView.findViewById(R.id.club_view_parent);
 
 

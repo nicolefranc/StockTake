@@ -2,11 +2,15 @@ package com.infosys.stocktake.inventory;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import androidx.viewpager.widget.ViewPager;
+
+import android.util.Log;
 import android.view.View;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
@@ -30,18 +34,45 @@ public class InventoryActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private User currentUser;
     private String currentClub;
-    private FirebaseAuth firebaseAuth;
+    private final String userUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private final String TAG = "Inventory Activity: ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
         getCurrentUser();
+    }
 
-//        get the current club
+    private void getCurrentUser(){
+        StockTakeFirebase<User> stockTakeFirebase = new StockTakeFirebase<>(User.class,"users");
+        Task<User> userTask = stockTakeFirebase.query(userUID);
+        userTask.addOnSuccessListener(new OnSuccessListener<User>() {
+            @Override
+            public void onSuccess(User user) {
+                currentUser = user;
+                Log.d(TAG, "User is: " + user.getTelegramHandle());
+                setUpViews();
+            }
+        });
+        userTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "Failed to get user");
+            }
+        });
+
+    }
+
+    private void setUpViews(){
         Map<String,Membership> membershipMap = currentUser.getClubMembership();
-        Map.Entry<String, Membership> entry = membershipMap.entrySet().iterator().next();
-        currentClub = entry.getKey();
+        Log.d(TAG, "setUpViews: " + membershipMap.toString());
+        if(membershipMap.size() != 0) {
+            Map.Entry<String, Membership> entry = membershipMap.entrySet().iterator().next();
+            currentClub = entry.getKey();
+        }
+        else{
+            currentClub = "";
+        }
 
         setContentView(R.layout.inventory_base);
         viewPager = findViewById(R.id.view_pager);
@@ -49,18 +80,5 @@ public class InventoryActivity extends AppCompatActivity {
         viewPager.setAdapter(inventoryAdapter);
         tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
-
-    }
-
-    private void getCurrentUser(){
-        StockTakeFirebase<User> stockTakeFirebase = new StockTakeFirebase<>(User.class,"users");
-        Task<User> userTask = stockTakeFirebase.query(firebaseAuth.getCurrentUser().getUid());
-        userTask.addOnSuccessListener(new OnSuccessListener<User>() {
-            @Override
-            public void onSuccess(User user) {
-                currentUser = user;
-            }
-        });
-
     }
 }

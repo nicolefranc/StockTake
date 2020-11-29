@@ -40,7 +40,7 @@ public class ViewClubActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.inventory_list);
+        setContentView(R.layout.club_list);
         // Populate components with Item data from passed Intent
         club = (Club) getIntent().getSerializableExtra("ClubIntent");
         itemStockTakeFirebase = new StockTakeFirebase<Item>(Item.class, "items");
@@ -53,8 +53,13 @@ public class ViewClubActivity extends AppCompatActivity {
         populateTask.addOnSuccessListener(new OnSuccessListener<ArrayList<Item>>() {
             @Override
             public void onSuccess(ArrayList<com.infosys.stocktake.models.Item> items) {
-                Log.d(TAG,"Accessed firebase! populating items now...");
-                mItems = items;
+                if(items != null) {
+                    mItems = items;
+                }
+                else{
+                    mItems = new ArrayList<Item>();
+                }
+                Log.d(TAG,"populateItems: Accessed firebase! populating items now... " + mItems.size());
                 initRecyclerView();
             }
         });
@@ -73,6 +78,5 @@ public class ViewClubActivity extends AppCompatActivity {
         ItemRecyclerViewAdapter recyclerAdapter = new ItemRecyclerViewAdapter(mItems, this);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
     }
 }

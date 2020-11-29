@@ -58,6 +58,7 @@ public class InventoryFragment extends Fragment {
     String message = getArguments().getString("message");
     currentUser = (User) getArguments().getSerializable("user");
     currentClub = getArguments().getString("club");
+    Log.d(TAG, "onCreateView: currentClub is " + currentClub);
     itemStockTakeFirebase = new StockTakeFirebase<Item>(Item.class, "items");
     userStockTakeFirebase = new StockTakeFirebase<User>(User.class, "users");
 
@@ -67,6 +68,8 @@ public class InventoryFragment extends Fragment {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(getContext(), AddItemActivity.class);
+            intent.putExtra("club", currentClub);
+            intent.putExtra("user", currentUser);
             startActivity(intent);
         }
     });
