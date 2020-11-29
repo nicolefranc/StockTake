@@ -29,7 +29,7 @@ import com.google.zxing.Result;
 import com.infosys.stocktake.MainActivity;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
-import com.infosys.stocktake.inventory.ItemDetailsActivity;
+import com.infosys.stocktake.inventory.items.ItemDetailsActivity;
 import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.ItemStatus;
@@ -148,6 +148,7 @@ public class QrScannerActivity extends AppCompatActivity {
                         // if not available, don't show the loan out button
                         Intent intent = new Intent(QrScannerActivity.this, QrOptionsActivity.class);
                         intent.putExtra("canLoan", isAvailable);
+                        intent.putExtra("ItemIntent", item);
                         startActivity(intent);
                     } else {
                         // Not a club owner, check if user is the one borrowing
