@@ -31,4 +31,6 @@
 
     <!--  Inventory String Constants-->
     <string name="fab_add_item">Add Inventory Item</string>
+    <string name="invalid_quantity">Oi enter quantity properly</string>
+    <string name="create_loan_success">Successfully created a loan object</string>
 </resources>
