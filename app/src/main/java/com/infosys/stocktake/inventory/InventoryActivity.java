@@ -7,11 +7,15 @@ import android.content.Intent;
 import androidx.viewpager.widget.ViewPager;
 import android.view.View;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 //import info.androidhive.viewpager2.databinding.ActivityFragmentViewPagerBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.infosys.stocktake.R;
+import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.inventory.items.AddItemActivity;
 import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Membership;
@@ -26,12 +30,13 @@ public class InventoryActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private User currentUser;
     private String currentClub;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        User user = new User();
-        currentUser = user.getUser();
+
+        getCurrentUser();
 
 //        get the current club
         Map<String,Membership> membershipMap = currentUser.getClubMembership();
@@ -47,4 +52,15 @@ public class InventoryActivity extends AppCompatActivity {
 
     }
 
-};
+    private void getCurrentUser(){
+        StockTakeFirebase<User> stockTakeFirebase = new StockTakeFirebase<>(User.class,"users");
+        Task<User> userTask = stockTakeFirebase.query(firebaseAuth.getCurrentUser().getUid());
+        userTask.addOnSuccessListener(new OnSuccessListener<User>() {
+            @Override
+            public void onSuccess(User user) {
+                currentUser = user;
+            }
+        });
+
+    }
+}
