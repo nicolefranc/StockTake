@@ -19,6 +19,18 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class User implements Serializable {
     private String TAG="USER DB";
+
+    // CONSTANTS
+    public static final String USER_COLLECTION = "users";
+    public static final String UUID = "uuid";
+    public static final String USER = "user";
+    public static final String CLUB_MEMBERSHIP = "clubMembership";
+    public static final String NAME = "fullName";
+    public static final String ITEMS_BORROWED = "itemsBorrowed";
+    public static final String NFC_TAG = "nfcTag";
+    public static final String STUDENT_ID = "studentID";
+    public static final String TELE_HANDLE = "telegramHandle";
+
     private String uuid;
     private String nfcTag;
     private String fullName;

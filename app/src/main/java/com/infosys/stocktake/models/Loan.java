@@ -18,6 +18,9 @@ import java.text.SimpleDateFormat;
 public class Loan {
 
     private static final String TAG="Loan Operations";
+    // CONSTANTS
+    public static final String LOAN_COLLECTION = "loans";
+    public static final String ITEM_ID = "itemID";
 
     private String itemID;
     private int quantity;
