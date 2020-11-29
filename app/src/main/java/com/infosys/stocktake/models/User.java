@@ -47,42 +47,9 @@ public class User {
             Log.e(TAG,"USER GOOGLE ACCOUNT NOT AUTHENTICATED");
         }
     }
-    /*
-    createUser and getUser to be done in the activities
-     */
-    //Account Creation during first sign up
-    public void createUser(){
-        db = FirebaseFirestore.getInstance();
-        db.collection("users").document(this.uuid)
-                .set(this)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "USER "+ studentID + "has been successfully added!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding USER", e);
-                    }
-                });
 
-    }
     public User getUser() {
-        FirebaseAuth fbAuth = FirebaseAuth.getInstance();
-        String queryUUID = fbAuth.getCurrentUser().getUid();
-        db= FirebaseFirestore.getInstance();
-        users = db.collection("users");
-        DocumentReference docRef = db.collection("users").document(queryUUID);
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                queryUser = documentSnapshot.toObject(User.class);
-                Log.d(TAG, "USER "+ queryUser.studentID + "has been successfully fetched!");
-            }
-        });
-        return queryUser;
+        return this;
     }
 
     /***********************************************************************************************
