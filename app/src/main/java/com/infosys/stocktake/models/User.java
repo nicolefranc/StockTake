@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -16,7 +17,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class User {
+public class User implements Serializable {
     private String TAG="USER DB";
     private String uuid;
     private String nfcTag;

@@ -1,5 +1,6 @@
-package com.infosys.stocktake.inventory;
+package com.infosys.stocktake.inventory.items;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
+import com.infosys.stocktake.inventory.InventoryActivity;
 import com.infosys.stocktake.inventory.items.ItemRecyclerViewAdapter;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.Membership;
@@ -42,7 +44,9 @@ public class InventoryFragment extends Fragment {
     private ArrayList<Item> mItems = new ArrayList<>();
     private static final String TAG = "Inventory Fragment: ";
     private User currentUser;
-    private ArrayList<String> clubs;
+//    private ArrayList<String> clubs;
+    private String currentClub;
+    private FloatingActionButton fab_add_item;
 
     @Override
     public View onCreateView(
@@ -52,55 +56,68 @@ public class InventoryFragment extends Fragment {
         // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.inventory_list,container,false);
     String message = getArguments().getString("message");
+    currentUser = (User) getArguments().getSerializable("user");
+    currentClub = getArguments().getString("club");
     itemStockTakeFirebase = new StockTakeFirebase<Item>(Item.class, "items");
     userStockTakeFirebase = new StockTakeFirebase<User>(User.class, "users");
+
+    // Floating Action Button that directs to Add Item Activity
+    fab_add_item = (FloatingActionButton) view.findViewById(R.id.fab_add_item);
+    fab_add_item.setOnClickListener( new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(getContext(), AddItemActivity.class);
+            startActivity(intent);
+        }
+    });
     return view;
     }
 
     public void onActivityCreated(Bundle savedInstanceState) {
-        currentUser = new User();
+//        currentUser = new User();
         super.onActivityCreated(savedInstanceState);
-//        populateItems();
-        getClub();
+//        getClub();
+        populateItems();
         initRecyclerView();
     }
 
-    private void getClub(){
-        Log.d(TAG, "Fetching user's clubs...");
-        String userUid = "UNASSIGNED";
-        clubs = new ArrayList<String>();
-        try {
-            currentUser.getUser();
-            userUid = currentUser.getUuid();
-            Task<User> userTask = userStockTakeFirebase.query(userUid);
-            userTask.addOnSuccessListener(new OnSuccessListener<User>() {
-                @Override
-                public void onSuccess(User currentUser) {
-                    Log.d(TAG,"Accessed firebase! Getting clubs...");
-                    HashMap<String, Membership> clubMembership = currentUser.getClubMembership();
-                    for(Map.Entry club:clubMembership.entrySet()){
-                        clubs.add(club.getKey().toString());
-                    }
-                }
-            });
-            userTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.e(TAG,"Failed to retrieve items :(, exception is: ", e);
-                }
-            });
-
-        }
-        catch(Exception e){
-            Log.e(TAG, "getClub: " + userUid + " gives error",e);
-            clubs.add("748379437");
-        }
-        populateItems();
-    }
-
+//    private void getClub(){
+//        Log.d(TAG, "Fetching user's clubs...");
+//
+//        String userUid = "UNASSIGNED";
+//        clubs = new ArrayList<String>();
+//        try {
+////            currentUser.getUser();
+//            userUid = currentUser.getUuid();
+//            Task<User> userTask = userStockTakeFirebase.query(userUid);
+//            userTask.addOnSuccessListener(new OnSuccessListener<User>() {
+//                @Override
+//                public void onSuccess(User currentUser) {
+//                    Log.d(TAG,"Accessed firebase! Getting clubs...");
+//                    HashMap<String, Membership> clubMembership = currentUser.getClubMembership();
+//                    for(Map.Entry club:clubMembership.entrySet()){
+//                        clubs.add(club.getKey().toString());
+//                    }
+//                }
+//            });
+//            userTask.addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Log.e(TAG,"Failed to retrieve items :(, exception is: ", e);
+//                }
+//            });
+//
+//        }
+//        catch(Exception e){
+//            Log.e(TAG, "getClub: " + userUid + " gives error",e);
+//            clubs.add("748379437");
+//        }
+//        populateItems();
+//    }
+//
     private void populateItems(){
         Log.d(TAG,"Populating items...");
-        Task<ArrayList<com.infosys.stocktake.models.Item>> populateTask = itemStockTakeFirebase.compoundQuery("clubID", clubs.get(0));
+        Task<ArrayList<com.infosys.stocktake.models.Item>> populateTask = itemStockTakeFirebase.compoundQuery("clubID", currentClub);
         populateTask.addOnSuccessListener(new OnSuccessListener<ArrayList<Item>>() {
             @Override
             public void onSuccess(ArrayList<com.infosys.stocktake.models.Item> items) {

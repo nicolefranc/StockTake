@@ -20,8 +20,9 @@
 
         <activity android:name=".Profile"></activity>
         <activity android:name=".auth.ProfileSetupActivity"></activity>
-        <activity android:name=".inventory.ItemDetailsActivity"></activity>
-        <activity android:name=".inventory.AddItemActivity" />
+        <activity android:name=".inventory.items.ItemDetailsActivity"></activity>
+        <activity android:name=".inventory.items.AddItemActivity" />
+        <activity android:name=".inventory.clubs.ViewClubActivity" />
         <activity android:name=".auth.GoogleLoginActivity">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->

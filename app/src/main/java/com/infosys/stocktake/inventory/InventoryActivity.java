@@ -11,37 +11,40 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 //import info.androidhive.viewpager2.databinding.ActivityFragmentViewPagerBinding;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.infosys.stocktake.R;
+import com.infosys.stocktake.inventory.items.AddItemActivity;
+import com.infosys.stocktake.models.Club;
+import com.infosys.stocktake.models.Membership;
+import com.infosys.stocktake.models.User;
+
+import java.util.Map;
 //import com.infosys.stocktake.inventory.databinding.ActivityFragmentViewPagerBinding;
 
 public class InventoryActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private InventoryAdapter inventoryAdapter;
     private TabLayout tabLayout;
-    private FloatingActionButton fab_add_item;
+    private User currentUser;
+    private String currentClub;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        User user = new User();
+        currentUser = user.getUser();
+
+//        get the current club
+        Map<String,Membership> membershipMap = currentUser.getClubMembership();
+        Map.Entry<String, Membership> entry = membershipMap.entrySet().iterator().next();
+        currentClub = entry.getKey();
 
         setContentView(R.layout.inventory_base);
         viewPager = findViewById(R.id.view_pager);
-        inventoryAdapter = new InventoryAdapter(getSupportFragmentManager());
+        inventoryAdapter = new InventoryAdapter(getSupportFragmentManager(), currentUser, currentClub);
         viewPager.setAdapter(inventoryAdapter);
         tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
 
-        // Floating Action Button that directs to Add Item Activity
-        fab_add_item = (FloatingActionButton) findViewById(R.id.fab_add_item);
-        fab_add_item.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(InventoryActivity.this, AddItemActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
 };

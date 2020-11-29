@@ -1,4 +1,4 @@
-package com.infosys.stocktake.inventory;
+package com.infosys.stocktake.inventory.items;
 
 import androidx.appcompat.app.AppCompatActivity;
 

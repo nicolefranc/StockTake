@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.infosys.stocktake.R;
-import com.infosys.stocktake.inventory.ItemDetailsActivity;
 import com.infosys.stocktake.models.Item;
 
 import java.util.ArrayList;
@@ -56,7 +55,6 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                #TODO: create intent to bring it to the itemView
                 Intent intent = new Intent(mContext, ItemDetailsActivity.class);
                 intent.putExtra("ItemIntent", mItems.get(position));
                 mContext.startActivity(intent);
@@ -67,8 +65,14 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
     @Override
     public int getItemCount() {
-        return mItems.size();
-    }
+        try {
+            return mItems.size();
+        }
+        catch (Exception e){
+            Log.d(TAG, "getItemCount: Size issue:", e);
+            return 0;
+            }
+        }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
