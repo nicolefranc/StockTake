@@ -125,10 +125,15 @@ public class InventoryFragment extends Fragment {
             @Override
             public void onSuccess(ArrayList<com.infosys.stocktake.models.Item> items) {
                 Log.d(TAG,"Accessed firebase! populating items now...");
-                mItems = items;
-                initRecyclerView();
+                if(items != null) {
+                    mItems = items;
+                }
+                else{
+                    mItems = new ArrayList<Item>();
+                }
             }
         });
+        initRecyclerView();
         populateTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
