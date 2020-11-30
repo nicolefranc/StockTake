@@ -77,13 +77,14 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     public int getItemCount() {
         if (mItems.size() ==0){
             isEmpty = true;
+            Log.d(TAG, "isEmpty = TRUE");
             return 1;
         }
         else{
             isEmpty = false;
             return mItems.size();
         }
-        }
+    }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{

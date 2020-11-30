@@ -84,56 +84,23 @@ public class InventoryFragment extends Fragment {
         initRecyclerView();
     }
 
-//    private void getClub(){
-//        Log.d(TAG, "Fetching user's clubs...");
-//
-//        String userUid = "UNASSIGNED";
-//        clubs = new ArrayList<String>();
-//        try {
-////            currentUser.getUser();
-//            userUid = currentUser.getUuid();
-//            Task<User> userTask = userStockTakeFirebase.query(userUid);
-//            userTask.addOnSuccessListener(new OnSuccessListener<User>() {
-//                @Override
-//                public void onSuccess(User currentUser) {
-//                    Log.d(TAG,"Accessed firebase! Getting clubs...");
-//                    HashMap<String, Membership> clubMembership = currentUser.getClubMembership();
-//                    for(Map.Entry club:clubMembership.entrySet()){
-//                        clubs.add(club.getKey().toString());
-//                    }
-//                }
-//            });
-//            userTask.addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    Log.e(TAG,"Failed to retrieve items :(, exception is: ", e);
-//                }
-//            });
-//
-//        }
-//        catch(Exception e){
-//            Log.e(TAG, "getClub: " + userUid + " gives error",e);
-//            clubs.add("748379437");
-//        }
-//        populateItems();
-//    }
-//
     private void populateItems(){
         Log.d(TAG,"Populating items...");
         Task<ArrayList<com.infosys.stocktake.models.Item>> populateTask = itemStockTakeFirebase.compoundQuery("clubID", currentClub);
         populateTask.addOnSuccessListener(new OnSuccessListener<ArrayList<Item>>() {
             @Override
             public void onSuccess(ArrayList<com.infosys.stocktake.models.Item> items) {
-                Log.d(TAG,"Accessed firebase! populating items now...");
+                Log.d(TAG,"Accessed firebase! Club is " + currentClub + ". populating items now...");
                 if(items != null) {
                     mItems = items;
                 }
                 else{
                     mItems = new ArrayList<Item>();
                 }
+                Log.d(TAG, "Items added: " + mItems.toString());
+                initRecyclerView();
             }
         });
-        initRecyclerView();
         populateTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
