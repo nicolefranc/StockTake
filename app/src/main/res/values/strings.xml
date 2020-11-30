@@ -31,4 +31,5 @@
 
     <!--  Inventory String Constants-->
     <string name="fab_add_item">Add Inventory Item</string>
+    <string name="view_qr_code">View QR Code</string>
 </resources>

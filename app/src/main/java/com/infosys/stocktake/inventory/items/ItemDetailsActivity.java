@@ -2,9 +2,13 @@ package com.infosys.stocktake.inventory.items;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +24,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
     private static final int QR_WIDTH = 200;
     TextView tvItemName, tvQtyAvailable, tvQtyBroken, tvQtyOnLoan, tvQtyOnRepair, tvItemDesc;
     ImageView ivItemPicture, ivQrCode;
-
+    Button btnViewQrImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +39,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         tvItemDesc = findViewById(R.id.tvItemDesc);
         ivItemPicture = findViewById(R.id.ivItemPicture);
         ivQrCode = findViewById(R.id.ivQrCode);
+        btnViewQrImage = findViewById(R.id.btnViewQrImage);
 
         // Populate components with Item data from passed Intent
         item = (Item) getIntent().getSerializableExtra("ItemIntent");
@@ -53,6 +58,18 @@ public class ItemDetailsActivity extends AppCompatActivity {
         // Display QR code based on encoded QR string
         QrCode qr = new QrCode(QR_HEIGHT, QR_WIDTH);
         Bitmap bitmap = qr.stringToBitmap(item.getEncodedQr());
-        ivQrCode.setImageBitmap(bitmap);
+//        ivQrCode.setImageBitmap(bitmap);
+
+        btnViewQrImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("btnViewQrImage", "clicked");
+                Intent intent = new Intent(getApplicationContext(), ViewQrActivity.class);
+                intent.putExtra("QRBitMap", bitmap);
+                startActivity(intent);
+            }
+        });
     }
+
+
 }

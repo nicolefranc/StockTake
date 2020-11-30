@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".inventory.items.ItemDetailsActivity">
@@ -13,36 +17,63 @@
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
         android:layout_marginVertical="@dimen/activity_vertical_margin">
 
-        <ImageView
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            app:cardCornerRadius="50dp"
+            android:layout_gravity="center"
+            app:cardBackgroundColor="@color/white">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                app:cardCornerRadius="50dp"
+                android:layout_gravity="center"
+                app:cardBackgroundColor="@color/white">
+
+         <ImageView
             android:id="@+id/ivItemPicture"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:contentDescription="Item Image" />
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:contentDescription="Item Image"
+            android:cropToPadding="false" />
+            </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
         <TextView
             android:id="@+id/tvItemName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
             android:gravity="center_horizontal"
-            android:text="Name of Item" />
+            android:paddingVertical="@dimen/components_sm_margin"
+            android:text="Name of Item"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Stock Quantity" />
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Stock Quantity" />-->
         <!-- Available Stock -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
                 android:text="Available: " />
+
             <TextView
                 android:id="@+id/tvQtyAvailable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
                 android:text="0" />
         </LinearLayout>
 
@@ -50,15 +81,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
                 android:text="Broken: " />
+
             <TextView
                 android:id="@+id/tvQtyBroken"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
                 android:text="0" />
         </LinearLayout>
 
@@ -66,11 +102,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="On Repair: " />
+
             <TextView
                 android:id="@+id/tvQtyOnRepair"
                 android:layout_width="wrap_content"
@@ -82,35 +121,57 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
                 android:text="On Loan: " />
+
             <TextView
                 android:id="@+id/tvQtyOnLoan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
                 android:text="0" />
         </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Item Description" />
+            android:fontFamily="@font/roboto_regular"
+            android:paddingTop="2sp"
+            android:text="Item Description"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvItemDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:paddingVertical="@dimen/components_sm_margin"
+            android:singleLine="false"
             android:text="The description of the item here"
-            android:singleLine="false" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-        <ImageView
-            android:id="@+id/ivQrCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+<!--        <ImageView-->
+<!--            android:id="@+id/ivQrCode"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="150dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:scaleType="fitCenter" />-->
+
+        <Button
+            android:id="@+id/btnViewQrImage"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingHorizontal="100dp"
+            android:text="@string/view_qr_code" />
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
