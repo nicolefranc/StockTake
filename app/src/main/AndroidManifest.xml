@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.NFC" />
+
+    <uses-feature android:name="android.hardware.nfc" />
 
     <application
         android:allowBackup="true"
@@ -13,13 +16,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".inventory.InventoryActivity"/>
-        <activity android:name=".Profile"></activity>
-        <activity android:name=".auth.ProfileSetupActivity"></activity>
-        <activity android:name=".inventory.items.ItemDetailsActivity"></activity>
+        <activity android:name=".nfc.NfcReaderActivity"></activity>
+        <activity android:name=".inventory.InventoryActivity" />
+        <activity android:name=".Profile" />
+        <activity android:name=".auth.ProfileSetupActivity" />
+        <activity android:name=".inventory.items.ItemDetailsActivity" />
         <activity android:name=".inventory.items.AddItemActivity" />
         <activity android:name=".inventory.clubs.ViewClubActivity" />
-        <activity android:name=".qr.QrOptionsActivity"></activity>
+        <activity android:name=".qr.QrOptionsActivity" />
         <activity android:name=".auth.GoogleLoginActivity">
 
             <!-- <intent-filter> -->
