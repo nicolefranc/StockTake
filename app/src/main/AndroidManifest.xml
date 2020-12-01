@@ -13,13 +13,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<!--        Inventory Activities-->
         <activity android:name=".inventory.InventoryActivity"/>
+        <activity android:name=".inventory.items.ItemDetailsActivity" />
+        <activity android:name=".inventory.items.AddItemActivity" />
+
+<!--        QR Activities-->
+        <activity android:name=".qr.QrScannerActivity" />
+        <activity android:name=".qr.QrOptionsActivity"></activity>
+
+<!--        Loan Activities-->
+        <activity android:name=".loans.AddLoanActivity"/>
+        <activity android:name=".loans.LoanDetailsActivity"/>
+
+        <!--        Profile Activities-->
         <activity android:name=".Profile"></activity>
         <activity android:name=".auth.ProfileSetupActivity"></activity>
         <activity android:name=".inventory.clubs.ViewClubActivity" />
-        <activity android:name=".qr.QrOptionsActivity"></activity>
-        <activity android:name=".loans.AddLoanActivity"/>
-        <activity android:name=".loans.LoanDetailsActivity"/>
+
+<!--        Auth Activities-->
         <activity android:name=".auth.GoogleLoginActivity">
 
             <!-- <intent-filter> -->
@@ -33,10 +45,11 @@
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
         -->
-        <activity android:name=".qr.QrScannerActivity" />
         <activity
             android:name=".auth.LoginActivity"
             android:label="@string/title_activity_login" />
+
+<!--        Main Activity - app entry point-->
         <activity android:name=".MainActivity">
 
             <!-- <intent-filter> -->

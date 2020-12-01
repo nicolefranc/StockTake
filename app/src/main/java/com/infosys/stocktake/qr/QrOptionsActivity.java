@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.infosys.stocktake.MainActivity;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.inventory.items.ItemDetailsActivity;
+import com.infosys.stocktake.loans.AddLoanActivity;
 import com.infosys.stocktake.models.Item;
 
 public class QrOptionsActivity extends AppCompatActivity {
@@ -51,7 +52,8 @@ public class QrOptionsActivity extends AppCompatActivity {
         loanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(QrOptionsActivity.this, MainActivity.class);
+                Intent intent = new Intent(QrOptionsActivity.this, AddLoanActivity.class);
+                intent.putExtra("ItemIntent", item);
                 startActivity(intent);
             }
         });
