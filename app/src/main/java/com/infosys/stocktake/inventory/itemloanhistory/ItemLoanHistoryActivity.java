@@ -1,4 +1,4 @@
-package com.infosys.stocktake.inventory.clubs;
+package com.infosys.stocktake.inventory.itemloanhistory;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -22,45 +22,41 @@ import com.infosys.stocktake.inventory.items.ItemRecyclerViewAdapter;
 import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.ItemStatus;
+import com.infosys.stocktake.models.Loan;
 import com.infosys.stocktake.models.QrCode;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class ViewClubActivity extends AppCompatActivity {
-    private Club club;
-    private ArrayList<String> mItemNames = new ArrayList<>();
-    private ArrayList<String> mItemDescriptions= new ArrayList<>();
-    private ArrayList<String> mImages= new ArrayList<>();
-    private ArrayList<Item> mItems = new ArrayList<>();
+public class ItemLoanHistoryActivity extends AppCompatActivity {
     private Item item;
-    private boolean isAdmin = false;
-    StockTakeFirebase<Item> itemStockTakeFirebase;
-    private static final String TAG = "ViewClub: ";
+    private ArrayList<Loan> mLoans= new ArrayList<>();
+    StockTakeFirebase<Loan> itemStockTakeFirebase;
+    private static final String TAG = "ViewLoanHistory: ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.club_list);
         // Populate components with Item data from passed Intent
-        club = (Club) getIntent().getSerializableExtra("ClubIntent");
-        itemStockTakeFirebase = new StockTakeFirebase<Item>(Item.class, "items");
+        item = (Item) getIntent().getSerializableExtra("itemIntent");
+        itemStockTakeFirebase = new StockTakeFirebase<Loan>(Loan.class, "loans");
         populateItems();
     }
 
     private void populateItems(){
         Log.d(TAG,"Populating items...");
-        Task<ArrayList<Item>> populateTask = itemStockTakeFirebase.compoundQuery("clubID", club.getClubID());
-        populateTask.addOnSuccessListener(new OnSuccessListener<ArrayList<Item>>() {
+        Task<ArrayList<Loan>> populateTask = itemStockTakeFirebase.compoundQuery("itemID", item.getItemID());
+        populateTask.addOnSuccessListener(new OnSuccessListener<ArrayList<Loan>>() {
             @Override
-            public void onSuccess(ArrayList<com.infosys.stocktake.models.Item> items) {
-                if(items != null) {
-                    mItems = items;
+            public void onSuccess(ArrayList<Loan> loans) {
+                if(loans != null) {
+                    mLoans = loans;
                 }
                 else{
-                    mItems = new ArrayList<Item>();
+                    mLoans = new ArrayList<Loan>();
                 }
-                Log.d(TAG,"populateItems: Accessed firebase! populating items now... " + mItems.size());
+                Log.d(TAG,"populateItems: Accessed firebase! populating items now... " + mLoans.size());
                 initRecyclerView();
             }
         });
@@ -76,7 +72,7 @@ public class ViewClubActivity extends AppCompatActivity {
     private void initRecyclerView(){
         Log.d(TAG,"Initializing recycler view...");
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        ItemRecyclerViewAdapter recyclerAdapter = new ItemRecyclerViewAdapter(mItems, isAdmin, this);
+        LoanRecyclerViewAdapter recyclerAdapter = new ItemRecyclerViewAdapter(mLoans,this);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
