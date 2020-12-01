@@ -22,6 +22,10 @@
         android:id="@+id/nav_qr"
         android:title="QR Scanner" />
 
+    <item
+        android:id="@+id/nav_nfc"
+        android:title="NFC Reader" />
+
 <!--    Uncomment when PersonalLoanHistory Activity is ready -->
 <!--    <item-->
 <!--        android:id="@+id/nav_loans"-->
