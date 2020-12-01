@@ -22,6 +22,7 @@
         <activity android:name=".qr.QrOptionsActivity"></activity>
         <activity android:name=".loans.AddLoanActivity"/>
         <activity android:name=".loans.LoanDetailsActivity"/>
+        <activity android:name=".inventory.itemloanhistory.ItemLoanHistoryActivity"/>
         <activity android:name=".auth.GoogleLoginActivity">
 
             <!-- <intent-filter> -->

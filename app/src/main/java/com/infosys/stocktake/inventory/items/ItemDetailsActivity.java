@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -91,28 +92,47 @@ public class ItemDetailsActivity extends AppCompatActivity {
             getUserTask.addOnSuccessListener(new OnSuccessListener<User>() {
                 @Override
                 public void onSuccess(User user) {
-                    String userName = user.getFullName();
-                    tvLastLoan = findViewById(R.id.last_loan);
-                    tvLoanHistory = findViewById(R.id.loan_history);
-                    tvLastLoan.setText(userName);
-                    tvLoanHistory.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent loanHistoryIntent = new Intent(view.getContext(), ItemLoanHistoryActivity.class);
-                            loanHistoryIntent.putExtra("itemIntent", item);
-                            startActivity(loanHistoryIntent);
-                        }
-                    });
+                    try {
+                        Log.d(TAG, "onSuccess: Found user! Setting loan widgets...");
+                        String userName = user.getFullName();
+                        tvLastLoan = findViewById(R.id.last_loan);
+                        tvLoanHistory = findViewById(R.id.loan_history);
+                        tvLastLoan.setText(userName);
+                        tvLoanHistory.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent loanHistoryIntent = new Intent(view.getContext(), ItemLoanHistoryActivity.class);
+                                loanHistoryIntent.putExtra("itemIntent", item);
+                                startActivity(loanHistoryIntent);
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        no_loaneee();
+                    }
                 }
             });
             getUserTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Log.d(TAG, "onFailure: failed to get user");
-                    tvLastLoan = findViewById(R.id.loan_history);
-                    tvLastLoan.setText("failed :(");
+                    no_loaneee();
                 }
             });
         }
+        else{
+            no_loaneee();
+        }
+    }
+
+    private void no_loaneee(){
+        Log.d(TAG, "onFailure: failed to get user");
+        tvLoanHistory = findViewById(R.id.loan_history);
+        tvLoanHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "No loan history for this item!", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onClick: TOAST SHOULD BE HERE");
+            }
+        });
     }
 }

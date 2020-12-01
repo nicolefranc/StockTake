@@ -1,12 +1,7 @@
 package com.infosys.stocktake.inventory.itemloanhistory;
 
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,21 +13,25 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
-import com.infosys.stocktake.inventory.items.ItemRecyclerViewAdapter;
 import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Item;
-import com.infosys.stocktake.models.ItemStatus;
 import com.infosys.stocktake.models.Loan;
-import com.infosys.stocktake.models.QrCode;
-import com.squareup.picasso.Picasso;
+import com.infosys.stocktake.models.User;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ItemLoanHistoryActivity extends AppCompatActivity {
     private Item item;
     private ArrayList<Loan> mLoans= new ArrayList<>();
     StockTakeFirebase<Loan> itemStockTakeFirebase;
+    private StockTakeFirebase<Club> clubFirebase = new StockTakeFirebase<Club>(Club.class, "clubs");
+    private StockTakeFirebase<User> userFirebase = new StockTakeFirebase<User>(User.class, "users");
     private static final String TAG = "ViewLoanHistory: ";
+    private ArrayList<String> clubNames = new ArrayList<String>();
+    private ArrayList<String> userNames = new ArrayList<String>();
+    private ArrayList<Date> dueDates = new ArrayList<Date>();
+    private ArrayList<Date> returnDates = new ArrayList<Date>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +56,7 @@ public class ItemLoanHistoryActivity extends AppCompatActivity {
                     mLoans = new ArrayList<Loan>();
                 }
                 Log.d(TAG,"populateItems: Accessed firebase! populating items now... " + mLoans.size());
-                initRecyclerView();
+                getClubNames();
             }
         });
         populateTask.addOnFailureListener(new OnFailureListener() {
@@ -69,10 +68,68 @@ public class ItemLoanHistoryActivity extends AppCompatActivity {
 
     }
 
+    private void getClubNames(){
+        for(int i = 0; i<mLoans.size();i++){
+            Loan loan = mLoans.get(i);
+            Task<Club> clubTask = clubFirebase.query(loan.getClubID());
+            dueDates.add(loan.getDueDate());
+            returnDates.add(loan.getReturnDate());
+
+            if (i!=mLoans.size()-1) {
+                clubTask.addOnSuccessListener(new OnSuccessListener<Club>() {
+                    @Override
+                    public void onSuccess(Club club) {
+                        clubNames.add(club.getClubName());
+                        Log.d(TAG, "getClubNames: got club "+ club.getClubName());
+                    }
+                });
+            }
+            else {
+                clubTask.addOnSuccessListener(new OnSuccessListener<Club>() {
+                    @Override
+                    public void onSuccess(Club club) {
+                        clubNames.add(club.getClubName());
+                        getUserNames();
+                    }
+                });
+            }
+        }
+    }
+
+    private void getUserNames(){
+        for(int i = 0; i<mLoans.size();i++) {
+            Loan loan = mLoans.get(i);
+            Task<User> userTask = userFirebase.query(loan.getLoaneeID());
+            if (i!=mLoans.size()-1) {
+                userTask.addOnSuccessListener(new OnSuccessListener<User>() {
+                    @Override
+                    public void onSuccess(User user) {
+                        if (user != null) {
+                            Log.d(TAG, "getUserNames: got user "+ user.getFullName());
+                            userNames.add(user.getFullName());
+                        }
+                    }
+                });
+            }
+            else{
+                userTask.addOnSuccessListener(new OnSuccessListener<User>() {
+                    @Override
+                    public void onSuccess(User user) {
+                        if (user != null) {
+                            userNames.add(user.getFullName());
+                            Log.d(TAG, "onSuccess: number of user entries: " + userNames.size());
+                            initRecyclerView();
+                        }
+                    }
+                });
+            }
+        }
+    }
+
     private void initRecyclerView(){
         Log.d(TAG,"Initializing recycler view...");
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        LoanRecyclerViewAdapter recyclerAdapter = new ItemRecyclerViewAdapter(mLoans,this);
+        LoanRecyclerViewAdapter recyclerAdapter = new LoanRecyclerViewAdapter(mLoans, clubNames, userNames, dueDates, returnDates, this);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

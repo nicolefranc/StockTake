@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -17,31 +18,80 @@
             android:orientation="horizontal"
             android:id="@+id/item_parent_layout">
 
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@mipmap/ic_launcher"
-                android:scaleType="centerCrop"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="10dp"
-                android:layout_gravity="center_vertical"
-                android:id="@+id/item_image"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="Item Name"
-                android:textSize="20dp"
+                android:text="Loaned to:"
+                android:textSize="9dp"
                 android:textColor="#000"
-                android:fontFamily="sans-serif-medium"
-                android:paddingTop="10dp"
-                android:id="@+id/item_name"
+                android:fontFamily="sans-serif"
+                android:paddingTop="6dp"
+                android:paddingLeft="20dp"
+                android:id="@+id/loan_to"
                 app:layout_constraintLeft_toRightOf="@+id/item_image"
                 app:layout_constraintTop_toTopOf="parent"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/identity"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/loan_to">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="Club Name"
+                    android:textSize="20dp"
+                    android:textColor="#000"
+                    android:fontFamily="sans-serif-medium"
+                    android:paddingTop="3dp"
+                    android:paddingLeft="20dp"
+                    android:id="@+id/club_name"
+                    />
+
+                <FrameLayout
+                    android:layout_width="1dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="20dp"
+                    android:background="#5555"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Loanee Name"
+                    android:textSize="10dp"
+                    android:textColor="#000"
+                    android:fontFamily="sans-serif-thin"
+                    android:paddingTop="3dp"
+                    android:id="@+id/loanee_name"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_baseline_check_24"
+                android:id="@+id/checkmark"
+                android:layout_marginRight="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/identity"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_baseline_keyboard_return_24"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/identity" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -50,12 +100,28 @@
                 android:layout_gravity="left"
                 android:fontFamily="sans-serif-light"
                 android:paddingBottom="10dp"
-                android:id="@+id/item_description"
-                android:text="lorem ipsum and something something"
+                android:paddingLeft="10dp"
+                android:id="@+id/return_text"
+                android:text="Due Date: "
                 android:textColor="#000"
-                android:textSize="15dp"
-                app:layout_constraintLeft_toRightOf="@+id/item_image"
-                app:layout_constraintTop_toBottomOf="@+id/item_name" />
+                android:textSize="12dp"
+                app:layout_constraintLeft_toRightOf="@id/icon"
+                app:layout_constraintTop_toBottomOf="@+id/identity" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="280dp"
+                android:layout_gravity="left"
+                android:fontFamily="sans-serif-light"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:id="@+id/return_date"
+                android:text="08/23/2050"
+                android:textColor="#000"
+                android:textSize="12dp"
+                app:layout_constraintLeft_toRightOf="@id/return_text"
+                app:layout_constraintTop_toBottomOf="@+id/identity" />
 
             <FrameLayout
                 android:layout_width="match_parent"

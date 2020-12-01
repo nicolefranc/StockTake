@@ -2,6 +2,7 @@ package com.infosys.stocktake.inventory.itemloanhistory;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,24 +15,42 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.infosys.stocktake.R;
+import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.inventory.items.ItemDetailsActivity;
+import com.infosys.stocktake.loans.LoanDetailsActivity;
+import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.Loan;
+import com.infosys.stocktake.models.User;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class LoanRecyclerViewAdapter extends RecyclerView.Adapter<LoanRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "RecyclerViewAdapter";
 
     private Context mContext;
     private ArrayList<Loan> mLoans;
+    private ArrayList<String> clubNames = new ArrayList<String>();
+    private ArrayList<String> userNames = new ArrayList<String>();
+    private ArrayList<Date> dueDates = new ArrayList<Date>();
+    private ArrayList<Date> returnDates = new ArrayList<Date>();
     private Boolean isEmpty;
     private boolean isAdmin;
 
-    public LoanRecyclerViewAdapter(ArrayList<Loan> loans, Context context){
+
+    public LoanRecyclerViewAdapter(ArrayList<Loan> loans, ArrayList<String> clubs, ArrayList<String> users, ArrayList<Date> duedates, ArrayList<Date> returndates, Context context){
         mContext = context;
         mLoans = loans;
+        clubNames = clubs;
+        userNames = users;
+        dueDates = duedates;
+        returnDates = returndates;
 
         Log.d(TAG, "recycler adapter initiated");
     }
@@ -39,9 +58,16 @@ public class LoanRecyclerViewAdapter extends RecyclerView.Adapter<LoanRecyclerVi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.inventory_item,parent, false);
-        ViewHolder holder = new ViewHolder(view);
-        return holder;
+        if (!isEmpty) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.loan_item, parent, false);
+            ViewHolder holder = new ViewHolder(view);
+            return holder;
+        }
+        else{
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.inventory_item,parent,false);
+            ViewHolder holder = new ViewHolder(view);
+            return holder;
+        }
     }
 
     @Override
@@ -49,22 +75,31 @@ public class LoanRecyclerViewAdapter extends RecyclerView.Adapter<LoanRecyclerVi
         Log.d(TAG, "onBindViewHolder: called");
         if (!isEmpty) {
             Log.d(TAG, "onBindViewHolder: non-empty - " + mLoans.size());
-            String imageURL = mLoans.get(position).getItemPicture();
-            Glide.with(mContext)
-                    .load(imageURL)
-                    .placeholder(R.drawable.ic_launcher_foreground)
-                    .error(R.drawable.ic_launcher_background)
-                    .into(holder.itemImage);
-//        holder.itemImage.setImageResource(R.drawable.ic_launcher_foreground);
-            holder.itemDescription.setText(mLoans.get(position).getItemDescription());
-            holder.itemName.setText((mLoans.get(position).getItemName()));
+            // setting text
+            holder.clubName.setText(clubNames.get(position));
+            holder.loaneeName.setText(userNames.get(position));
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
+            holder.returnDate.setText(dateFormat.format(dueDates.get(position)));
+            //removing checkmark if item is still due
+            Date now = new Date();
+            if(returnDates.get(position) == null){
+                holder.checkmark.setVisibility(View.GONE);
+            }
+            else{
+                holder.clubName.setTextColor(Color.GRAY);
+                holder.loaneeName.setTextColor(Color.GRAY);
+            }
+
+            if(returnDates.get(position) == null && dueDates.get(position).before(now)){
+                holder.clubName.setTextColor(Color.RED);
+                holder.loaneeName.setTextColor(Color.RED);
+            }
 
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(mContext, ItemDetailsActivity.class);
-                    intent.putExtra("ItemIntent", mLoans.get(position));
-                    intent.putExtra("isAdmin", isAdmin);
+                    Intent intent = new Intent(mContext, LoanDetailsActivity.class);
+                    intent.putExtra("LOAN_ID_INTENT", mLoans.get(position).getLoanID());
                     mContext.startActivity(intent);
                     Log.d(TAG, "tapped");
                 }
@@ -97,6 +132,11 @@ public class LoanRecyclerViewAdapter extends RecyclerView.Adapter<LoanRecyclerVi
         ImageView itemImage;
         TextView itemName;
         TextView itemDescription;
+        TextView clubName;
+        TextView loaneeName;
+        TextView returnDate;
+        ImageView checkmark;
+
         ConstraintLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
@@ -105,6 +145,12 @@ public class LoanRecyclerViewAdapter extends RecyclerView.Adapter<LoanRecyclerVi
             itemName = itemView.findViewById(R.id.item_name);
             itemDescription = itemView.findViewById(R.id.item_description);
             parentLayout = itemView.findViewById(R.id.item_parent_layout);
+            clubName = itemView.findViewById(R.id.club_name);
+            loaneeName = itemView.findViewById(R.id.loanee_name);
+            returnDate = itemView.findViewById(R.id.return_date);
+            checkmark = itemView.findViewById(R.id.checkmark);
         }
     }
+
+
 }
