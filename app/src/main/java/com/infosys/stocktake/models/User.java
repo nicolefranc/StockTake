@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -16,73 +17,54 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class User {
+public class User implements Serializable {
     private String TAG="USER DB";
+
+    // CONSTANTS
+    public static final String USER_COLLECTION = "users";
+    public static final String UUID = "uuid";
+    public static final String USER = "user";
+    public static final String CLUB_MEMBERSHIP = "clubMembership";
+    public static final String NAME = "fullName";
+    public static final String ITEMS_BORROWED = "itemsBorrowed";
+    public static final String NFC_TAG = "nfcTag";
+    public static final String STUDENT_ID = "studentID";
+    public static final String TELE_HANDLE = "telegramHandle";
+
     private String uuid;
     private String nfcTag;
     private String fullName;
     private int studentID;
     private String telegramHandle;
     private HashMap<String,Membership> clubMembership;
-    private String[] itemsBorrowed;
-    User queryUser;
-    FirebaseFirestore db;
-    CollectionReference users;
+//    private String[] itemsBorrowed;
+//    User queryUser;
+//    FirebaseFirestore db;
+//    CollectionReference users;
 
     public User(){}
     public User(int studentID,
                 String telegramHandle,
                 GoogleSignInAccount signInAccount){
+        Log.d("User", "User being instantiated");
         FirebaseAuth fbAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = fbAuth.getCurrentUser();
-
+        this.nfcTag = null;
         this.studentID = studentID;
         this.fullName = signInAccount.getDisplayName();
         this.telegramHandle = telegramHandle;
         this.clubMembership = new HashMap<>();
+        clubMembership.put("0q38hnjpiou4", Membership.ADMIN);
         if(currentUser != null){
             this.uuid = currentUser.getUid();
         }
         else{
-            Log.e(TAG,"USER GOOGLE ACCOUNT NOT AUTHENTICATED");
+            Log.e("USER DB","USER GOOGLE ACCOUNT NOT AUTHENTICATED");
         }
     }
-    /*
-    createUser and getUser to be done in the activities
-     */
-    //Account Creation during first sign up
-    public void createUser(){
-        db = FirebaseFirestore.getInstance();
-        db.collection("users").document(this.uuid)
-                .set(this)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "USER "+ studentID + "has been successfully added!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding USER", e);
-                    }
-                });
 
-    }
     public User getUser() {
-        FirebaseAuth fbAuth = FirebaseAuth.getInstance();
-        String queryUUID = fbAuth.getCurrentUser().getUid();
-        db= FirebaseFirestore.getInstance();
-        users = db.collection("users");
-        DocumentReference docRef = db.collection("users").document(queryUUID);
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                queryUser = documentSnapshot.toObject(User.class);
-                Log.d(TAG, "USER "+ queryUser.studentID + "has been successfully fetched!");
-            }
-        });
-        return queryUser;
+        return this;
     }
 
     /***********************************************************************************************
@@ -125,9 +107,9 @@ public class User {
         return clubMembership;
     }
 
-    public String[] getItemsBorrowed() {
-        return itemsBorrowed;
-    }
+//    public String[] getItemsBorrowed() {
+//        return itemsBorrowed;
+//    }
 
 
 

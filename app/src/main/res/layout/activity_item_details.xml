@@ -5,8 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_light"
-    tools:context=".inventory.ItemDetailsActivity">
+    tools:context=".inventory.items.ItemDetailsActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,6 +13,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="-30dp"
             android:id="@+id/relative_reg"
             android:background="@drawable/white_rectangle">
 
@@ -26,7 +26,7 @@
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="60dp"
+                    android:layout_marginTop="90dp"
                     android:text="@string/app_name"
                     android:textSize="@dimen/text_title"
                     android:textColor="@color/black"
@@ -55,7 +55,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.7">
+                    android:layout_weight="0.9">
                     <ImageView
                         android:id="@+id/ivItemPicture"
                         android:layout_width="match_parent"
@@ -66,7 +66,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.30">
+                    android:layout_weight="0.3">
                     <TextView
                         android:id="@+id/tvItemName"
                         android:layout_width="match_parent"
@@ -271,17 +271,15 @@
                         android:text="Item Description" />
 
                     <ScrollView
-                        android:id="@+id/SCROLLER_ID"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/tvItemDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_below="@id/itemDes"
                         android:scrollbars="vertical"
+                        android:background="@color/white"
                         android:fillViewport="true">
 
-                        <TextView
-                            android:id="@+id/TEXT_STATUS_ID"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:layout_weight="1.0"/>
+
                     </ScrollView>
 
                 </RelativeLayout>
@@ -291,8 +289,8 @@
                     android:layout_height="wrap_content">
                     <ImageView
                         android:id="@+id/ivQrCode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_width="match_parent"
+                        android:layout_height="50" />
                 </RelativeLayout>
 
                 `</LinearLayout>

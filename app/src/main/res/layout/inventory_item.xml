@@ -4,17 +4,17 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="0dp"
-        >
+        style="@style/MyCardView">
         
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="120dp"
             android:padding="1dp"
             android:orientation="horizontal"
+            android:background="@drawable/card_rectangle"
             android:id="@+id/item_parent_layout">
 
             <ImageView
@@ -23,7 +23,9 @@
                 android:src="@mipmap/ic_launcher"
                 android:scaleType="centerCrop"
                 android:paddingHorizontal="20dp"
-                android:paddingVertical="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="20dp"
+                android:paddingTop="@dimen/components_xs_margin"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/item_image"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -41,7 +43,7 @@
                 android:paddingTop="10dp"
                 android:id="@+id/item_name"
                 app:layout_constraintLeft_toRightOf="@+id/item_image"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintBottom_toTopOf="@id/guideline"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -55,7 +57,7 @@
                 android:textColor="#000"
                 android:textSize="15dp"
                 app:layout_constraintLeft_toRightOf="@+id/item_image"
-                app:layout_constraintTop_toBottomOf="@+id/item_name" />
+                app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -64,6 +66,13 @@
                 android:background="#23110000"
                 />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".5" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </RelativeLayout>

@@ -16,18 +16,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<!--        Inventory Activities-->
         <activity android:name=".inventory.InventoryActivity"/>
+        <activity android:name=".inventory.items.ItemDetailsActivity" />
+        <activity android:name=".inventory.items.AddItemActivity" />
 
+<!--        QR Activities-->
+        <activity android:name=".qr.QrScannerActivity" />
+        <activity android:name=".qr.QrOptionsActivity"></activity>
+
+<!--        Loan Activities-->
+        <activity android:name=".loans.AddLoanActivity"/>
+        <activity android:name=".loans.LoanDetailsActivity"/>
+
+        <!--        Profile Activities-->
         <activity android:name=".Profile"></activity>
         <activity android:name=".auth.ProfileSetupActivity"></activity>
-        <activity android:name=".inventory.ItemDetailsActivity"></activity>
-        <activity android:name=".inventory.AddItemActivity" />
-        <activity android:name=".auth.GoogleLoginActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+        <activity android:name=".inventory.clubs.ViewClubActivity" />
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+<!--        Auth Activities-->
+        <activity android:name=".auth.GoogleLoginActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
 
 
@@ -36,10 +51,6 @@
                app to run.
         -->
         <activity android:name=".qr.QrScannerActivity"></activity>
-        <activity
-            android:name=".auth.LoginActivity"
-
-            android:label="@string/title_activity_login" />
 
 
         <activity android:name=".MainActivity"
@@ -47,12 +58,11 @@
 <!--             <intent-filter>-->
 <!--             <action android:name="android.intent.action.MAIN" />-->
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
     </application>

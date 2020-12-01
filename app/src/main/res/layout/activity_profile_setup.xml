@@ -102,7 +102,7 @@
                 android:textColor="@color/black"
                 android:textSize="19dp"/>
 
-            <Spinner android:id="@+id/fifth_row"
+            <Spinner android:id="@+id/clubSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:background="@android:drawable/btn_dropdown"

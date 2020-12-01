@@ -6,18 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.infosys.stocktake.auth.GoogleLoginActivity;
-import com.infosys.stocktake.auth.LoginActivity;
-import com.infosys.stocktake.inventory.InventoryActivity;
-import com.infosys.stocktake.loans.AddLoanActivity;
 
 
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;

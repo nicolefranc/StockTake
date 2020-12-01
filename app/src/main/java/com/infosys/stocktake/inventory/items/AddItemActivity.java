@@ -1,20 +1,14 @@
-package com.infosys.stocktake.inventory;
+package com.infosys.stocktake.inventory.items;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.MediaStore;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,23 +22,20 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.models.Item;
-import com.infosys.stocktake.models.QrCode;
+import com.infosys.stocktake.models.User;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class AddItemActivity extends AppCompatActivity {
     private final int PICK_IMAGE_REQUEST = 22;
     private Uri filePath;
+
+    private String currentClub;
+    private User currentUser;
 
     // UI Components
     private Button selectImgBtn;
@@ -62,6 +53,10 @@ public class AddItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+
+        //Get club name
+        currentClub = getIntent().getStringExtra("club");
+        currentUser = (User) getIntent().getSerializableExtra("User");
 
         // Initialise Firebase Storage, Storage Reference
         storage = FirebaseStorage.getInstance();
@@ -161,8 +156,8 @@ public class AddItemActivity extends AppCompatActivity {
         String itemName = etItemName.getText().toString();
         String itemDesc = etItemDesc.getText().toString();
         int qty = Integer.parseInt(etQty.getText().toString());
-        String loaneeID = "1233278";
-        String clubID = "748379437";
+        String loaneeID = null;
+        String clubID = currentClub;
 
         final Item item = new Item(itemName, itemDesc, storageLocation, qty, loaneeID, clubID);
 

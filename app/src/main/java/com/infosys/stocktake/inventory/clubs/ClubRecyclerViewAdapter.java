@@ -1,33 +1,37 @@
-package com.infosys.stocktake.inventory.items;
+package com.infosys.stocktake.inventory.clubs;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.infosys.stocktake.R;
+import com.infosys.stocktake.inventory.dependencies.SquareCardView;
+import com.infosys.stocktake.models.Club;
 
 import java.util.ArrayList;
 
 public class ClubRecyclerViewAdapter extends RecyclerView.Adapter<ClubRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "RecyclerViewAdapter";
 
-    private ArrayList<String> mClubNames = new ArrayList<>();
+//    private ArrayList<String> mClubNames = new ArrayList<>();
+    private ArrayList<Club> mClubs = new ArrayList<>();
     private ArrayList<String> mImages = new ArrayList<>();
     private Context mContext;
 
 //    #TODO: Change this method to populate the arraylists from a single itemID
-    public ClubRecyclerViewAdapter(ArrayList<String> clubNames, ArrayList<String> images, Context context){
-        mClubNames = clubNames;
-        mImages = images;
+//    public ClubRecyclerViewAdapter(ArrayList<String> clubNames, ArrayList<String> images, Context context){
+    public ClubRecyclerViewAdapter(ArrayList<Club> clubs, Context context){
+//        mClubNames = clubNames;
+//        mImages = images;
+        mClubs = clubs;
         mContext = context;
         Log.d(TAG, "recycler adapter initiated");
     }
@@ -42,18 +46,19 @@ public class ClubRecyclerViewAdapter extends RecyclerView.Adapter<ClubRecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Log.d(TAG, "onBindViewHolder: called");
-
 //        #TODO: insert method to get images from database from itemID
+        if(getItemCount() != 0) {
 //Temporarily putting in placeholders
-        holder.itemImage.setImageResource(R.drawable.ic_launcher_foreground);
-        holder.itemName.setText((mClubNames.get(position)));
+            holder.clubImage.setImageResource(R.drawable.ic_launcher_foreground);
+            holder.clubName.setText((mClubs.get(position).getClubName()));
+        }
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                #TODO: create intent to bring it to the itemView
-                Toast.makeText(mContext, "IDENTITY THEFT IS NOT A JOKE", Toast.LENGTH_SHORT);
+                Intent intent = new Intent(mContext, ViewClubActivity.class);
+                intent.putExtra("ClubIntent", mClubs.get(position));
+                mContext.startActivity(intent);
                 Log.d(TAG, "tapped");
             }
         });
@@ -61,21 +66,20 @@ public class ClubRecyclerViewAdapter extends RecyclerView.Adapter<ClubRecyclerVi
 
     @Override
     public int getItemCount() {
-        return mClubNames.size();
+        return mClubs.size();
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView itemImage;
-        TextView itemName;
-        TextView itemDescription;
+        ImageView clubImage;
+        TextView clubName;
         SquareCardView parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemImage = itemView.findViewById(R.id.club_image);
-            itemName = itemView.findViewById(R.id.club_name);
+            clubImage = itemView.findViewById(R.id.club_image);
+            clubName = itemView.findViewById(R.id.club_name);
             parentLayout = itemView.findViewById(R.id.club_view_parent);
 
 

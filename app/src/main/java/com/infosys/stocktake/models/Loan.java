@@ -12,12 +12,16 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
 public class Loan {
 
     private static final String TAG="Loan Operations";
+    // CONSTANTS
+    public static final String LOAN_COLLECTION = "loans";
+    public static final String ITEM_ID = "itemID";
 
     private String itemID;
     private int quantity;
@@ -32,7 +36,7 @@ public class Loan {
     private String loanID;
 
 
-    private final String clubID;
+    private String clubID;
 
     Loan queryLoan;
     Club loanerClub;
@@ -42,17 +46,18 @@ public class Loan {
 
 
 
+    public Loan(){}
 
-    public Loan(String itemID, int quantity, String clubID, String loaneeID, Date dueDate){
-        this.itemID = itemID;
+    public Loan(String loanID, String itemID, int quantity , String clubID, String loaneeID, Date dueDate){
+        this.loanID = loanID;
         this.quantity = quantity;
+        this.itemID = itemID;
         this.clubID = clubID;
         this.loaneeID = loaneeID;
         this.loanDate = new Date();
         this.dueDate = dueDate;
         this.returned = false;
     }
-//        loanID = clubID+"-"+loanerClub.getLoanCounter();
 
     public String getItemID() {
         return itemID;
