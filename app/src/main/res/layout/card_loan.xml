@@ -43,6 +43,20 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/loanIDText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:fontFamily="sans-serif-light"
+                android:maxWidth="280dp"
+                android:paddingBottom="10dp"
+                android:text="Loan ID: some ID"
+                android:textColor="#000"
+                android:textSize="15dp"
+                app:layout_constraintLeft_toRightOf="@+id/loanImage"
+                app:layout_constraintTop_toBottomOf="@+id/loanItemName" />
+
+            <TextView
                 android:id="@+id/loanQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,7 +68,7 @@
                 android:textColor="#000"
                 android:textSize="15dp"
                 app:layout_constraintLeft_toRightOf="@+id/loanImage"
-                app:layout_constraintTop_toBottomOf="@+id/loanItemName" />
+                app:layout_constraintTop_toBottomOf="@+id/loanIDText" />
 
             <TextView
                 android:id="@+id/loanDate"

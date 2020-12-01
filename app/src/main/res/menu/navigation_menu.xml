@@ -20,4 +20,7 @@
     <item
         android:id="@+id/nav_loans"
         android:title="Loans" />
+    <item
+        android:id="@+id/nav_personal_loans"
+        android:title="Personal Loans" />
 </menu>
