@@ -13,10 +13,16 @@ import android.nfc.tech.MifareUltralight;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.infosys.stocktake.R;
+import com.infosys.stocktake.firebase.StockTakeFirebase;
+import com.infosys.stocktake.loans.AddLoanActivity;
+import com.infosys.stocktake.loans.LoanDetailsActivity;
+import com.infosys.stocktake.models.Loan;
 import com.infosys.stocktake.nfc.parser.NdefMessageParser;
 import com.infosys.stocktake.nfc.record.ParsedNdefRecord;
 
@@ -43,6 +49,19 @@ public class NfcReaderActivity extends AppCompatActivity {
         pendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, this.getClass())
                         .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+
+        // Accept intent to check which screen it came from: ProfileSetup or AddLoan
+        String source = getIntent().getStringExtra("source");
+
+        if (source.equals("profile")) {
+            // Do profile things
+        } else if (source.equals("loan")) {
+            // Do add loan things
+            // Accept loan object and add the nfcTag
+            resolveLoanIntent();
+        } else {
+            // Shouldn't be opened
+        }
     }
 
     @Override
@@ -62,6 +81,22 @@ public class NfcReaderActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         setIntent(intent);
         resolveIntent(intent);
+    }
+
+    private void resolveLoanIntent() {
+        Loan loan = (Loan) getIntent().getSerializableExtra("LoanIntent");
+        StockTakeFirebase<Loan> loanRepo = new StockTakeFirebase<>(Loan.class, Loan.LOAN_COLLECTION);
+        loanRepo.create(loan, loan.getLoanID()).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(NfcReaderActivity.this, R.string.create_loan_success, Toast.LENGTH_SHORT).show();
+                Intent detailsIntent = new Intent(NfcReaderActivity.this, LoanDetailsActivity.class);
+//                detailsIntent.putExtra("LoanIntent", currentLoan);
+                // TODO: Change to pass Loan object instead
+                detailsIntent.putExtra(AddLoanActivity.LOAN_INTENT_KEY, loan.getLoanDate());
+                startActivity(detailsIntent);
+            }
+        });
     }
 
     private void resolveIntent(Intent intent) {
