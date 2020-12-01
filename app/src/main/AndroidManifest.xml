@@ -20,6 +20,8 @@
         <activity android:name=".inventory.items.AddItemActivity" />
         <activity android:name=".inventory.clubs.ViewClubActivity" />
         <activity android:name=".qr.QrOptionsActivity"></activity>
+        <activity android:name=".loans.AddLoanActivity"/>
+        <activity android:name=".loans.LoanDetailsActivity"/>
         <activity android:name=".auth.GoogleLoginActivity">
 
             <!-- <intent-filter> -->
