@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -104,10 +105,17 @@ public class StockTakeFirebase<TEntity> {
     public Task<Void> create(TEntity entity, String uuid){
         final String uuidString = uuid;
         DocumentReference docRef = collectionRef.document(uuidString);
-        return docRef.set(entity).addOnFailureListener(new OnFailureListener() {
+        return docRef.set(entity)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "SUCCESS in create method");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.w(TAG,"Error in creating document: "+uuidString);
+                Log.d(TAG,"Error in creating document: "+uuidString);
             }
         });
     }

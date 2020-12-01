@@ -12,6 +12,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
@@ -32,7 +33,7 @@ public class Loan {
     private String loanID;
 
 
-    private final String clubID;
+    private String clubID;
 
     Loan queryLoan;
     Club loanerClub;
@@ -42,6 +43,7 @@ public class Loan {
 
 
 
+    public Loan(){}
 
     public Loan(String loanID, String itemID, int quantity , String clubID, String loaneeID, Date dueDate){
         this.loanID = loanID;

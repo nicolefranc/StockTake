@@ -19,4 +19,8 @@
         android:name="com.infosys.stocktake.inventory.InventoryActivity"
         android:label="activity_inventory"
         tools:layout="@layout/activity_inventory" />
+    <activity
+        android:id="@+id/nav_loans"
+        android:name="com.infosys.stocktake.loans.AddLoanActivity"
+        android:label="AddLoanActivity" />
 </navigation>

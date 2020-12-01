@@ -27,6 +27,7 @@ import java.util.Date;
 
 public class AddLoanActivity extends AppCompatActivity {
     private final String TAG = "ADD LOAN";
+    public static final String LOAN_INTENT_KEY = "LOAN_ID_INTENT";
 
     Button loanButton;
     TextView itemNameText,itemIDText,clubIDText;
@@ -66,6 +67,7 @@ public class AddLoanActivity extends AppCompatActivity {
 
         //Set the item details to the respective fields
         stockTakeFirebaseItem.query(itemID).addOnSuccessListener(item -> {
+            //TODO set the item image
             currentItem = item;
             itemNameText.setText(currentItem.getItemName());
             itemIDText.setText(currentItem.getItemID());
@@ -83,12 +85,17 @@ public class AddLoanActivity extends AppCompatActivity {
                         String loanID = club.getClubID()+"-"+club.getLoanCounter();
                         int loanQuantity = Integer.parseInt(quantityEdit.getText().toString());
                         currentLoan = new Loan(loanID,currentItem.getItemID(),loanQuantity,club.getClubID(), currentUser.getUid(),new Date());
+                        club.increaseLoanCounter();
+                        updateLoanCounter(club);
                         //Firebase create a new Loan object
                         stockTakeFirebaseLoan.create(currentLoan,loanID).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(AddLoanActivity.this, R.string.create_loan_success, Toast.LENGTH_SHORT).show();
                                 Log.d(TAG,AddLoanActivity.this.getResources().getString(R.string.create_loan_success));
+                                Intent detailsIntent = new Intent(AddLoanActivity.this, LoanDetailsActivity.class);
+                                detailsIntent.putExtra(LOAN_INTENT_KEY,loanID);
+                                startActivity(detailsIntent);
                             }
                         });
                     }
@@ -97,5 +104,14 @@ public class AddLoanActivity extends AppCompatActivity {
         });
 
 
+    }
+    private void updateLoanCounter(Club club){
+        StockTakeFirebase<Club> stockTakeFirebaseClub = new StockTakeFirebase<>(Club.class,"clubs");
+        stockTakeFirebaseClub.update(club,club.getClubID()).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG,"Successfully added loan counter of club: "+club.getClubID() + "Current counter: "+club.getLoanCounter());
+            }
+        });
     }
 }

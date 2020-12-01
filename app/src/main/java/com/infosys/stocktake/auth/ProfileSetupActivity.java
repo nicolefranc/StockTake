@@ -37,7 +37,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileSetupActivity extends AppCompatActivity {
-    final String TAG = ProfileSetupActivity.class.getSimpleName();
+//    final String TAG = ProfileSetupActivity.class.getSimpleName();
+    final String TAG = "User";
     Button profileSetupButton;
     TextInputEditText studentIdField, teleHandleField;
     Spinner clubSpinner;
@@ -65,6 +66,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
                 String telegramHandle = teleHandleField.getText().toString().trim();
                 String clubChoice =  clubSpinner.getSelectedItem().toString();
                 final String documentId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                Log.d(TAG,documentId);
 
                 if (!TextUtils.isEmpty(studentId) && !TextUtils.isEmpty(telegramHandle) && signInAccount != null) {
                     User newUser = new User( Integer.parseInt(studentId) , telegramHandle , signInAccount);
@@ -73,7 +75,18 @@ public class ProfileSetupActivity extends AppCompatActivity {
                     if (clubChoice.equals("Not a Club Exco")) {
                         newUser.setClubMembership( NOT_EXCO_ID, Membership.MEMBER );
                         StockTakeFirebase<User> stockTakeFirebase = new StockTakeFirebase<>(User.class, "users");
-                        stockTakeFirebase.create( newUser , documentId);
+                        Task<Void> userTask = stockTakeFirebase.create( newUser , documentId);
+                        userTask.addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "Successful create");
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG, "Failed to create");
+                            }
+                        });
 //                        newUser.createUser();
                         Intent intent = new Intent(getApplicationContext(), Profile.class);
                         startActivity(intent);
@@ -87,17 +100,17 @@ public class ProfileSetupActivity extends AppCompatActivity {
                     }
 
                 }
-            }
-        });
-
-
-
+            }});
         }
 
         private void setClubIdFromName (final String clubName, final User user) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            final String documentId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            final GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
 
+//            final String documentId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            assert signInAccount != null;
+            final String documentId = signInAccount.getId();
             db.collection("clubs")
                     .whereEqualTo("clubName", clubName)
                     .get()
@@ -106,15 +119,27 @@ public class ProfileSetupActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
                                 for (DocumentSnapshot document : task.getResult()) {
+                                    Log.d("YEEEEEEEET",document.toString());
                                     String clubId = document.get("clubID").toString();
                                     Log.d(TAG, clubId);
                                     user.setClubMembership(clubId, Membership.ADMIN);
                                     StockTakeFirebase<User> stockTakeFirebase = new StockTakeFirebase<>(User.class, "users");
-                                    stockTakeFirebase.create( user , documentId);
+                                    stockTakeFirebase.create( user , documentId).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG,"successfully succeed");
+                                            Intent intent = new Intent(getApplicationContext(), Profile.class);
+                                            startActivity(intent);
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d(TAG,"Fail to fail");
+                                            e.printStackTrace();
+                                        }
+                                    });
 
 //                                    user.createUser();
-                                    Intent intent = new Intent(getApplicationContext(), Profile.class);
-                                    startActivity(intent);
 
                                 }
                             } else {

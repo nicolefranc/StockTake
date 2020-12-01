@@ -17,34 +17,36 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class User {
-    private String TAG="USER DB";
+//    private  String TAG="USER DB";
     private String uuid;
     private String nfcTag;
     private String fullName;
     private int studentID;
     private String telegramHandle;
     private HashMap<String,Membership> clubMembership;
-    private String[] itemsBorrowed;
-    User queryUser;
-    FirebaseFirestore db;
-    CollectionReference users;
+//    private String[] itemsBorrowed;
+//    User queryUser;
+//    FirebaseFirestore db;
+//    CollectionReference users;
 
     public User(){}
     public User(int studentID,
                 String telegramHandle,
                 GoogleSignInAccount signInAccount){
+        Log.d("User", "User being instantiated");
         FirebaseAuth fbAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = fbAuth.getCurrentUser();
-
+        this.nfcTag = null;
         this.studentID = studentID;
         this.fullName = signInAccount.getDisplayName();
         this.telegramHandle = telegramHandle;
         this.clubMembership = new HashMap<>();
+        clubMembership.put("0q38hnjpiou4", Membership.ADMIN);
         if(currentUser != null){
             this.uuid = currentUser.getUid();
         }
         else{
-            Log.e(TAG,"USER GOOGLE ACCOUNT NOT AUTHENTICATED");
+            Log.e("USER DB","USER GOOGLE ACCOUNT NOT AUTHENTICATED");
         }
     }
 
@@ -92,9 +94,9 @@ public class User {
         return clubMembership;
     }
 
-    public String[] getItemsBorrowed() {
-        return itemsBorrowed;
-    }
+//    public String[] getItemsBorrowed() {
+//        return itemsBorrowed;
+//    }
 
 
 

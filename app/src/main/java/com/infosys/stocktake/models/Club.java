@@ -23,11 +23,12 @@ public class Club {
     public Club(String clubID, String clubName){
         this.clubID = clubID;
         this.clubName = clubName;
-        loanCounter = 0;
     }
 
     public int getLoanCounter(){ return loanCounter;}
-    public void increaseLoanCounter(){loanCounter+=1;}
+    public void increaseLoanCounter(){
+        this.loanCounter+=1;
+    }
     public String getClubID() {
         return clubID;
     }

@@ -17,4 +17,7 @@
     <item
         android:id="@+id/nav_inventory"
         android:title="Inventory"/>
+    <item
+        android:id="@+id/nav_loans"
+        android:title="Loans" />
 </menu>

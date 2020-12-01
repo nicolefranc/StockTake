@@ -22,6 +22,8 @@
         <activity android:name=".auth.ProfileSetupActivity"></activity>
         <activity android:name=".inventory.ItemDetailsActivity"></activity>
         <activity android:name=".inventory.AddItemActivity" />
+        <activity android:name=".loans.AddLoanActivity"/>
+        <activity android:name=".loans.LoanDetailsActivity"/>
         <activity android:name=".auth.GoogleLoginActivity">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
