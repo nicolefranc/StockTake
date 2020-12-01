@@ -41,12 +41,12 @@ public class ItemDetailsActivity extends AppCompatActivity {
         ivQrCode = findViewById(R.id.ivQrCode);
 
         Log.d(TAG, "Retrieving items...");
-        // Populate components with Item data from passed Intent
-        TextView tv = new TextView(this); //changes are here -felia
-        tv.setText(item.getItemDescription());
 
 
         item = (Item) getIntent().getSerializableExtra("ItemIntent");
+        // Populate components with Item data from passed Intent
+        TextView tv = new TextView(this); //changes are here -felia
+        tv.setText(item.getItemDescription());
         tvItemName.setText(item.getItemName());
         Log.d(TAG, item.getItemName());
         tvQtyAvailable.setText(item.getQtyStatus().get(ItemStatus.AVAILABLE.toString()).toString());
