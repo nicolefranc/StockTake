@@ -57,6 +57,17 @@ public class ItemDetailsActivity extends AppCompatActivity {
         // Display QR code based on encoded QR string
         QrCode qr = new QrCode(QR_HEIGHT, QR_WIDTH);
         Bitmap bitmap = qr.stringToBitmap(item.getEncodedQr());
-        ivQrCode.setImageBitmap(bitmap);
+//        ivQrCode.setImageBitmap(bitmap);
+
+        btnViewQrImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("btnViewQrImage", "clicked");
+                Intent intent = new Intent(getApplicationContext(), ViewQrActivity.class);
+                intent.putExtra("QRBitMap", bitmap);
+                intent.putExtra("ItemName", item.getItemName());
+                startActivity(intent);
+            }
+        });
     }
 }
