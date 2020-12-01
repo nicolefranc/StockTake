@@ -1,145 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/gray_light"
     tools:context=".Profile">
-
     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relative_reg"
+        android:background="@drawable/white_rectangle">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/stock_take"
+            android:layout_marginLeft="10dp">
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="60dp"
+                android:text="@string/app_name"
+                android:textSize="@dimen/text_title"
+                android:textColor="@color/black"
+                android:fontFamily="sans-serif"
+                android:font="@font/orienta"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@id/relative_reg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
+        <RelativeLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:orientation="horizontal"
+            <TableLayout
+                android:id="@+id/profileName"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/components_lg_margin">
+                android:layout_height="wrap_content"
+                android:stretchColumns="0,1">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="25dp"
-                    android:text="Name:"/>
-
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="25dp"
-                    android:text=""/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_marginVertical="@dimen/components_xs_margin">
-        <TextView
-            android:id="@+id/studentID"
-            android:layout_width="match_parent"
-            android:layout_height="43dp"
-            android:layout_below="@+id/name"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
-            android:text="Student Id:"
-            android:textColor="@color/gray"
-            android:textSize="25dp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="25dp"
-                    android:text="Role:"/>
-        <TextView
-            android:id="@+id/profileClubName"
-            android:layout_width="match_parent"
-            android:layout_height="43dp"
-            android:layout_below="@+id/telegramhandle"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="24dp"
-            android:text="Club Name:"
-            android:textColor="@color/gray"
-            android:textSize="25dp" />
-
-                <TextView
-                    android:id="@+id/profileMembershipInfo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="25dp"
-                    android:text=""/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_marginVertical="@dimen/components_xs_margin">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
-                    android:text="Telegram:"
-                    android:textSize="25dp" />
-
-                <TextView
-                    android:id="@+id/telegramhandle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:autoSizeTextType="uniform"
-                    android:text=""/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_marginVertical="@dimen/components_lg_margin">
-
-                <Button
-                    android:id="@+id/logoutButton"
+                <TableRow
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Logout"
-                    android:textColor="@color/white"
-                    android:font="@font/orienta"
-                    android:background="@drawable/rounded_rectangle"
-                    />
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/components_lg_margin">
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="25dp"
+                        android:text="Name:"/>
 
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="25dp"
+                        android:text="Name"/>
+                </TableRow>
 
-        </LinearLayout>
-    </LinearLayout>
+            </TableLayout>
+
+            <TableLayout
+                android:id="@+id/profileID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profileName"
+                android:stretchColumns="0,1">
+
+                <TableRow
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/components_lg_margin">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="25dp"
+                        android:text="Student ID:"/>
+
+                    <TextView
+                        android:id="@+id/studentID"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="25dp"
+                        android:text="Student ID"/>
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+                android:id="@+id/profileRole"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profileID"
+                android:stretchColumns="0,1">
+
+                <TableRow
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/components_lg_margin">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="25dp"
+                        android:text="Role:"/>
+
+                    <TextView
+                        android:id="@+id/role"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="25dp"
+                        android:text="Role"/>
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+                android:id="@+id/profileClubName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profileRole"
+                android:stretchColumns="0,1">
+
+                <TableRow
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/components_lg_margin">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="25dp"
+                        android:text="Club Name:"/>
+
+                    <TextView
+                        android:id="@+id/profileMembershipInfo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="25dp"
+                        android:text="Club Name"/>
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+                android:id="@+id/profileTelegram"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profileClubName"
+                android:stretchColumns="0,1">
+
+                <TableRow
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/components_lg_margin">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="25dp"
+                        android:text="Telegram:"/>
+
+                    <TextView
+                        android:id="@+id/telegramhandle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="25dp"
+                        android:text="Telegram"/>
+                </TableRow>
+
+            </TableLayout>
+
+            <Button
+                android:id="@+id/logoutButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profileTelegram"
+                android:layout_marginTop="@dimen/components_lg_margin"
+                android:text="Logout"
+                android:textSize="20dp"
+                android:textColor="@color/white"
+                android:font="@font/orienta"
+                android:background="@drawable/rounded_rectangle"
+                />
+
+            </RelativeLayout>
+        </RelativeLayout>
     </RelativeLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
