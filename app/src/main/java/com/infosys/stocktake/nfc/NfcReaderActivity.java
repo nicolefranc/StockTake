@@ -28,6 +28,8 @@ import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.inventory.InventoryActivity;
 import com.infosys.stocktake.loans.AddLoanActivity;
 import com.infosys.stocktake.loans.LoanDetailsActivity;
+import com.infosys.stocktake.models.Item;
+import com.infosys.stocktake.models.ItemStatus;
 import com.infosys.stocktake.models.Loan;
 import com.infosys.stocktake.models.User;
 import com.infosys.stocktake.nfc.parser.NdefMessageParser;
@@ -40,6 +42,7 @@ import java.util.Objects;
 public class NfcReaderActivity extends AppCompatActivity {
     public static final String TAG = "NFC";
     public static final String ACTIVITY_NAME="nfcReader";
+    private static final StockTakeFirebase<Item> itemRepo = new StockTakeFirebase<>(Item.class, "items");
     private TextView text;
     private NfcAdapter nfcAdapter;
     private PendingIntent pendingIntent;
@@ -138,11 +141,26 @@ public class NfcReaderActivity extends AppCompatActivity {
                                 Toast.makeText(NfcReaderActivity.this, R.string.create_loan_success, Toast.LENGTH_SHORT).show();
                                 Intent detailsIntent = new Intent(NfcReaderActivity.this, LoanDetailsActivity.class);
 //                detailsIntent.putExtra("LoanIntent", currentLoan);
-                                // TODO: Change to pass Loan object instead
                                 Log.d(TAG,"PASSING LOAN ID: "+loan.getLoanID());
-                                detailsIntent.putExtra(AddLoanActivity.LOAN_INTENT_KEY, loan);
-                                detailsIntent.putExtra(LoanDetailsActivity.PREVIOUS_ACTIVITY_KEY,ACTIVITY_NAME);
-                                startActivity(detailsIntent);
+                                itemRepo.query(loan.getItemID()).addOnSuccessListener(new OnSuccessListener<Item>() {
+                                    @Override
+                                    public void onSuccess(Item item) {
+                                        int qtyAvailable = item.getQtyStatus().get(ItemStatus.AVAILABLE.toString());
+                                        qtyAvailable-=loan.getQuantity();
+                                        item.setQtyStatus(ItemStatus.AVAILABLE.toString(),qtyAvailable);
+                                        Log.d(TAG,"Reducing item quantity to "+ qtyAvailable);
+                                        itemRepo.update(item,item.getItemID()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d(TAG,"Successfully reduced item quantity!");
+                                                Toast.makeText(NfcReaderActivity.this, "Successfully loaned out item", Toast.LENGTH_SHORT).show();
+                                                detailsIntent.putExtra(AddLoanActivity.LOAN_INTENT_KEY, loan);
+                                                detailsIntent.putExtra(LoanDetailsActivity.PREVIOUS_ACTIVITY_KEY,ACTIVITY_NAME);
+                                                startActivity(detailsIntent);
+                                            }
+                                        });
+                                    }
+                                });
                             }
                         });
                     }

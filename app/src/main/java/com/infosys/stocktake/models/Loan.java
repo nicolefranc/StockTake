@@ -97,6 +97,7 @@ public class Loan implements Serializable{
 
     public void setReturnDate(Date returnDate) {
         this.returnDate = returnDate;
+        this.returned = true;
     }
 
     public void setLoaneeID(String loaneeID) {

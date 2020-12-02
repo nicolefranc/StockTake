@@ -95,6 +95,8 @@ public class Item implements Serializable {
         return qtyStatus;
     }
 
+    public void setQtyStatus(String status, int quantity) {this.qtyStatus.put(status,quantity);}
+
     public String getLoaneeID() {
         return loaneeID;
     }

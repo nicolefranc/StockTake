@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,12 +22,17 @@ import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.inventory.InventoryActivity;
 import com.infosys.stocktake.inventory.itemloanhistory.LoanRecyclerViewAdapter;
 import com.infosys.stocktake.models.Item;
+import com.infosys.stocktake.models.ItemStatus;
 import com.infosys.stocktake.models.Loan;
 import com.squareup.picasso.Picasso;
+
+import java.util.Date;
 
 public class LoanDetailsActivity extends AppCompatActivity {
     public static final String TAG = "Loan Details Activity";
     public static final String PREVIOUS_ACTIVITY_KEY = "prev_act_key";
+    final StockTakeFirebase<Loan> stockTakeFirebaseLoan = new StockTakeFirebase<>(Loan.class,"loans");
+    final StockTakeFirebase<Item> stockTakeFirebaseItem = new StockTakeFirebase<>(Item.class, "items");
     TextView loanIDText,loanItemNameText,quantityText;
     ImageView loanDetailsImage;
     Button returnButton, homeButton;
@@ -43,8 +49,6 @@ public class LoanDetailsActivity extends AppCompatActivity {
         returnButton = findViewById(R.id.returnButton);
         loanDetailsImage = findViewById(R.id.loanDetailsImage);
 
-        final StockTakeFirebase<Loan> stockTakeFirebaseLoan = new StockTakeFirebase<>(Loan.class,"loans");
-        final StockTakeFirebase<Item> stockTakeFirebaseItem = new StockTakeFirebase<>(Item.class, "items");
 
         //Get the intent from the previous state
         Intent loanDetailsIntent = getIntent();
@@ -58,7 +62,12 @@ public class LoanDetailsActivity extends AppCompatActivity {
         loanIDText.setText(loanID);
 
         quantityText.setText(String.valueOf(currentLoan.getQuantity()));
-
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                returnLoan(loanID);
+            }
+        });
         String itemID = currentLoan.getItemID();
         stockTakeFirebaseItem.query(itemID).addOnSuccessListener(new OnSuccessListener<Item>() {
             @Override
@@ -80,6 +89,39 @@ public class LoanDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent homeIntent = new Intent(LoanDetailsActivity.this, InventoryActivity.class);
                 startActivity(homeIntent);
+            }
+        });
+    }
+    private void returnLoan(String loanID){
+        stockTakeFirebaseLoan.query(loanID).addOnSuccessListener(new OnSuccessListener<Loan>() {
+            @Override
+            public void onSuccess(Loan loan) {
+                loan.setReturnDate(new Date());
+                stockTakeFirebaseLoan.update(loan,loan.getLoanID()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG,"Successfully updated the loan");
+                        stockTakeFirebaseItem.query(loan.getItemID()).addOnSuccessListener(new OnSuccessListener<Item>() {
+                            @Override
+                            public void onSuccess(Item item) {
+                                Log.d(TAG,"Successfully fetched the item details");
+                                int qtyAvailable = item.getQtyStatus().get(ItemStatus.AVAILABLE.toString());
+                                qtyAvailable+=loan.getQuantity();
+                                Log.d(TAG,"Changing qty to "+qtyAvailable);
+                                item.setQtyStatus(ItemStatus.AVAILABLE.toString(),qtyAvailable);
+                                stockTakeFirebaseItem.update(item,item.getItemID()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG,"Successfully added the quantity back to the club");
+                                        Toast.makeText(LoanDetailsActivity.this, "Item successfully returned", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(LoanDetailsActivity.this,InventoryActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
             }
         });
     }
