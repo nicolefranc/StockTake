@@ -44,38 +44,27 @@ public class LoanDetailsActivity extends AppCompatActivity {
 
         //Get the intent from the previous state
         Intent loanDetailsIntent = getIntent();
-        String loanID = loanDetailsIntent.getStringExtra(AddLoanActivity.LOAN_INTENT_KEY);
+        Loan currentLoan = (Loan) loanDetailsIntent.getSerializableExtra(AddLoanActivity.LOAN_INTENT_KEY);
+        String loanID = currentLoan.getLoanID();
         loanIDText.setText(loanID);
 
-        //Set the loan data, including the image
-        stockTakeFirebaseLoan.query(loanID).addOnSuccessListener(new OnSuccessListener<Loan>() {
-            @Override
-            public void onSuccess(Loan loan) {
-                quantityText.setText(String.valueOf(loan.getQuantity()));
+        quantityText.setText(String.valueOf(currentLoan.getQuantity()));
 
-                String itemID = loan.getItemID();
-                stockTakeFirebaseItem.query(itemID).addOnSuccessListener(new OnSuccessListener<Item>() {
-                    @Override
-                    public void onSuccess(Item item) {
-                        loanItemNameText.setText(item.getItemName());
-                        Log.d(TAG, "Item " + item.getItemID() + " has been successfully fetched");
-                        Uri imageUri = Uri.parse(item.getItemPicture());
-                        Picasso.get().load(imageUri)
-                                .fit().centerCrop().into(loanDetailsImage);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Item fails to be fetched");
-                    }
-                });
+        String itemID = currentLoan.getItemID();
+        stockTakeFirebaseItem.query(itemID).addOnSuccessListener(new OnSuccessListener<Item>() {
+            @Override
+            public void onSuccess(Item item) {
+                loanItemNameText.setText(item.getItemName());
+                Log.d(TAG, "Item " + item.getItemID() + " has been successfully fetched");
+                Uri imageUri = Uri.parse(item.getItemPicture());
+                Picasso.get().load(imageUri)
+                        .fit().centerCrop().into(loanDetailsImage);
             }
         }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.w(TAG,"ERROR IN FETCHING ITEM");
-                    e.printStackTrace();
-                }
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Item fails to be fetched");
+            }
         });
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override

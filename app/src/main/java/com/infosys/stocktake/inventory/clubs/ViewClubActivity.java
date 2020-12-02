@@ -34,6 +34,7 @@ public class ViewClubActivity extends AppCompatActivity {
     private ArrayList<String> mImages= new ArrayList<>();
     private ArrayList<Item> mItems = new ArrayList<>();
     private Item item;
+    private boolean isAdmin = false;
     StockTakeFirebase<Item> itemStockTakeFirebase;
     private static final String TAG = "ViewClub: ";
     TextView clubName;
@@ -78,7 +79,7 @@ public class ViewClubActivity extends AppCompatActivity {
     private void initRecyclerView(){
         Log.d(TAG,"Initializing recycler view...");
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        ItemRecyclerViewAdapter recyclerAdapter = new ItemRecyclerViewAdapter(mItems, this);
+        ItemRecyclerViewAdapter recyclerAdapter = new ItemRecyclerViewAdapter(mItems, isAdmin, this);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

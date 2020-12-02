@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.infosys.stocktake.MainActivity;
 import com.infosys.stocktake.Profile;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
@@ -106,7 +107,7 @@ public class NfcReaderActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG,"successfully succeed");
-                Intent intent = new Intent(getApplicationContext(), Profile.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -136,7 +137,8 @@ public class NfcReaderActivity extends AppCompatActivity {
                                 Intent detailsIntent = new Intent(NfcReaderActivity.this, LoanDetailsActivity.class);
 //                detailsIntent.putExtra("LoanIntent", currentLoan);
                                 // TODO: Change to pass Loan object instead
-                                detailsIntent.putExtra(AddLoanActivity.LOAN_INTENT_KEY, loan.getLoanDate());
+                                Log.d(TAG,"PASSING LOAN ID: "+loan.getLoanID());
+                                detailsIntent.putExtra(AddLoanActivity.LOAN_INTENT_KEY, loan.getLoanID());
                                 startActivity(detailsIntent);
                             }
                         });

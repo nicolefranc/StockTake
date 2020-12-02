@@ -324,6 +324,32 @@
         </LinearLayout>
 
 
+        <TextView
+            android:id="@+id/tvItemDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="The description of the item here"
+            android:singleLine="false"
+            android:paddingBottom="6dp"/>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contact the following admins to loan: "/>
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="telegram handle"
+                android:id="@+id/telegramhandle"/>
+            
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

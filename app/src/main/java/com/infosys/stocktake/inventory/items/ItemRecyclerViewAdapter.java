@@ -26,10 +26,13 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     private Context mContext;
     private ArrayList<Item> mItems;
     private Boolean isEmpty;
+    private boolean isAdmin;
 
-    public ItemRecyclerViewAdapter(ArrayList<Item> items, Context context){
+    public ItemRecyclerViewAdapter(ArrayList<Item> items, boolean Admin, Context context){
         mContext = context;
         mItems = items;
+        isAdmin = Admin;
+
         Log.d(TAG, "recycler adapter initiated");
     }
 
@@ -69,6 +72,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, ItemDetailsActivity.class);
                     intent.putExtra("ItemIntent", mItems.get(position));
+                    intent.putExtra("isAdmin", isAdmin);
                     mContext.startActivity(intent);
                     Log.d(TAG, "tapped");
                 }

@@ -44,9 +44,9 @@ public class InventoryFragment extends Fragment {
     private ArrayList<Item> mItems = new ArrayList<>();
     private static final String TAG = "Inventory Fragment: ";
     private User currentUser;
-//    private ArrayList<String> clubs;
     private String currentClub;
     private FloatingActionButton fab_add_item;
+    private boolean isAdmin = true;
 
     @Override
     public View onCreateView(
@@ -78,9 +78,7 @@ public class InventoryFragment extends Fragment {
     }
 
     public void onActivityCreated(Bundle savedInstanceState) {
-//        currentUser = new User();
         super.onActivityCreated(savedInstanceState);
-//        getClub();
         populateItems();
         initRecyclerView();
     }
@@ -114,7 +112,7 @@ public class InventoryFragment extends Fragment {
     private void initRecyclerView(){
         Log.d(TAG,"Initializing recycler view...");
         RecyclerView recyclerView = getView().findViewById(R.id.recyclerView);
-        ItemRecyclerViewAdapter recyclerAdapter = new ItemRecyclerViewAdapter(mItems, getActivity());
+        ItemRecyclerViewAdapter recyclerAdapter = new ItemRecyclerViewAdapter(mItems, isAdmin, getActivity());
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));

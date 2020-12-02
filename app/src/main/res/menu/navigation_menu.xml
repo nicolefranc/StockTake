@@ -11,6 +11,9 @@
 
 
     <item
+        android:id="@+id/nav_personal_loans"
+        android:title="Personal Loans" />
+    <item
         android:id="@+id/nav_qr"
         android:title="QR Scanner"
         android:iconTint="@color/black"

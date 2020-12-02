@@ -26,10 +26,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 //import info.androidhive.viewpager2.databinding.ActivityFragmentViewPagerBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.infosys.stocktake.MainActivity;
 import com.infosys.stocktake.Profile;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.inventory.items.AddItemActivity;
+import com.infosys.stocktake.inventory.items.ItemDetailsActivity;
 import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Membership;
 import com.infosys.stocktake.models.User;
@@ -54,6 +56,7 @@ public class InventoryActivity extends AppCompatActivity implements NavigationVi
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.inventory_base);
         getCurrentUser();
 
         setContentView(R.layout.inventory_base);
