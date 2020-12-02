@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.NFC" />
+
+    <uses-feature android:name="android.hardware.nfc" />
 
     <application
         android:allowBackup="true"
@@ -29,10 +32,7 @@
         <!--        Profile Activities-->
         <activity android:name=".Profile"></activity>
         <activity android:name=".auth.ProfileSetupActivity"></activity>
-        <activity android:name=".inventory.ItemDetailsActivity"></activity>
-        <activity android:name=".inventory.AddItemActivity" />
-        <activity android:name=".loans.AddLoanActivity"/>
-        <activity android:name=".loans.LoanDetailsActivity"/>
+        <activity android:name=".nfc.NfcReaderActivity"></activity>
         <activity android:name=".loans.PersonalLoanHistoryActivity"/>
         <activity android:name=".inventory.clubs.ViewClubActivity" />
 

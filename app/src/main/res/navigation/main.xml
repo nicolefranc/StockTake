@@ -25,6 +25,11 @@
         android:label="activity_qr_scanner"
         tools:layout="@layout/activity_qr_scanner" />
     <activity
+        android:id="@+id/nav_nfc"
+        android:name="com.infosys.stocktake.nfc.NfcReaderActivity"
+        android:label="activity_nfc_reader"
+        tools:layout="@layout/activity_nfc_reader" />
+    <activity
         android:id="@+id/nav_loans"
         android:name="com.infosys.stocktake.loans.AddLoanActivity"
         android:label="AddLoanActivity" />
