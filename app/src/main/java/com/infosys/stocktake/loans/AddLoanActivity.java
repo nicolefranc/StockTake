@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,8 @@ import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.Loan;
+import com.infosys.stocktake.nfc.NfcReaderActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 
@@ -32,6 +35,7 @@ public class AddLoanActivity extends AppCompatActivity {
     Button loanButton;
     TextView itemNameText,itemIDText,clubIDText;
     EditText quantityEdit;
+    ImageView ivItemPicture;
     String itemID;
     Loan currentLoan;
     Item currentItem;
@@ -47,6 +51,7 @@ public class AddLoanActivity extends AppCompatActivity {
         itemIDText = findViewById(R.id.itemIDText);
         clubIDText = findViewById(R.id.clubIDText);
         quantityEdit = findViewById(R.id.quantityEdit);
+        ivItemPicture = findViewById(R.id.ivItemPicture);
 
         //Firebase Operations
         final StockTakeFirebase<Item> stockTakeFirebaseItem = new StockTakeFirebase<>(Item.class,"items");
@@ -62,17 +67,21 @@ public class AddLoanActivity extends AppCompatActivity {
         //Intent itemIntent = getIntent();
 
         //Hardcoding item details
-        itemID = "748379437-6282858f";
+//        itemID = "748379437-6282858f";
+        // Get Item Intent from scanning qr (QrOptionsActivity)
+        currentItem = (Item) getIntent().getSerializableExtra("ItemIntent");
 
 
         //Set the item details to the respective fields
-        stockTakeFirebaseItem.query(itemID).addOnSuccessListener(item -> {
-            //TODO set the item image
-            currentItem = item;
+//        stockTakeFirebaseItem.query(itemID).addOnSuccessListener(item -> {
+//            TODO set the item image
+        Picasso.get().load(currentItem.getItemPicture())
+                .fit().centerCrop().into(ivItemPicture);
+//            currentItem = item;
             itemNameText.setText(currentItem.getItemName());
             itemIDText.setText(currentItem.getItemID());
             clubIDText.setText(currentItem.getClubID());
-        });
+//        });
         //Add OnClickListener to the loan button
         loanButton.setOnClickListener(v -> {
             if(quantityEdit.getText().toString().equals("")){
@@ -87,17 +96,27 @@ public class AddLoanActivity extends AppCompatActivity {
                         currentLoan = new Loan(loanID,currentItem.getItemID(),loanQuantity,club.getClubID(), currentUser.getUid(),new Date());
                         club.increaseLoanCounter();
                         updateLoanCounter(club);
+
+                        // Proceed to read NFC
+                        Intent detailsIntent = new Intent(AddLoanActivity.this, NfcReaderActivity.class);
+                        detailsIntent.putExtra("LoanIntent", currentLoan);
+                        detailsIntent.putExtra("source", "loan");
+                        startActivity(detailsIntent);
+
                         //Firebase create a new Loan object
-                        stockTakeFirebaseLoan.create(currentLoan,loanID).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(AddLoanActivity.this, R.string.create_loan_success, Toast.LENGTH_SHORT).show();
-                                Log.d(TAG,AddLoanActivity.this.getResources().getString(R.string.create_loan_success));
-                                Intent detailsIntent = new Intent(AddLoanActivity.this, LoanDetailsActivity.class);
-                                detailsIntent.putExtra(LOAN_INTENT_KEY,loanID);
-                                startActivity(detailsIntent);
-                            }
-                        });
+//                        stockTakeFirebaseLoan.create(currentLoan,loanID).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                Toast.makeText(AddLoanActivity.this, R.string.create_loan_success, Toast.LENGTH_SHORT).show();
+//                                Log.d(TAG,AddLoanActivity.this.getResources().getString(R.string.create_loan_success));
+////                                Intent detailsIntent = new Intent(AddLoanActivity.this, LoanDetailsActivity.class);
+//                                Intent detailsIntent = new Intent(AddLoanActivity.this, NfcReaderActivity.class);
+////                                detailsIntent.putExtra(LOAN_INTENT_KEY,loanID);
+//                                detailsIntent.putExtra("LoanIntent", currentLoan);
+//                                detailsIntent.putExtra("source", "loan");
+//                                startActivity(detailsIntent);
+//                            }
+//                        });
                     }
                 }).addOnFailureListener(e -> Log.e(TAG,"FAIL TO QUERY CLUB IN ADD LOAN"));
             }

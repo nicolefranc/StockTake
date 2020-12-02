@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.NFC" />
+
+    <uses-feature android:name="android.hardware.nfc" />
 
     <application
         android:allowBackup="true"
@@ -13,16 +16,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<!--        Inventory Activities-->
         <activity android:name=".inventory.InventoryActivity"/>
         <activity android:name=".Profile"></activity>
         <activity android:name=".auth.ProfileSetupActivity"></activity>
         <activity android:name=".inventory.items.ItemDetailsActivity"></activity>
         <activity android:name=".inventory.items.AddItemActivity" />
-        <activity android:name=".inventory.clubs.ViewClubActivity" />
+
+<!--        QR Activities-->
+        <activity android:name=".qr.QrScannerActivity" />
         <activity android:name=".qr.QrOptionsActivity"></activity>
+
+<!--        Loan Activities-->
+        <activity android:name=".inventory.itemloanhistory.ItemLoanHistoryActivity"/>
         <activity android:name=".loans.AddLoanActivity"/>
         <activity android:name=".loans.LoanDetailsActivity"/>
-        <activity android:name=".inventory.itemloanhistory.ItemLoanHistoryActivity"/>
+
+        <!--        Profile Activities-->
+        <activity android:name=".Profile"></activity>
+        <activity android:name=".auth.ProfileSetupActivity"></activity>
+        <activity android:name=".nfc.NfcReaderActivity"></activity>
+        <activity android:name=".inventory.clubs.ViewClubActivity" />
+
+<!--        Auth Activities-->
         <activity android:name=".auth.GoogleLoginActivity">
 
             <!-- <intent-filter> -->
@@ -31,25 +47,27 @@
 
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
-        </activity>
-        <!--
-               Set to true if your app is Standalone, that is, it does not require the handheld
-               app to run.
-        -->
-        <activity android:name=".qr.QrScannerActivity" />
-        <activity
-            android:name=".auth.LoginActivity"
-            android:label="@string/title_activity_login" />
-        <activity android:name=".MainActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <!--
+               Set to true if your app is Standalone, that is, it does not require the handheld
+               app to run.
+        -->
+        <activity
+            android:name=".auth.LoginActivity"
+            android:label="@string/title_activity_login" />
+
+<!--        Main Activity - app entry point-->
+        <activity android:name=".MainActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
         </activity>
     </application>
 

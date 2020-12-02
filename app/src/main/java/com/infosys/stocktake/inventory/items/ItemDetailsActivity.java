@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.inventory.itemloanhistory.ItemLoanHistoryActivity;
+import com.infosys.stocktake.inventory.InventoryActivity;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.ItemStatus;
 import com.infosys.stocktake.models.QrCode;
@@ -183,4 +184,11 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
     }
 
+}
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        Intent itemIntent = new Intent(ItemDetailsActivity.this, InventoryActivity.class);
+        startActivity(itemIntent);
+    }
 }

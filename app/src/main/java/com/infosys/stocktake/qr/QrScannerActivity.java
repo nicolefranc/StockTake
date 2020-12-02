@@ -122,7 +122,7 @@ public class QrScannerActivity extends AppCompatActivity {
 
     private boolean isAvailableForLoan(Item item) {
         Number qtyAvail = item.getQtyStatus().get(ItemStatus.AVAILABLE.toString());
-        Log.d(TAG, String.valueOf(qtyAvail.intValue() > 0));
+//        Log.d(TAG, String.valueOf(qtyAvail.intValue() > 0));
         return qtyAvail.intValue() > 0;
     }
 
@@ -132,7 +132,7 @@ public class QrScannerActivity extends AppCompatActivity {
         String currentUid = mAuth.getCurrentUser().getUid();
         String clubID = item.getClubID();
 
-        Log.d(TAG, currentUid);
+//        Log.d(TAG, currentUid);
         StockTakeFirebase userRepo = new StockTakeFirebase(User.class, User.USER_COLLECTION);
         Task<ArrayList<User>> usersTask = userRepo.compoundQuery(User.UUID, currentUid);
 
@@ -155,85 +155,44 @@ public class QrScannerActivity extends AppCompatActivity {
                         // items.loaneeID == current uuid
 
                         // Retrieve the item in Loans collection
-                        // TODO: Uncomment when Loans collection has data to retrieve
-//                        StockTakeFirebase loansRepo = new StockTakeFirebase(Loan.class, Loan.LOAN_COLLECTION);
-//                        Task<ArrayList<Loan>> loansTask = loansRepo.compoundQuery(Loan.ITEM_ID, item.getItemID());
-//                        loansTask.addOnSuccessListener(new OnSuccessListener<ArrayList<Loan>>() {
-//                            @Override
-//                            public void onSuccess(ArrayList<Loan> loans) {
-//                                for (Loan loan : loans) {
-//                                    if (loan.getLoaneeID() == currentUid) {
-//                                        Log.d(TAG, "The loanee/borrower.");
-//                                        // TODO: Change to go to Personal Loan History for this Item
-//                                        Intent intent = new Intent(QrScannerActivity.this, MainActivity.class);
-//                                        startActivity(intent);
-//                                    } else {
-////                                         TESTED!
-//                                        Log.d(TAG, "Some rando.");
-//                                        // else, show inventory detail
-//                                        Intent intent = new Intent(QrScannerActivity.this, ItemDetailsActivity.class);
-//                                        intent.putExtra("ItemIntent", item);
-//                                        startActivity(intent);
-//                                    }
-//                                }
-//                            }
-//                        });
-
-                        Log.d(TAG, "Not a club owner.");
-                        if(item.getLoaneeID() == currentUid) {
-                            Log.d(TAG, "The loanee/borrower.");
-                            // TODO: Change to go to Personal Loan History for this Item
-                            Intent intent = new Intent(QrScannerActivity.this, MainActivity.class);
-                            startActivity(intent);
-                        } else {
-                            // TESTED!
-                            Log.d(TAG, "Some rando.");
-                            // else, show inventory detail
-                            Intent intent = new Intent(QrScannerActivity.this, ItemDetailsActivity.class);
-                            intent.putExtra("ItemIntent", item);
-                            startActivity(intent);
-                        }
+                        Log.d(TAG, "Item: " + item.getItemID());
+                        StockTakeFirebase loansRepo = new StockTakeFirebase(Loan.class, Loan.LOAN_COLLECTION);
+                        Task<ArrayList<Loan>> loansTask = loansRepo.compoundQuery(Loan.ITEM_ID, item.getItemID());
+                        loansTask.addOnSuccessListener(new OnSuccessListener<ArrayList<Loan>>() {
+                            @Override
+                            public void onSuccess(ArrayList<Loan> loans) {
+                                if (loans != null) {
+                                    for (Loan loan : loans) {
+                                        Log.d(TAG, "Not a club owner.");
+                                        Log.d(TAG, "Loanee id: " + loan.getLoaneeID());
+                                        Log.d(TAG, "Current uid: " + currentUid);
+                                        if (loan.getLoaneeID().equals(currentUid)) {
+                                            Log.d(TAG, "The loanee/borrower.");
+                                            // TODO: Change to go to Personal Loan History for this Item
+                                            Intent intent = new Intent(QrScannerActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                        } else {
+                                            goToItemDetail(item);
+                                        }
+                                    }
+                                } else {
+                                    goToItemDetail(item);
+                                }
+                            }
+                        });
                     }
                 }
             }
         });
     } // end isClubOwner
 
-//    private void identifyActivityToStart(String itemID) {
-//
-//        // 1. Get the itemID from QR code and extract item document
-//        db.collection(Item.ITEM_COLLECTION)
-//                .whereEqualTo(Item.ITEM_ID, itemID)
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                // 1.1 Extract item details and create Item instance
-//                                Item item = new Item(document.getData());
-//
-//                                // 1.2 Check if item is loaned out and redirect to appropriate activity
-//                                if (isAvailableForLoan(item)) {
-////                                if (isClubOwner(item.getClubID())) {
-//                                    // AVAILABLE FOR LOAN
-//                                    Log.d(TAG, "YES");
-//                                    isClubOwner(item, true);
-//                                } else {
-//                                    // NOT AVAILABLE FOR LOAN
-//                                    // TODO: Redirect to 'Unavailable for Loan' screen
-//                                    Toast.makeText(QrScannerActivity.this, "Unavailable for loan", Toast.LENGTH_SHORT).show();
-//                                    Log.d(TAG, "NO");
-//                                    isClubOwner(item, false);
-//                                }
-//                            }
-//                        } else {
-//                            Log.d(TAG, "Error getting documents: ", task.getException());
-//                        }
-//                    }
-//                });
-//    }
-
+    private void goToItemDetail(Item item) {
+        Log.d(TAG, "Some rando.");
+        // else, show inventory detail
+        Intent intent = new Intent(QrScannerActivity.this, ItemDetailsActivity.class);
+        intent.putExtra("ItemIntent", item);
+        startActivity(intent);
+    }
 
     private void identifyActivityToStart(String itemID) {
         // 1. Extract club details based on the owner of the item
