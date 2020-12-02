@@ -48,6 +48,7 @@ public class PersonalLoanHistoryActivity extends AppCompatActivity {
 
     }
     private void getLoans(){
+        personalLoans = new ArrayList<>();
         //Compound query the loans based on loanee id
         Task<ArrayList<Loan>> queryLoans = stockTakeFirebaseLoan.compoundQuery("loaneeID",currentUser.getUid());
         //On success: initialize the recycler view
@@ -64,6 +65,7 @@ public class PersonalLoanHistoryActivity extends AppCompatActivity {
     }
     private void getItemDetails(){
         itemNames = new ArrayList<>();
+        itemImages = new ArrayList<>();
         int i;
         for(i =0;i<personalLoans.size()-1;i++){
             stockTakeFirebaseItem.query(personalLoans.get(i).getItemID()).addOnSuccessListener(new OnSuccessListener<Item>() {

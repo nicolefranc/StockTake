@@ -94,7 +94,7 @@ public class AddLoanActivity extends AppCompatActivity {
                                 Toast.makeText(AddLoanActivity.this, R.string.create_loan_success, Toast.LENGTH_SHORT).show();
                                 Log.d(TAG,AddLoanActivity.this.getResources().getString(R.string.create_loan_success));
                                 Intent detailsIntent = new Intent(AddLoanActivity.this, LoanDetailsActivity.class);
-                                detailsIntent.putExtra(LOAN_INTENT_KEY,loanID);
+                                detailsIntent.putExtra(LOAN_INTENT_KEY,currentLoan);
                                 startActivity(detailsIntent);
                             }
                         });

@@ -87,12 +87,12 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoanViewHolder
                     .load(imageURL)
                     .placeholder(R.drawable.ic_launcher_foreground)
                     .error(R.drawable.ic_launcher_background)
-                    .into(holder.itemImage);
+                    .into(holder.loanImage);
 
         }
         else{
             Log.d(TAG,"No loans found");
-            holder.itemNameText.setText("Looks like there isn't anything here...");
+            holder.itemDescriptionText.setText("Looks like there isn't anything here...");
             holder.itemNameText.setText("oops.");
             //can't find the ic_outline_help_outline_24
             holder.loanImage.setImageResource(R.drawable.ic_launcher_foreground);
@@ -102,12 +102,14 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoanViewHolder
 
     @Override
     public int getItemCount() {
+        if(loanArrayList.size()==0) isEmpty = true;
+
         return loanArrayList.size();
     }
     public class LoanViewHolder extends RecyclerView.ViewHolder{
     //to populate actual loan history
     TextView loanItemNameText,loanQuantityText,loanDateText,loanIDText;
-    ImageView itemImage,loanImage;
+    ImageView loanImage;
 
     //to populate empty loan history
     TextView itemNameText,itemDescriptionText;
@@ -116,7 +118,6 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoanViewHolder
     public LoanViewHolder(@NonNull View itemView) {
         super(itemView);
         loanImage = itemView.findViewById(R.id.loanImage);
-        itemImage = itemView.findViewById(R.id.item_image);
         loanItemNameText = itemView.findViewById(R.id.loanItemName);
         loanQuantityText = itemView.findViewById(R.id.loanQuantity);
         loanDateText = itemView.findViewById(R.id.loanDate);
