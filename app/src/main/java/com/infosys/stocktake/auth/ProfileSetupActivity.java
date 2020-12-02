@@ -158,7 +158,13 @@ public class ProfileSetupActivity extends AppCompatActivity {
                 });
 
         }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        Toast.makeText(this,"Please complete the registration process",Toast.LENGTH_SHORT).show();
     }
+}
 
 
 

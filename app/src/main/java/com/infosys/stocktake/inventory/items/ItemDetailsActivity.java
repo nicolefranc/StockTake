@@ -2,14 +2,17 @@ package com.infosys.stocktake.inventory.items;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.infosys.stocktake.R;
+import com.infosys.stocktake.inventory.InventoryActivity;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.ItemStatus;
 import com.infosys.stocktake.models.QrCode;
@@ -58,5 +61,11 @@ public class ItemDetailsActivity extends AppCompatActivity {
         QrCode qr = new QrCode(QR_HEIGHT, QR_WIDTH);
         Bitmap bitmap = qr.stringToBitmap(item.getEncodedQr());
         ivQrCode.setImageBitmap(bitmap);
+    }
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        Intent itemIntent = new Intent(ItemDetailsActivity.this, InventoryActivity.class);
+        startActivity(itemIntent);
     }
 }
