@@ -30,10 +30,6 @@
         android:label="activity_nfc_reader"
         tools:layout="@layout/activity_nfc_reader" />
     <activity
-        android:id="@+id/nav_loans"
-        android:name="com.infosys.stocktake.loans.AddLoanActivity"
-        android:label="AddLoanActivity" />
-    <activity
         android:id="@+id/nav_personal_loans"
         android:name="com.infosys.stocktake.loans.PersonalLoanHistoryActivity"
         android:label="PersonalLoanHistoryActivity" />

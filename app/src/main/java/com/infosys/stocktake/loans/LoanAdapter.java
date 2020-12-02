@@ -1,8 +1,6 @@
 package com.infosys.stocktake.loans;
 
 import android.content.Context;
-import android.net.Uri;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,22 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.infosys.stocktake.R;
-import com.infosys.stocktake.firebase.StockTakeFirebase;
-import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.Loan;
-import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import javax.annotation.Nonnull;
 
 
 public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoanViewHolder> {
@@ -87,7 +76,7 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoanViewHolder
                     .load(imageURL)
                     .placeholder(R.drawable.ic_launcher_foreground)
                     .error(R.drawable.ic_launcher_background)
-                    .into(holder.loanImage);
+                    .into(holder.cardLoanImage);
 
         }
         else{
@@ -95,21 +84,24 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoanViewHolder
             holder.itemDescriptionText.setText("Looks like there isn't anything here...");
             holder.itemNameText.setText("oops.");
             //can't find the ic_outline_help_outline_24
-            holder.loanImage.setImageResource(R.drawable.ic_launcher_foreground);
+            holder.itemImage.setImageResource(R.drawable.ic_outline_help_outline_24);
 
         }
     }
 
     @Override
     public int getItemCount() {
-        if(loanArrayList.size()==0) isEmpty = true;
+        if(loanArrayList.size()==0) {
+            isEmpty = true;
+            return 1;
+        }
 
         return loanArrayList.size();
     }
     public class LoanViewHolder extends RecyclerView.ViewHolder{
     //to populate actual loan history
     TextView loanItemNameText,loanQuantityText,loanDateText,loanIDText;
-    ImageView loanImage;
+    ImageView cardLoanImage,itemImage;
 
     //to populate empty loan history
     TextView itemNameText,itemDescriptionText;
@@ -117,7 +109,8 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoanViewHolder
 
     public LoanViewHolder(@NonNull View itemView) {
         super(itemView);
-        loanImage = itemView.findViewById(R.id.loanImage);
+        itemImage = itemView.findViewById(R.id.item_image);
+        cardLoanImage= itemView.findViewById(R.id.cardLoanImage);
         loanItemNameText = itemView.findViewById(R.id.loanItemName);
         loanQuantityText = itemView.findViewById(R.id.loanQuantity);
         loanDateText = itemView.findViewById(R.id.loanDate);

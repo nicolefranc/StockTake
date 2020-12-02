@@ -18,7 +18,7 @@
             android:padding="1dp">
 
             <ImageView
-                android:id="@+id/loanImage"
+                android:id="@+id/cardLoanImage"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center_vertical"
@@ -39,7 +39,7 @@
                 android:text="Loan Item Name"
                 android:textColor="#000"
                 android:textSize="20dp"
-                app:layout_constraintLeft_toRightOf="@+id/loanImage"
+                app:layout_constraintLeft_toRightOf="@+id/cardLoanImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -53,7 +53,7 @@
                 android:text="Loan ID: some ID"
                 android:textColor="#000"
                 android:textSize="15dp"
-                app:layout_constraintLeft_toRightOf="@+id/loanImage"
+                app:layout_constraintLeft_toRightOf="@+id/cardLoanImage"
                 app:layout_constraintTop_toBottomOf="@+id/loanItemName" />
 
             <TextView
@@ -67,7 +67,7 @@
                 android:text="Quantity: something"
                 android:textColor="#000"
                 android:textSize="15dp"
-                app:layout_constraintLeft_toRightOf="@+id/loanImage"
+                app:layout_constraintLeft_toRightOf="@+id/cardLoanImage"
                 app:layout_constraintTop_toBottomOf="@+id/loanIDText" />
 
             <TextView
@@ -81,7 +81,7 @@
                 android:text="Date borrowed: Sometime"
                 android:textColor="#000"
                 android:textSize="15dp"
-                app:layout_constraintLeft_toRightOf="@+id/loanImage"
+                app:layout_constraintLeft_toRightOf="@+id/cardLoanImage"
                 app:layout_constraintTop_toBottomOf="@+id/loanQuantity" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
