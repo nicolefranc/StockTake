@@ -54,13 +54,24 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="20dp"
                 android:id="@+id/regimgPreview"
-                android:layout_weight="0.65">
+                android:layout_weight="0.5">
 
-                <ImageView
+                <Button
                     android:id="@+id/imgPreview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="300dp"
+                    android:minHeight="300dp"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:padding="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:text="Click here to add image"/>
+
+
 
             </RelativeLayout>
 
@@ -73,27 +84,34 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginVertical="@dimen/components_sm_margin"
                 android:layout_below="@id/regimgPreview"
-                android:layout_weight="0.3">
+                android:layout_weight="0.5">
 
-
-
-                <Button
-                    android:id="@+id/selectImgBtn"
+                <TextView
+                    android:id="@+id/stockCount"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_marginVertical="@dimen/components_sm_margin"
-                    android:text="Select Image"
-                    android:font="@font/orienta"
-                    android:textColor="@color/white"
-                    android:textSize="19dp"
-                    android:background="@drawable/rounded_rectangle"
-                    android:layout_marginHorizontal="@dimen/components_sm_margin"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/components_sm_margin"
+                    android:layout_toStartOf="@+id/editTextQty"
+                    android:text="Stock Count:"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    />
+
+                <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                    android:id="@+id/editTextQty"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/components_sm_margin"
+                    android:gravity="right"
+                    app:backGroundColor="@color/blue_main1" />
+
 
                 <EditText
                     android:id="@+id/editTextItemName"
-                    android:layout_below="@id/selectImgBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/stockCount"
                     android:layout_marginVertical="@dimen/components_xs_margin"
                     android:layout_marginHorizontal="@dimen/components_sm_margin"
                     android:ems="10"
@@ -112,20 +130,25 @@
                     android:inputType="textMultiLine"
                     android:hint="Item Description" />
 
-                <EditText
-                    android:id="@+id/editTextQty"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/editTextItemDescription"
-                    android:layout_marginVertical="@dimen/components_xs_margin"
-                    android:layout_marginHorizontal="@dimen/components_sm_margin"
-                    android:ems="10"
-                    android:inputType="numberDecimal"
-                    android:hint="Item Qty"/>
+<!--                <EditText-->
+<!--                    android:id="@+id/editTextQty"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@id/editTextItemDescription"-->
+<!--                    android:layout_marginVertical="@dimen/components_xs_margin"-->
+<!--                    android:layout_marginHorizontal="@dimen/components_sm_margin"-->
+<!--                    android:ems="10"-->
+<!--                    android:inputType="numberDecimal"-->
+<!--                    android:hint="Item Qty"/>-->
+
+
+
+
+
 
                 <Button
                     android:id="@+id/uploadBtn"
-                    android:layout_below="@id/editTextQty"
+                    android:layout_below="@id/editTextItemDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Add Item"

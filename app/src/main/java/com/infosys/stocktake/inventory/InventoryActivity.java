@@ -33,6 +33,7 @@ import com.infosys.stocktake.inventory.items.AddItemActivity;
 import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Membership;
 import com.infosys.stocktake.models.User;
+import com.infosys.stocktake.qr.QrScannerActivity;
 
 import java.util.Map;
 //import com.infosys.stocktake.inventory.databinding.ActivityFragmentViewPagerBinding;
@@ -122,10 +123,21 @@ public class InventoryActivity extends AppCompatActivity implements NavigationVi
                 startActivity(new Intent(this, Profile.class));
                 break;
             }
+
+            case R.id.nav_qr: {
+                startActivity(new Intent(this, QrScannerActivity.class));
+                break;
+            }
         }
         //close navigation drawer
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-
+//
+//    @Override
+//    public void onBackPressed() {
+////        super.onBackPressed();
+//        Intent itemIntent = new Intent(InventoryActivity.this, MainActivity.class);
+//        startActivity(itemIntent);
+//    }
 }

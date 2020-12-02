@@ -65,7 +65,7 @@ public class navbar extends AppCompatActivity {
 
     public void UserMenuSelected(MenuItem menuItem){
         switch(menuItem.getItemId()){
-            case R.id.nav_inventory:
+            case R.id.mainActivity:
                 break;
             case R.id.nav_profile:
                 break;

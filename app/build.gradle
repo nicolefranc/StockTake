@@ -85,6 +85,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-rc03'
 
 
+    implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
 
     // QR Scanner
     dependencies {

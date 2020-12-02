@@ -6,15 +6,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -38,12 +42,12 @@ public class AddItemActivity extends AppCompatActivity {
     private User currentUser;
 
     // UI Components
-    private Button selectImgBtn;
-    private ImageView imagePreview;
+    private Button imagePreview;
     private Button uploadBtn;
     private EditText etItemName;
     private EditText etItemDesc;
-    private EditText etQty;
+    private ElegantNumberButton etQty;
+
 
     // Instance for Firebase Storage, Storage Reference
     FirebaseStorage storage;
@@ -63,7 +67,6 @@ public class AddItemActivity extends AppCompatActivity {
         storageReference = storage.getReference();
 
         // Initialise UI Components
-        selectImgBtn = findViewById(R.id.selectImgBtn);
         imagePreview = findViewById(R.id.imgPreview);
         uploadBtn = findViewById(R.id.uploadBtn);
         etItemName = findViewById(R.id.editTextItemName);
@@ -71,7 +74,7 @@ public class AddItemActivity extends AppCompatActivity {
         etQty = findViewById(R.id.editTextQty);
 
         // Event Listeners
-        selectImgBtn.setOnClickListener(new View.OnClickListener() {
+        imagePreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AddItemActivity.this.selectImage();
@@ -81,6 +84,13 @@ public class AddItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AddItemActivity.this.uploadFile();
+            }
+        });
+
+        etQty.setOnClickListener(new ElegantNumberButton.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String num = etQty.getNumber();
             }
         });
     }
@@ -107,7 +117,9 @@ public class AddItemActivity extends AppCompatActivity {
                                     .Images
                                     .Media
                                     .getBitmap(getContentResolver(), filePath);
-                imagePreview.setImageBitmap(bitmap);
+
+                Drawable d = new BitmapDrawable(getResources(), bitmap);
+                imagePreview.setBackground(d);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -155,7 +167,7 @@ public class AddItemActivity extends AppCompatActivity {
         // Retrieve Item Details
         String itemName = etItemName.getText().toString();
         String itemDesc = etItemDesc.getText().toString();
-        int qty = Integer.parseInt(etQty.getText().toString());
+        int qty = Integer.parseInt(etQty.getNumber());
         String loaneeID = null;
         String clubID = currentClub;
 

@@ -26,7 +26,8 @@
 
 <!--        QR Activities-->
         <activity android:name=".qr.QrScannerActivity" />
-        <activity android:name=".qr.QrOptionsActivity"></activity>
+        <activity android:name=".qr.QrOptionsActivity"
+            ></activity>
 
 <!--        Loan Activities-->
         <activity android:name=".loans.AddLoanActivity"/>

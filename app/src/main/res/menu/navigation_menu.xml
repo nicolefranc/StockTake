@@ -12,12 +12,17 @@
 
     <item
         android:id="@+id/nav_qr"
-        android:title="QR Scanner" />
+        android:title="QR Scanner"
+        android:iconTint="@color/black"
+        android:icon="@drawable/ic_baseline_qr_code_scanner_24"
+        />
+
+<!--    <item-->
+<!--        android:id="@+id/nav_nfc"-->
+<!--        android:title="NFC Reader" />-->
 
     <item
-        android:id="@+id/nav_nfc"
-        android:title="NFC Reader" />
-        android:id="@+id/nav_inventory"
+        android:id="@+id/mainActivity"
         android:title="Inventory"
         android:iconTint="@color/black"
         android:icon="@drawable/ic_baseline_archive_24"/>

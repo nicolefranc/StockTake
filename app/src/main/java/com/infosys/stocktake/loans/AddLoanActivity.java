@@ -1,9 +1,11 @@
 package com.infosys.stocktake.loans;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,7 +27,10 @@ import com.infosys.stocktake.models.Loan;
 import com.infosys.stocktake.nfc.NfcReaderActivity;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 
 public class AddLoanActivity extends AppCompatActivity {
@@ -33,13 +38,16 @@ public class AddLoanActivity extends AppCompatActivity {
     public static final String LOAN_INTENT_KEY = "LOAN_ID_INTENT";
 
     Button loanButton;
-    TextView itemNameText,itemIDText,clubIDText;
-    EditText quantityEdit;
+    TextView itemNameText;
+    EditText date_of_return;
     ImageView ivItemPicture;
-    String itemID;
+    TextView loanCounter;
+
     Loan currentLoan;
     Item currentItem;
     FirebaseUser currentUser;
+    Calendar myCalendar;
+    int minteger = 0;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -48,10 +56,11 @@ public class AddLoanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_loan_add);
         loanButton = findViewById(R.id.loanButton);
         itemNameText = findViewById(R.id.itemNameText);
-        itemIDText = findViewById(R.id.itemIDText);
-        clubIDText = findViewById(R.id.clubIDText);
-        quantityEdit = findViewById(R.id.quantityEdit);
+        date_of_return = findViewById(R.id.date_of_return);
         ivItemPicture = findViewById(R.id.ivItemPicture);
+        loanCounter = findViewById(R.id.loanCounterText);
+
+        myCalendar  = Calendar.getInstance();
 
         //Firebase Operations
         final StockTakeFirebase<Item> stockTakeFirebaseItem = new StockTakeFirebase<>(Item.class,"items");
@@ -79,12 +88,11 @@ public class AddLoanActivity extends AppCompatActivity {
                 .fit().centerCrop().into(ivItemPicture);
 //            currentItem = item;
             itemNameText.setText(currentItem.getItemName());
-            itemIDText.setText(currentItem.getItemID());
-            clubIDText.setText(currentItem.getClubID());
+
 //        });
         //Add OnClickListener to the loan button
         loanButton.setOnClickListener(v -> {
-            if(quantityEdit.getText().toString().equals("")){
+            if(loanCounter.getText().toString().equals("")){
                 Toast.makeText(AddLoanActivity.this, R.string.invalid_quantity, Toast.LENGTH_SHORT).show();
             }
             else{
@@ -92,7 +100,7 @@ public class AddLoanActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Club club) {
                         String loanID = club.getClubID()+"-"+club.getLoanCounter();
-                        int loanQuantity = Integer.parseInt(quantityEdit.getText().toString());
+                        int loanQuantity = Integer.parseInt(loanCounter.getText().toString());
                         currentLoan = new Loan(loanID,currentItem.getItemID(),loanQuantity,club.getClubID(), currentUser.getUid(),new Date());
                         club.increaseLoanCounter();
                         updateLoanCounter(club);
@@ -122,8 +130,56 @@ public class AddLoanActivity extends AppCompatActivity {
             }
         });
 
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+
+        date_of_return.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(AddLoanActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
 
     }
+
+    public void increaseInteger(View view) {
+        minteger = minteger + 1;
+        display(minteger);
+
+    }public void decreaseInteger(View view) {
+        minteger = minteger - 1;
+        display(minteger);
+    }
+
+    private void display(int number) {
+        TextView displayInteger = (TextView) findViewById(
+                R.id.loanCounterText);
+        displayInteger.setText("" + number);
+    }
+
+    private void updateLabel() {
+        String myFormat = "MM/dd/yy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        date_of_return.setText(sdf.format(myCalendar.getTime()));
+    }
+
     private void updateLoanCounter(Club club){
         StockTakeFirebase<Club> stockTakeFirebaseClub = new StockTakeFirebase<>(Club.class,"clubs");
         stockTakeFirebaseClub.update(club,club.getClubID()).addOnSuccessListener(new OnSuccessListener<Void>() {
