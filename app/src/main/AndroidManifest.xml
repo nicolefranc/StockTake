@@ -36,7 +36,6 @@
         <activity android:name=".inventory.clubs.ViewClubActivity" />
 
 <!--        Auth Activities-->
-        <activity android:name=".qr.QrOptionsActivity" />
         <activity android:name=".auth.GoogleLoginActivity">
 
             <!-- <intent-filter> -->

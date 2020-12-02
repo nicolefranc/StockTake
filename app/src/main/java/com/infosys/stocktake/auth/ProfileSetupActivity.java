@@ -31,6 +31,7 @@ import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Membership;
 import com.infosys.stocktake.models.User;
+import com.infosys.stocktake.nfc.NfcReaderActivity;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -75,20 +76,9 @@ public class ProfileSetupActivity extends AppCompatActivity {
                     if (clubChoice.equals("Not a Club Exco")) {
                         newUser.setClubMembership( NOT_EXCO_ID, Membership.MEMBER );
                         StockTakeFirebase<User> stockTakeFirebase = new StockTakeFirebase<>(User.class, "users");
-                        Task<Void> userTask = stockTakeFirebase.create( newUser , documentId);
-                        userTask.addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "Successful create");
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.d(TAG, "Failed to create");
-                            }
-                        });
-//                        newUser.createUser();
-                        Intent intent = new Intent(getApplicationContext(), Profile.class);
+                        Intent intent = new Intent(getApplicationContext(), NfcReaderActivity.class);
+                        intent.putExtra("UserIntent", newUser);
+                        intent.putExtra("source", "profile");
                         startActivity(intent);
 
                     } else {
@@ -123,24 +113,10 @@ public class ProfileSetupActivity extends AppCompatActivity {
                                     String clubId = document.get("clubID").toString();
                                     Log.d(TAG, clubId);
                                     user.setClubMembership(clubId, Membership.ADMIN);
-                                    StockTakeFirebase<User> stockTakeFirebase = new StockTakeFirebase<>(User.class, "users");
-                                    stockTakeFirebase.create( user , documentId).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Log.d(TAG,"successfully succeed");
-                                            Intent intent = new Intent(getApplicationContext(), Profile.class);
-                                            startActivity(intent);
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.d(TAG,"Fail to fail");
-                                            e.printStackTrace();
-                                        }
-                                    });
-
-//                                    user.createUser();
-
+                                    Intent intent = new Intent(getApplicationContext(), NfcReaderActivity.class);
+                                    intent.putExtra("UserIntent", user);
+                                    intent.putExtra("source", "profile");
+                                    startActivity(intent);
                                 }
                             } else {
                                 Log.w(TAG, "Error getting documents.", task.getException());

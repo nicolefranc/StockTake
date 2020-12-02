@@ -1,5 +1,6 @@
 package com.infosys.stocktake.nfc;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.PendingIntent;
@@ -17,21 +18,29 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.infosys.stocktake.Profile;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.loans.AddLoanActivity;
 import com.infosys.stocktake.loans.LoanDetailsActivity;
 import com.infosys.stocktake.models.Loan;
+import com.infosys.stocktake.models.User;
 import com.infosys.stocktake.nfc.parser.NdefMessageParser;
 import com.infosys.stocktake.nfc.record.ParsedNdefRecord;
 
 import java.util.List;
+import java.util.Objects;
 
 public class NfcReaderActivity extends AppCompatActivity {
-    TextView text;
-    NfcAdapter nfcAdapter;
-    PendingIntent pendingIntent;
+    public static final String TAG = "NFC";
+    private TextView text;
+    private NfcAdapter nfcAdapter;
+    private PendingIntent pendingIntent;
+    private String source;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +60,19 @@ public class NfcReaderActivity extends AppCompatActivity {
                         .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
 
         // Accept intent to check which screen it came from: ProfileSetup or AddLoan
-        String source = getIntent().getStringExtra("source");
+        source = getIntent().getStringExtra("source");
+        user = (User) getIntent().getSerializableExtra("UserIntent");;
 
-        if (source.equals("profile")) {
-            // Do profile things
-        } else if (source.equals("loan")) {
-            // Do add loan things
-            // Accept loan object and add the nfcTag
-            resolveLoanIntent();
-        } else {
-            // Shouldn't be opened
-        }
+//        if (source.equals("profile")) {
+//            // Do profile things
+//            resolveProfileIntent();
+//        } else if (source.equals("loan")) {
+//            // Do add loan things
+//            // Accept loan object and add the nfcTag
+//            resolveLoanIntent();
+//        } else {
+//            // Shouldn't be opened
+//        }
     }
 
     @Override
@@ -81,6 +92,27 @@ public class NfcReaderActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         setIntent(intent);
         resolveIntent(intent);
+    }
+
+    private void resolveProfileIntent(String nfcTag) {
+        user.setNfcTag(nfcTag);
+        Toast.makeText(NfcReaderActivity.this, "User's nfc tag is " + user.getNfcTag(), Toast.LENGTH_SHORT).show();;
+        String documentId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        StockTakeFirebase<User> userRepo = new StockTakeFirebase<>(User.class, User.USER_COLLECTION);
+        userRepo.create( user , documentId).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG,"successfully succeed");
+                Intent intent = new Intent(getApplicationContext(), Profile.class);
+                startActivity(intent);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG,"Fail to fail");
+                e.printStackTrace();
+            }
+        });
     }
 
     private void resolveLoanIntent() {
@@ -118,32 +150,49 @@ public class NfcReaderActivity extends AppCompatActivity {
             } else {
                 byte[] empty = new byte[0];
                 byte[] id = intent.getByteArrayExtra(NfcAdapter.EXTRA_ID);
-                Tag tag = (Tag) intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+                Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                 byte[] payload = dumpTagData(tag).getBytes();
                 NdefRecord record = new NdefRecord(NdefRecord.TNF_UNKNOWN, empty, id, payload);
                 NdefMessage msg = new NdefMessage(new NdefRecord[] {record});
                 msgs = new NdefMessage[] {msg};
             }
 
-            displayMsgs(msgs);
+            completeScan(msgs);
         }
     }
 
-    private void displayMsgs(NdefMessage[] msgs) {
-        if (msgs == null || msgs.length == 0)
+    private void completeScan(NdefMessage[] message) {
+        if (message == null || message.length == 0)
             return;
 
         StringBuilder builder = new StringBuilder();
-        List<ParsedNdefRecord> records = NdefMessageParser.parse(msgs[0]);
+        List<ParsedNdefRecord> records = NdefMessageParser.parse(message[0]);
         final int size = records.size();
+        Log.d(TAG, "Length of record: " + size);
 
         for (int i = 0; i < size; i++) {
             ParsedNdefRecord record = records.get(i);
             String str = record.str();
+            Log.d(TAG, str);
             builder.append(str).append("\n");
         }
 
-        text.setText(builder.toString());
+        Toast.makeText(NfcReaderActivity.this, "NFC Tag " + builder.toString(), Toast.LENGTH_SHORT).show();
+
+        // Accept intent to check which screen it came from: ProfileSetup or AddLoan;
+        Toast.makeText(NfcReaderActivity.this, "Source: " + source, Toast.LENGTH_SHORT).show();
+
+        if (Objects.requireNonNull(source).equals("profile")) {
+            // Do profile things
+            resolveProfileIntent(builder.toString());
+        } else if (Objects.requireNonNull(source).equals("loan")) {
+            // Do add loan things
+            // Accept loan object and add the nfcTag
+            resolveLoanIntent();
+        } else {
+            // Shouldn't be opened
+            Log.d(TAG, "There's something wrong with NFC");
+        }
     }
 
     private void showWirelessSettings() {
@@ -224,7 +273,8 @@ public class NfcReaderActivity extends AppCompatActivity {
             }
         }
 
-        return sb.toString();
+//        return sb.toString();
+        return String.valueOf(toDec(id));
     }
 
     // UTILS
