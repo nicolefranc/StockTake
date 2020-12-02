@@ -104,11 +104,4 @@ public class User implements Serializable {
     public HashMap<String, Membership> getClubMembership() {
         return clubMembership;
     }
-
-//    public String[] getItemsBorrowed() {
-//        return itemsBorrowed;
-//    }
-
-
-
 }
