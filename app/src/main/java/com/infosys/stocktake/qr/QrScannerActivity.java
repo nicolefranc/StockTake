@@ -151,7 +151,7 @@ public class QrScannerActivity extends AppCompatActivity {
                         intent.putExtra("ItemIntent", item);
                         startActivity(intent);
                     } else {
-                        // Not a club owner, check if user is the one borrowing
+                        // Not a club owner, check if user is the one borrowing and has not returned
                         // items.loaneeID == current uuid
 
                         // Retrieve the item in Loans collection
@@ -166,7 +166,7 @@ public class QrScannerActivity extends AppCompatActivity {
                                         Log.d(TAG, "Not a club owner.");
                                         Log.d(TAG, "Loanee id: " + loan.getLoaneeID());
                                         Log.d(TAG, "Current uid: " + currentUid);
-                                        if (loan.getLoaneeID().equals(currentUid)) {
+                                        if (loan.getLoaneeID().equals(currentUid) && loan.getReturnDate().equals(null)) {
                                             Log.d(TAG, "The loanee/borrower.");
                                             // TODO: Change to go to Personal Loan History for this Item
                                             Intent intent = new Intent(QrScannerActivity.this, MainActivity.class);
