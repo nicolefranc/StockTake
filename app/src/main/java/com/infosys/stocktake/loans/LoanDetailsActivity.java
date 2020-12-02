@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.infosys.stocktake.MainActivity;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
+import com.infosys.stocktake.inventory.InventoryActivity;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.Loan;
 import com.squareup.picasso.Picasso;
@@ -69,7 +70,7 @@ public class LoanDetailsActivity extends AppCompatActivity {
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent homeIntent = new Intent(LoanDetailsActivity.this, MainActivity.class);
+                Intent homeIntent = new Intent(LoanDetailsActivity.this, InventoryActivity.class);
                 startActivity(homeIntent);
             }
         });

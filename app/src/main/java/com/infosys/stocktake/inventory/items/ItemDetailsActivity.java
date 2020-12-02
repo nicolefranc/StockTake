@@ -41,7 +41,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
     Item item;
     private static final int QR_HEIGHT = 200;
     private static final int QR_WIDTH = 200;
-    TextView tvItemName, tvQtyAvailable, tvQtyBroken, tvQtyOnLoan, tvQtyOnRepair, tvItemDesc, tvLastLoan, teleHandle;
+    TextView tvItemName, tvQtyAvailable, tvQtyBroken, tvQtyOnLoan, tvQtyOnRepair, teleHandle;
     ScrollView tvItemDesc; //change from textview to scrollview -felia
     ImageView ivItemPicture, ivQrCode;
     PieChart pieChart;
@@ -59,12 +59,12 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
         if(isAdmin){
             //Initialize firebase
-            setContentView(R.layout.activity_item_details_admin);
+            setContentView(R.layout.activity_item_detail_pichart_admin);
             setLoanWidgets(item.getLoaneeID());
 
         }
         else{
-            setContentView(R.layout.activity_item_details);
+            setContentView(R.layout.activity_item_detail_pichart);
             teleHandle = findViewById(R.id.telegramhandle);
             getAdmins();
         }
@@ -75,7 +75,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         tvQtyBroken = findViewById(R.id.tvQtyBroken);
         tvQtyOnLoan = findViewById(R.id.tvQtyOnLoan);
         tvQtyOnRepair = findViewById(R.id.tvQtyOnRepair);
-        tvItemDesc = findViewById(R.id.tvItemDesc);
+        tvItemDesc = findViewById(R.id.tvItemDescp);
         ivItemPicture = findViewById(R.id.ivItemPicture);
         ivQrCode = findViewById(R.id.ivQrCode);
         pieChart = findViewById(R.id.piechart);
@@ -96,7 +96,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
         tvQtyBroken.setText(item.getQtyStatus().get(ItemStatus.BROKEN.toString()).toString());
         tvQtyOnLoan.setText(item.getQtyStatus().get(ItemStatus.ON_LOAN.toString()).toString());
         tvQtyOnRepair.setText(item.getQtyStatus().get(ItemStatus.ON_REPAIR.toString()).toString());
-        tvItemDesc.setText(item.getItemDescription());
         Log.d(TAG, "onCreate: isAdmin is " + isAdmin);
 
         tvItemDesc.addView(tv); //and here -felia
@@ -155,9 +154,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
                     try {
                         Log.d(TAG, "onSuccess: Found user! Setting loan widgets...");
                         String userName = user.getFullName();
-                        tvLastLoan = findViewById(R.id.last_loan);
                         tvLoanHistory = findViewById(R.id.loan_history);
-                        tvLastLoan.setText(userName);
                         tvLoanHistory.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

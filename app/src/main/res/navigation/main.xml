@@ -10,11 +10,7 @@
         android:name="com.infosys.stocktake.Profile"
         android:label="Profile"
         tools:layout="@layout/activity_profile" />
-    <fragment
-        android:id="@+id/home_Screen_PlaceHolder"
-        android:name="com.infosys.stocktake.auth.Home_Screen_PlaceHolder"
-        android:label="fragment_home__screen__place_holder"
-        tools:layout="@layout/fragment_home__screen__place_holder" />
+
 
     <activity
         android:id="@+id/nav_qr"
@@ -36,6 +32,13 @@
         android:name="com.infosys.stocktake.MainActivity"
         android:label="inventory_base"
         tools:layout="@layout/inventory_base" />
+
+
+    <activity
+        android:id="@+id/personalLoanHistoryActivity"
+        android:name="com.infosys.stocktake.loans.PersonalLoanHistoryActivity"
+        android:label="activity_personal_loans"
+        tools:layout="@layout/activity_personal_loans" />
 
 
 </navigation>

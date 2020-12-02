@@ -16,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,6 +33,7 @@ import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.inventory.items.AddItemActivity;
 import com.infosys.stocktake.inventory.items.ItemDetailsActivity;
+import com.infosys.stocktake.loans.PersonalLoanHistoryActivity;
 import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Membership;
 import com.infosys.stocktake.models.User;
@@ -123,12 +125,23 @@ public class InventoryActivity extends AppCompatActivity implements NavigationVi
         switch (item.getItemId()) {
 
             case R.id.nav_profile: {
+                Toast.makeText(this,"nav profile",Toast.LENGTH_LONG);
                 startActivity(new Intent(this, Profile.class));
+
                 break;
             }
 
             case R.id.nav_qr: {
+                Toast.makeText(this,"nav qr",Toast.LENGTH_LONG);
                 startActivity(new Intent(this, QrScannerActivity.class));
+
+                break;
+            }
+
+            case R.id.nav_personal_loans: {
+                Toast.makeText(this,"nav personal loan",Toast.LENGTH_LONG);
+                startActivity(new Intent(this, PersonalLoanHistoryActivity.class));
+
                 break;
             }
         }

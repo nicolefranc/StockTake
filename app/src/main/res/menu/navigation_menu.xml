@@ -12,7 +12,10 @@
 
     <item
         android:id="@+id/nav_personal_loans"
-        android:title="Personal Loans" />
+        android:title="Personal Loans"
+        android:icon="@drawable/ic_baseline_person_search_24"
+        android:iconTint="@color/black"/>
+
     <item
         android:id="@+id/nav_qr"
         android:title="QR Scanner"

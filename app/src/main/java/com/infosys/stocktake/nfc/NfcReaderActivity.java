@@ -25,6 +25,7 @@ import com.infosys.stocktake.MainActivity;
 import com.infosys.stocktake.Profile;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
+import com.infosys.stocktake.inventory.InventoryActivity;
 import com.infosys.stocktake.loans.AddLoanActivity;
 import com.infosys.stocktake.loans.LoanDetailsActivity;
 import com.infosys.stocktake.models.Loan;
@@ -107,7 +108,7 @@ public class NfcReaderActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG,"successfully succeed");
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), InventoryActivity.class);
                 startActivity(intent);
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -138,7 +139,7 @@ public class NfcReaderActivity extends AppCompatActivity {
 //                detailsIntent.putExtra("LoanIntent", currentLoan);
                                 // TODO: Change to pass Loan object instead
                                 Log.d(TAG,"PASSING LOAN ID: "+loan.getLoanID());
-                                detailsIntent.putExtra(AddLoanActivity.LOAN_INTENT_KEY, loan.getLoanID());
+                                detailsIntent.putExtra(AddLoanActivity.LOAN_INTENT_KEY, loan);
                                 startActivity(detailsIntent);
                             }
                         });

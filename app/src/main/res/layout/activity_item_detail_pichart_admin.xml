@@ -44,7 +44,6 @@
         />
 
     <TextView
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
@@ -58,49 +57,29 @@
     <!-- Card view for displaying the -->
     <!-- Pie chart and details of pie chart -->
     <ScrollView
-        android:id="@+id/scrollView"
+        android:layout_below="@id/tvItemName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvItemName">
+        android:layout_height="wrap_content">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TableLayout
-            android:id="@+id/table"
+
+        <Button
+            android:id="@+id/loan_history"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:stretchColumns="0,1">
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/loan_person"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Contact to loan:"
-                    android:textSize="20dp"
-                    />
-                <TextView
-                    android:id="@+id/telegramhandle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    />
-            </TableRow>
+            android:text="View Loan History"
+            android:layout_height="50dp"/>
 
-
-        </TableLayout>
-
-
-    <androidx.cardview.widget.CardView
+        <androidx.cardview.widget.CardView
         android:id="@+id/cardViewGraph"
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/table"
+        android:layout_below="@+id/loan_history"
         android:elevation="10dp"
         app:cardCornerRadius="10dp">
 
@@ -374,8 +353,7 @@
             android:layout_height="300dp" />
     </RelativeLayout>
     </RelativeLayout>
+
     </ScrollView>
-
-
 
 </RelativeLayout>
