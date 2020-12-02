@@ -26,16 +26,21 @@ import com.infosys.stocktake.models.QrCode;
 import com.infosys.stocktake.models.User;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+
 public class ItemDetailsActivity extends AppCompatActivity {
     private static final String TAG = "inventory";
     Item item;
     private static final int QR_HEIGHT = 200;
     private static final int QR_WIDTH = 200;
-    TextView tvItemName, tvQtyAvailable, tvQtyBroken, tvQtyOnLoan, tvQtyOnRepair, tvItemDesc, tvLastLoan;
+    TextView tvItemName, tvQtyAvailable, tvQtyBroken, tvQtyOnLoan, tvQtyOnRepair, tvItemDesc, tvLastLoan, teleHandle;
     ImageView ivItemPicture, ivQrCode;
     Button tvLoanHistory;
     private boolean isAdmin;
-    private StockTakeFirebase<User> stockTakeFirebase;
+    private StockTakeFirebase<User> stockTakeFirebase = new StockTakeFirebase<User>(User.class, "users");;
+    private ArrayList<String> admins = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +50,14 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
         if(isAdmin){
             //Initialize firebase
-            stockTakeFirebase = new StockTakeFirebase<User>(User.class, "users");
             setContentView(R.layout.activity_item_details_admin);
             setLoanWidgets(item.getLoaneeID());
 
         }
         else{
             setContentView(R.layout.activity_item_details);
+            teleHandle = findViewById(R.id.telegramhandle);
+            getAdmins();
         }
 
         // Initialize UI Components
@@ -63,6 +69,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         tvItemDesc = findViewById(R.id.tvItemDesc);
         ivItemPicture = findViewById(R.id.ivItemPicture);
         ivQrCode = findViewById(R.id.ivQrCode);
+
 
         Log.d(TAG, "Retrieving items...");
         // Populate components with Item data from passed Intent
@@ -135,4 +142,45 @@ public class ItemDetailsActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void getAdmins(){
+        String club = item.getClubID();
+        HashMap <String,String> adminHash = new HashMap<String,String>();
+        adminHash.put(club,"ADMIN");
+                Task<ArrayList<User>> getAdminTask = stockTakeFirebase.compoundQuery("clubMembership", adminHash);
+        getAdminTask.addOnSuccessListener(new OnSuccessListener<ArrayList<User>>() {
+            @Override
+            public void onSuccess(ArrayList<User> users) {
+                if(users != null) {
+                    Log.d(TAG, "onSuccess: Admins are " + users.toString());
+                    for (User user : users) {
+                        if (user.getClubMembership().containsKey(club)) {
+                            admins.add(user.getTelegramHandle());
+
+                        }
+                    }
+                    String adminList = "";
+                    for(String admin: admins){
+                        if(admin.charAt(0) != '@'){
+                            admin = "@" + admin;
+                        }
+                        adminList = adminList + admin + "\n";
+                    }
+
+                    teleHandle.setText(adminList);
+                }
+                else{
+                    teleHandle.setText("this club has no admins!");
+                }
+            }
+        });
+        getAdminTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                teleHandle.setText("this club has no admins!");
+            }
+        });
+
+    }
+
 }

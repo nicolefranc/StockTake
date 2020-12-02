@@ -108,10 +108,14 @@ public class ItemLoanHistoryActivity extends AppCompatActivity {
                             Log.d(TAG, "getUserNames: got user "+ user.getFullName());
                             userNames.add(user.getFullName());
                         }
+                        else{
+                            userNames.add("Deleted User");
+                        }
                     }
                 });
             }
             else{
+                Log.d(TAG, "getUserNames: else loop entered");
                 userTask.addOnSuccessListener(new OnSuccessListener<User>() {
                     @Override
                     public void onSuccess(User user) {
@@ -120,6 +124,18 @@ public class ItemLoanHistoryActivity extends AppCompatActivity {
                             Log.d(TAG, "onSuccess: number of user entries: " + userNames.size());
                             initRecyclerView();
                         }
+                        else{
+                            Log.d(TAG, "onSuccess: user is null");
+                            userNames.add("Deleted User");
+                            initRecyclerView();
+                        }
+                    }
+                });
+                userTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "onFailure: unable to get some users");
+                        initRecyclerView();
                     }
                 });
             }
