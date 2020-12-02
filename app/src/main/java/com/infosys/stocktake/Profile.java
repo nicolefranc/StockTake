@@ -39,6 +39,7 @@ import com.infosys.stocktake.models.Membership;
 import com.infosys.stocktake.models.User;
 
 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Member;
@@ -59,7 +60,7 @@ public class Profile extends AppCompatActivity {
         nameView = findViewById(R.id.name);
         telegramView = findViewById(R.id.telegramhandle);
         studentIDView = findViewById(R.id.studentID);
-        profileClubView = findViewById(R.id.profileClubName);
+        profileClubView = findViewById(R.id.ClubName);
         profileMembershipView = findViewById(R.id.profileMembershipInfo);
 
         GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
@@ -88,6 +89,8 @@ public class Profile extends AppCompatActivity {
 
 
     }
+
+
 
 
     private void loadUserInfo2() {

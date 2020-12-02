@@ -13,4 +13,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+
+    <color name="Available">#66BB6A</color>
+    <color name="Broken">#EF5350</color>
+    <color name="On_Repair">#FFA726</color>
+    <color name="Loan">#707070</color>
 </resources>

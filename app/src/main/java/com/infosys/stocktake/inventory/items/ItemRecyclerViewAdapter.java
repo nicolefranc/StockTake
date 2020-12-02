@@ -18,6 +18,7 @@ import com.infosys.stocktake.R;
 import com.infosys.stocktake.models.Item;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "RecyclerViewAdapter";
@@ -35,7 +36,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.inventory_item,parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.inventory_item, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -52,7 +53,15 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
                     .error(R.drawable.ic_launcher_background)
                     .into(holder.itemImage);
 //        holder.itemImage.setImageResource(R.drawable.ic_launcher_foreground);
-            holder.itemDescription.setText(mItems.get(position).getItemDescription());
+
+            try{
+                HashMap<String, Integer> qtystatus = new HashMap<>();
+                qtystatus = (HashMap<String, Integer>) mItems.get(position).getQtyStatus();
+                holder.itemDescription.setText(qtystatus.get("AVAILABLE").toString());
+            }catch (NullPointerException e){
+                holder.itemDescription.setText("NA");
+            }
+
             holder.itemName.setText((mItems.get(position).getItemName()));
 
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {

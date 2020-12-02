@@ -54,10 +54,11 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/imgPreview"
+                android:id="@+id/regimgPreview"
                 android:layout_weight="0.65">
 
                 <ImageView
+                    android:id="@+id/imgPreview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -71,7 +72,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginVertical="@dimen/components_sm_margin"
-                android:layout_below="@id/imgPreview"
+                android:layout_below="@id/regimgPreview"
                 android:layout_weight="0.3">
 
 
@@ -79,7 +80,7 @@
                 <Button
                     android:id="@+id/selectImgBtn"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
                     android:layout_marginVertical="@dimen/components_sm_margin"
                     android:text="Select Image"
                     android:font="@font/orienta"

@@ -3,15 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    app:startDestination="@id/nav_inventory">
+    app:startDestination="@id/mainActivity">
+
     <activity
         android:id="@+id/nav_profile"
         android:name="com.infosys.stocktake.Profile"
         android:label="Profile"
         tools:layout="@layout/activity_profile" />
+    <fragment
+        android:id="@+id/home_Screen_PlaceHolder"
+        android:name="com.infosys.stocktake.auth.Home_Screen_PlaceHolder"
+        android:label="fragment_home__screen__place_holder"
+        tools:layout="@layout/fragment_home__screen__place_holder" />
+
     <activity
-        android:id="@+id/nav_inventory"
-        android:name="com.infosys.stocktake.inventory.InventoryActivity"
-        android:label="activity_inventory"
-        tools:layout="@layout/activity_inventory" />
+        android:id="@+id/mainActivity"
+        android:name="com.infosys.stocktake.MainActivity"
+        android:label="inventory_base"
+        tools:layout="@layout/inventory_base" />
+
+
 </navigation>

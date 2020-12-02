@@ -14,16 +14,5 @@
         android:id="@+id/recyclerView"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fab_add_item"
-        android:layout_gravity="end|bottom"
-        android:src = "@drawable/ic_baseline_add_24"
-        app:backgroundTint="@color/blue_main1"
-        android:layout_margin="16dp"
-        android:elevation="4dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"/>
 
 </RelativeLayout>

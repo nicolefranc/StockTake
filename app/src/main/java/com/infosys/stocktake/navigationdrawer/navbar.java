@@ -3,11 +3,14 @@ package com.infosys.stocktake.navigationdrawer;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
@@ -25,16 +28,20 @@ public class navbar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = findViewById(R.id.navbar);
-        setSupportActionBar(toolbar);
+
+        final ImageView toolbar1 = (ImageView) findViewById(R.id.Toolbar1);
+        final DrawerLayout drawer =  findViewById(R.id.drawer_layout);
+        toolbar1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawer.openDrawer(GravityCompat.START);
+            }
+        });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        drawerLayout = findViewById(R.id.drawer_layout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(navbar.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
-        actionBarDrawerToggle.syncState();
+
         navigationView = findViewById(R.id.nav_view);
         View navView = navigationView.inflateHeaderView(R.layout.navigation_header);
 
@@ -58,7 +65,7 @@ public class navbar extends AppCompatActivity {
 
     public void UserMenuSelected(MenuItem menuItem){
         switch(menuItem.getItemId()){
-            case R.id.nav_home:
+            case R.id.nav_inventory:
                 break;
             case R.id.nav_profile:
                 break;

@@ -31,13 +31,16 @@ public class ClubFragment extends Fragment {
     private StockTakeFirebase<Club> stockTakeFirebase;
     private String currentClub;
 
+
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-    View view = inflater.inflate(R.layout.club_list,container,false);
+
+    View view = inflater.inflate(R.layout.inventory_list_2,container,false);
     String message = getArguments().getString("message");
     currentClub = getArguments().getString("club");
     stockTakeFirebase = new StockTakeFirebase<Club>(Club.class, "clubs");
@@ -58,7 +61,7 @@ public class ClubFragment extends Fragment {
             public void onSuccess(ArrayList<com.infosys.stocktake.models.Club> clubs) {
                 Log.d(TAG,"Accessed firebase! populating clubs now...");
                 for(Club club:clubs){
-                    if (!club.getClubID().matches(currentClub)) {
+                    if (!club.getClubID().matches(currentClub) && !club.getClubName().matches("Not a Club Exco")) {
                         mClubs.add(club);
                         Log.d(TAG, "onSuccess: Club ID is " + club.getClubID() + " and current club is " + currentClub);
                     }

@@ -2,19 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/gray_light"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/MyCardView">
+        android:background="@color/gray_light"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="10dp"
+       >
         
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:padding="1dp"
             android:orientation="horizontal"
-            android:background="@drawable/card_rectangle"
             android:id="@+id/item_parent_layout">
 
             <ImageView
@@ -22,10 +27,9 @@
                 android:layout_height="80dp"
                 android:src="@mipmap/ic_launcher"
                 android:scaleType="centerCrop"
-                android:paddingHorizontal="20dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginLeft="20dp"
-                android:paddingTop="@dimen/components_xs_margin"
+
                 android:layout_gravity="center_vertical"
                 android:id="@+id/item_image"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -35,6 +39,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:layout_gravity="left"
                 android:text="Item Name"
                 android:textSize="20dp"
@@ -48,15 +53,31 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/stock"
                 android:maxWidth="280dp"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="left"
+                android:fontFamily="sans-serif-light"
+                android:paddingBottom="10dp"
+                android:text="Available stock:"
+                android:textColor="#000"
+                android:textSize="15dp"
+                app:layout_constraintLeft_toRightOf="@+id/item_image"
+                app:layout_constraintTop_toBottomOf="@+id/guideline" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="280dp"
+                android:layout_marginLeft="15dp"
                 android:layout_gravity="left"
                 android:fontFamily="sans-serif-light"
                 android:paddingBottom="10dp"
                 android:id="@+id/item_description"
-                android:text="lorem ipsum and something something"
+                android:text="0"
                 android:textColor="#000"
                 android:textSize="15dp"
-                app:layout_constraintLeft_toRightOf="@+id/item_image"
+                app:layout_constraintLeft_toRightOf="@+id/stock"
                 app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
             <FrameLayout
@@ -74,5 +95,5 @@
                 app:layout_constraintGuide_percent=".5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/activity_profile"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -75,6 +76,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="25dp"
+                        android:inputType="textCapWords"
                         android:text="Name"/>
                 </TableRow>
 
@@ -136,7 +138,7 @@
                         android:text="Role:"/>
 
                     <TextView
-                        android:id="@+id/role"
+                        android:id="@+id/profileMembershipInfo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -147,7 +149,7 @@
             </TableLayout>
 
             <TableLayout
-                android:id="@+id/profileClubName"
+                android:id="@+id/tabClubName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/profileRole"
@@ -169,7 +171,7 @@
                         android:text="Club Name:"/>
 
                     <TextView
-                        android:id="@+id/profileMembershipInfo"
+                        android:id="@+id/ClubName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -183,7 +185,7 @@
                 android:id="@+id/profileTelegram"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/profileClubName"
+                android:layout_below="@+id/tabClubName"
                 android:stretchColumns="0,1">
 
                 <TableRow

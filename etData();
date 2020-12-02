@@ -1,0 +1,1203 @@
+warning: LF will be replaced by CRLF in app/src/main/res/drawable/ic_baseline_archive_24.xml.
+The file will have its original line endings in your working directory
+[1mdiff --git a/app/build.gradle b/app/build.gradle[m
+[1mindex dc106f3..b5abef4 100644[m
+[1m--- a/app/build.gradle[m
+[1m+++ b/app/build.gradle[m
+[36m@@ -50,6 +50,9 @@[m [mdependencies {[m
+     implementation 'androidx.drawerlayout:drawerlayout:1.0.0'[m
+     implementation 'androidx.legacy:legacy-support-v4:1.0.0'[m
+     implementation 'androidx.cardview:cardview:1.0.0'[m
+[32m+[m[32m    //pie chart[m
+[32m+[m[32m    implementation 'com.github.blackfizz:eazegraph:1.2.5l@aar'[m
+[32m+[m[32m    implementation 'com.nineoldandroids:library:2.4.0'[m
+ [m
+     testImplementation 'junit:junit:4.12'[m
+     androidTestImplementation 'androidx.test.ext:junit:1.1.2'[m
+[36m@@ -82,6 +85,7 @@[m [mdependencies {[m
+     implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-rc03'[m
+ [m
+ [m
+[32m+[m
+     // QR Scanner[m
+     dependencies {[m
+         implementation 'com.budiyev.android:code-scanner:2.1.0'[m
+[1mdiff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml[m
+[1mindex 91d3eec..49107dd 100644[m
+[1m--- a/app/src/main/AndroidManifest.xml[m
+[1m+++ b/app/src/main/AndroidManifest.xml[m
+[36m@@ -37,12 +37,12 @@[m
+ <!--        Auth Activities-->[m
+         <activity android:name=".auth.GoogleLoginActivity">[m
+ [m
+[31m-            <!-- <intent-filter> -->[m
+[31m-            <!-- <action android:name="android.intent.action.MAIN" /> -->[m
+[32m+[m[32m             <intent-filter>[m
+[32m+[m[32m             <action android:name="android.intent.action.MAIN" />[m
+ [m
+ [m
+[31m-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->[m
+[31m-            <!-- </intent-filter> -->[m
+[32m+[m[32m             <category android:name="android.intent.category.LAUNCHER" />[m
+[32m+[m[32m             </intent-filter>[m
+         </activity>[m
+ [m
+ [m
+[36m@@ -50,19 +50,18 @@[m
+                Set to true if your app is Standalone, that is, it does not require the handheld[m
+                app to run.[m
+         -->[m
+[31m-        <activity android:name=".qr.QrScannerActivity"></activity>[m
+ [m
+ [m
+[31m-        <activity android:name=".MainActivity"[m
+[31m-                  android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">[m
+[32m+[m
+[32m+[m[32m        <activity android:name=".MainActivity">[m
+ <!--             <intent-filter>-->[m
+ <!--             <action android:name="android.intent.action.MAIN" />-->[m
+ [m
+[31m-            <intent-filter>[m
+[31m-                <action android:name="android.intent.action.MAIN" />[m
+[32m+[m[32m<!--            <intent-filter>-->[m
+[32m+[m[32m<!--                <action android:name="android.intent.action.MAIN" />-->[m
+ [m
+[31m-                <category android:name="android.intent.category.LAUNCHER" />[m
+[31m-            </intent-filter>[m
+[32m+[m[32m<!--                <category android:name="android.intent.category.LAUNCHER" />-->[m
+[32m+[m[32m<!--            </intent-filter>-->[m
+         </activity>[m
+ [m
+     </application>[m
+[1mdiff --git a/app/src/main/java/com/infosys/stocktake/MainActivity.java b/app/src/main/java/com/infosys/stocktake/MainActivity.java[m
+[1mindex fb38502..883022a 100644[m
+[1m--- a/app/src/main/java/com/infosys/stocktake/MainActivity.java[m
+[1m+++ b/app/src/main/java/com/infosys/stocktake/MainActivity.java[m
+[36m@@ -22,7 +22,7 @@[m [mimport androidx.navigation.ui.NavigationUI;[m
+ public class MainActivity extends AppCompatActivity {[m
+     private FirebaseAuth mAuth;[m
+     private FirebaseAuth.AuthStateListener mAuthListener;[m
+[31m-   [m
+[32m+[m
+     @Override[m
+     protected void onCreate(Bundle savedInstanceState) {[m
+         super.onCreate(savedInstanceState);[m
+[36m@@ -57,7 +57,7 @@[m [mpublic class MainActivity extends AppCompatActivity {[m
+ [m
+         NavigationUI.setupWithNavController(navigationView, navController);[m
+ [m
+[31m-        [m
+[32m+[m
+     }[m
+ [m
+     @Override[m
+[1mdiff --git a/app/src/main/java/com/infosys/stocktake/Profile.java b/app/src/main/java/com/infosys/stocktake/Profile.java[m
+[1mindex 50b4f54..feb9a74 100644[m
+[1m--- a/app/src/main/java/com/infosys/stocktake/Profile.java[m
+[1m+++ b/app/src/main/java/com/infosys/stocktake/Profile.java[m
+[36m@@ -39,6 +39,7 @@[m [mimport com.infosys.stocktake.models.Membership;[m
+ import com.infosys.stocktake.models.User;[m
+ [m
+ [m
+[32m+[m
+ import java.io.IOException;[m
+ import java.io.InputStream;[m
+ import java.lang.reflect.Member;[m
+[36m@@ -59,7 +60,7 @@[m [mpublic class Profile extends AppCompatActivity {[m
+         nameView = findViewById(R.id.name);[m
+         telegramView = findViewById(R.id.telegramhandle);[m
+         studentIDView = findViewById(R.id.studentID);[m
+[31m-        profileClubView = findViewById(R.id.profileClubName);[m
+[32m+[m[32m        profileClubView = findViewById(R.id.ClubName);[m
+         profileMembershipView = findViewById(R.id.profileMembershipInfo);[m
+ [m
+         GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);[m
+[36m@@ -90,6 +91,8 @@[m [mpublic class Profile extends AppCompatActivity {[m
+     }[m
+ [m
+ [m
+[32m+[m
+[32m+[m
+     private void loadUserInfo2() {[m
+         final String documentId = FirebaseAuth.getInstance().getCurrentUser().getUid();[m
+ [m
+[1mdiff --git a/app/src/main/java/com/infosys/stocktake/auth/GoogleLoginActivity.java b/app/src/main/java/com/infosys/stocktake/auth/GoogleLoginActivity.java[m
+[1mindex 4474615..5095859 100644[m
+[1m--- a/app/src/main/java/com/infosys/stocktake/auth/GoogleLoginActivity.java[m
+[1m+++ b/app/src/main/java/com/infosys/stocktake/auth/GoogleLoginActivity.java[m
+[36m@@ -33,6 +33,7 @@[m [mimport com.google.firebase.firestore.FirebaseFirestore;[m
+ import com.infosys.stocktake.MainActivity;[m
+ import com.infosys.stocktake.R;[m
+ import com.infosys.stocktake.Profile;[m
+[32m+[m[32mimport com.infosys.stocktake.inventory.InventoryActivity;[m
+ import com.infosys.stocktake.models.User;[m
+ [m
+ [m
+[36m@@ -151,7 +152,8 @@[m [mpublic class GoogleLoginActivity extends AppCompatActivity {[m
+                     DocumentSnapshot document = task.getResult();[m
+                     if (document.exists()) {[m
+                         Log.d(TAG, "Document exists!");[m
+[31m-                        Intent profileIntent = new Intent(getApplicationContext(), MainActivity.class);[m
+[32m+[m[32m                        Intent profileIntent = new Intent(getApplicationContext(), InventoryActivity.class);[m
+[32m+[m[32m//                        Intent profileIntent = new Intent(getApplicationContext(), InventoryActivity.class);[m
+                         startActivity(profileIntent);[m
+                     } else {[m
+                         Log.d(TAG, "Document does not exist!");[m
+[1mdiff --git a/app/src/main/java/com/infosys/stocktake/inventory/InventoryActivity.java b/app/src/main/java/com/infosys/stocktake/inventory/InventoryActivity.java[m
+[1mindex 9244275..1eda759 100644[m
+[1m--- a/app/src/main/java/com/infosys/stocktake/inventory/InventoryActivity.java[m
+[1m+++ b/app/src/main/java/com/infosys/stocktake/inventory/InventoryActivity.java[m
+[36m@@ -3,21 +3,30 @@[m [mpackage com.infosys.stocktake.inventory;[m
+ import android.os.Bundle;[m
+ [m
+ import androidx.annotation.NonNull;[m
+[32m+[m[32mimport androidx.appcompat.app.ActionBarDrawerToggle;[m
+ import androidx.appcompat.app.AppCompatActivity;[m
+ import android.content.Intent;[m
+[32m+[m
+[32m+[m[32mimport androidx.core.view.GravityCompat;[m
+[32m+[m[32mimport androidx.drawerlayout.widget.DrawerLayout;[m
+[32m+[m[32mimport androidx.navigation.NavController;[m
+[32m+[m[32mimport androidx.navigation.Navigation;[m
+ import androidx.viewpager.widget.ViewPager;[m
+ [m
+ import android.util.Log;[m
+[32m+[m[32mimport android.view.MenuItem;[m
+ import android.view.View;[m
+ [m
+ import com.google.android.gms.tasks.OnFailureListener;[m
+ import com.google.android.gms.tasks.OnSuccessListener;[m
+ import com.google.android.gms.tasks.Task;[m
+[32m+[m[32mimport com.google.android.material.navigation.NavigationView;[m
+ import com.google.android.material.tabs.TabLayout;[m
+ import com.google.android.material.floatingactionbutton.FloatingActionButton;[m
+ [m
+ //import info.androidhive.viewpager2.databinding.ActivityFragmentViewPagerBinding;[m
+ import com.google.firebase.auth.FirebaseAuth;[m
+[32m+[m[32mimport com.infosys.stocktake.Profile;[m
+ import com.infosys.stocktake.R;[m
+ import com.infosys.stocktake.firebase.StockTakeFirebase;[m
+ import com.infosys.stocktake.inventory.items.AddItemActivity;[m
+[36m@@ -28,7 +37,7 @@[m [mimport com.infosys.stocktake.models.User;[m
+ import java.util.Map;[m
+ //import com.infosys.stocktake.inventory.databinding.ActivityFragmentViewPagerBinding;[m
+ [m
+[31m-public class InventoryActivity extends AppCompatActivity {[m
+[32m+[m[32mpublic class InventoryActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {[m
+     private ViewPager viewPager;[m
+     private InventoryAdapter inventoryAdapter;[m
+     private TabLayout tabLayout;[m
+[36m@@ -37,12 +46,35 @@[m [mpublic class InventoryActivity extends AppCompatActivity {[m
+     private final String userUID = FirebaseAuth.getInstance().getCurrentUser().getUid();[m
+     private final String TAG = "Inventory Activity: ";[m
+ [m
+[32m+[m[32m    private ActionBarDrawerToggle mToggle;[m
+[32m+[m[32m    private NavigationView navigationView;[m
+[32m+[m[32m    private DrawerLayout drawerLayout;[m
+[32m+[m
+     @Override[m
+     protected void onCreate(Bundle savedInstanceState){[m
+         super.onCreate(savedInstanceState);[m
+         getCurrentUser();[m
+[32m+[m
+[32m+[m[32m        setContentView(R.layout.inventory_base);[m
+[32m+[m
+[32m+[m[32m        drawerLayout = findViewById(R.id.drawer_layout);[m
+[32m+[m
+[32m+[m[32m        findViewById(R.id.imageMenu).setOnClickListener(new View.OnClickListener() {[m
+[32m+[m[32m            @Override[m
+[32m+[m[32m            public void onClick(View v) {[m
+[32m+[m[32m                drawerLayout.openDrawer(GravityCompat.START);[m
+[32m+[m[32m            }[m
+[32m+[m[32m        });[m
+[32m+[m
+[32m+[m[32m        navigationView = findViewById(R.id.navigation_view);[m
+[32m+[m[32m        navigationView.setItemIconTintList(null);[m
+[32m+[m
+[32m+[m[32m        navigationView.setNavigationItemSelectedListener(this);[m
+[32m+[m
+[32m+[m
+     }[m
+ [m
+[32m+[m
+     private void getCurrentUser(){[m
+         StockTakeFirebase<User> stockTakeFirebase = new StockTakeFirebase<>(User.class,"users");[m
+         Task<User> userTask = stockTakeFirebase.query(userUID);[m
+[36m@@ -74,11 +106,26 @@[m [mpublic class InventoryActivity extends AppCompatActivity {[m
+             currentClub = "";[m
+         }[m
+ [m
+[31m-        setContentView(R.layout.inventory_base);[m
+[32m+[m
+         viewPager = findViewById(R.id.view_pager);[m
+         inventoryAdapter = new InventoryAdapter(getSupportFragmentManager(), currentUser, currentClub);[m
+         viewPager.setAdapter(inventoryAdapter);[m
+         tabLayout = findViewById(R.id.tab_layout);[m
+         tabLayout.setupWithViewPager(viewPager);[m
+     }[m
+[31m-}[m
+[32m+[m
+[32m+[m[32m    @Override[m
+[32m+[m[32m    public boolean onNavigationItemSelected(@NonNull MenuItem item) {[m
+[32m+[m[32m        switch (item.getItemId()) {[m
+[32m+[m
+[32m+[m[32m            case R.id.nav_profile: {[m
+[32m+[m[32m                startActivity(new Intent(this, Profile.class));[m
+[32m+[m[32m                break;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m[32m        //close navigation drawer[m
+[32m+[m[32m        drawerLayout.closeDrawer(GravityCompat.START);[m
+[32m+[m[32m        return true;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/app/src/main/java/com/infosys/stocktake/inventory/items/InventoryFragment.java b/app/src/main/java/com/infosys/stocktake/inventory/items/InventoryFragment.java[m
+[1mindex d71e992..1ea9f03 100644[m
+[1m--- a/app/src/main/java/com/infosys/stocktake/inventory/items/InventoryFragment.java[m
+[1m+++ b/app/src/main/java/com/infosys/stocktake/inventory/items/InventoryFragment.java[m
+[36m@@ -73,6 +73,7 @@[m [mpublic class InventoryFragment extends Fragment {[m
+             startActivity(intent);[m
+         }[m
+     });[m
+[32m+[m
+     return view;[m
+     }[m
+ [m
+[1mdiff --git a/app/src/main/java/com/infosys/stocktake/inventory/items/ItemDetailsActivity.java b/app/src/main/java/com/infosys/stocktake/inventory/items/ItemDetailsActivity.java[m
+[1mindex 8c2d42d..784cf3e 100644[m
+[1m--- a/app/src/main/java/com/infosys/stocktake/inventory/items/ItemDetailsActivity.java[m
+[1m+++ b/app/src/main/java/com/infosys/stocktake/inventory/items/ItemDetailsActivity.java[m
+[36m@@ -3,6 +3,7 @@[m [mpackage com.infosys.stocktake.inventory.items;[m
+ import androidx.appcompat.app.AppCompatActivity;[m
+ [m
+ import android.graphics.Bitmap;[m
+[32m+[m[32mimport android.graphics.Color;[m
+ import android.net.Uri;[m
+ import android.os.Bundle;[m
+ import android.util.Log;[m
+[36m@@ -16,6 +17,9 @@[m [mimport com.infosys.stocktake.models.ItemStatus;[m
+ import com.infosys.stocktake.models.QrCode;[m
+ import com.squareup.picasso.Picasso;[m
+ [m
+[32m+[m[32mimport org.eazegraph.lib.charts.PieChart;[m
+[32m+[m[32mimport org.eazegraph.lib.models.PieModel;[m
+[32m+[m
+ public class ItemDetailsActivity extends AppCompatActivity {[m
+     private static final String TAG = "inventory";[m
+     Item item;[m
+[36m@@ -24,11 +28,12 @@[m [mpublic class ItemDetailsActivity extends AppCompatActivity {[m
+     TextView tvItemName, tvQtyAvailable, tvQtyBroken, tvQtyOnLoan, tvQtyOnRepair;[m
+     ScrollView tvItemDesc; //change from textview to scrollview -felia[m
+     ImageView ivItemPicture, ivQrCode;[m
+[32m+[m[32m    PieChart pieChart;[m
+ [m
+     @Override[m
+     protected void onCreate(Bundle savedInstanceState) {[m
+         super.onCreate(savedInstanceState);[m
+[31m-        setContentView(R.layout.activity_item_details);[m
+[32m+[m[32m        setContentView(R.layout.activity_item_detail_pichart);[m
+ [m
+         // Initialize UI Components[m
+         tvItemName = findViewById(R.id.tvItemName);[m
+[36m@@ -39,14 +44,17 @@[m [mpublic class ItemDetailsActivity extends AppCompatActivity {[m
+         tvItemDesc = findViewById(R.id.tvItemDesc);[m
+         ivItemPicture = findViewById(R.id.ivItemPicture);[m
+         ivQrCode = findViewById(R.id.ivQrCode);[m
+[32m+[m[32m        pieChart = findViewById(R.id.piechart);[m
+ [m
+         Log.d(TAG, "Retrieving items...");[m
+         // Populate components with Item data from passed Intent[m
+[31m-        TextView tv = new TextView(this); //changes are here -felia[m
+[31m-        tv.setText(item.getItemDescription());[m
+[32m+[m
+ [m
+ [m
+         item = (Item) getIntent().getSerializableExtra("ItemIntent");[m
+[32m+[m[32m        TextView tv = new TextView(this); //changes are here -felia[m
+[32m+[m[32m        tv.setText(item.getItemDescription());[m
+[32m+[m
+         tvItemName.setText(item.getItemName());[m
+         Log.d(TAG, item.getItemName());[m
+         tvQtyAvailable.setText(item.getQtyStatus().get(ItemStatus.AVAILABLE.toString()).toString());[m
+[36m@@ -66,5 +74,38 @@[m [mpublic class ItemDetailsActivity extends AppCompatActivity {[m
+         QrCode qr = new QrCode(QR_HEIGHT, QR_WIDTH);[m
+         Bitmap bitmap = qr.stringToBitmap(item.getEncodedQr());[m
+         ivQrCode.setImageBitmap(bitmap);[m
+[32m+[m
+[32m+[m[32m        setData();[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m    private void setData()[m
+[32m+[m[32m    {[m
+[32m+[m
+[32m+[m
+[32m+[m[32m        // Set the data and color to the pie chart[m
+[32m+[m[32m        pieChart.addPieSlice([m
+[32m+[m[32m                new PieModel([m
+[32m+[m[32m                        "Available",[m
+[32m+[m[32m                        Integer.parseInt(tvQtyAvailable.getText().toString()),[m
+[32m+[m[32m                        Color.parseColor("#66BB6A")));[m
+[32m+[m[32m        pieChart.addPieSlice([m
+[32m+[m[32m                new PieModel([m
+[32m+[m[32m                        "Broken",[m
+[32m+[m[32m                        Integer.parseInt(tvQtyBroken.getText().toString()),[m
+[32m+[m[32m                        Color.parseColor("#EF5350")));[m
+[32m+[m[32m        pieChart.addPieSlice([m
+[32m+[m[32m                new PieModel([m
+[32m+[m[32m                        "On Repair",[m
+[32m+[m[32m                        Integer.parseInt(tvQtyOnRepair.getText().toString()),[m
+[32m+[m[32m                        Color.parseColor("#FFA726")));[m
+[32m+[m[32m        pieChart.addPieSlice([m
+[32m+[m[32m                new PieModel([m
+[32m+[m[32m                        "Loan",[m
+[32m+[m[32m                        Integer.parseInt(tvQtyOnLoan.getText().toString()),[m
+[32m+[m[32m                        Color.parseColor("#707070")));[m
+[32m+[m
+[32m+[m[32m        // To animate the pie chart[m
+[32m+[m[32m        pieChart.startAnimation();[m
+     }[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/app/src/main/java/com/infosys/stocktake/inventory/items/ItemRecyclerViewAdapter.java b/app/src/main/java/com/infosys/stocktake/inventory/items/ItemRecyclerViewAdapter.java[m
+[1mindex ca617c5..8ebc341 100644[m
+[1m--- a/app/src/main/java/com/infosys/stocktake/inventory/items/ItemRecyclerViewAdapter.java[m
+[1m+++ b/app/src/main/java/com/infosys/stocktake/inventory/items/ItemRecyclerViewAdapter.java[m
+[36m@@ -35,7 +35,7 @@[m [mpublic class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi[m
+     @NonNull[m
+     @Override[m
+     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {[m
+[31m-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.inventory_item,parent, false);[m
+[32m+[m[32m        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.inventory_item, parent, false);[m
+         ViewHolder holder = new ViewHolder(view);[m
+         return holder;[m
+     }[m
+[1mdiff --git a/app/src/main/java/com/infosys/stocktake/navigationdrawer/navbar.java b/app/src/main/java/com/infosys/stocktake/navigationdrawer/navbar.java[m
+[1mindex 61d3429..bcf022d 100644[m
+[1m--- a/app/src/main/java/com/infosys/stocktake/navigationdrawer/navbar.java[m
+[1m+++ b/app/src/main/java/com/infosys/stocktake/navigationdrawer/navbar.java[m
+[36m@@ -3,11 +3,14 @@[m [mpackage com.infosys.stocktake.navigationdrawer;[m
+ import android.os.Bundle;[m
+ import android.view.MenuItem;[m
+ import android.view.View;[m
+[32m+[m[32mimport android.widget.ImageView;[m
+[32m+[m
+ import androidx.appcompat.widget.Toolbar;[m
+ [m
+ import androidx.annotation.NonNull;[m
+ import androidx.appcompat.app.ActionBarDrawerToggle;[m
+ import androidx.appcompat.app.AppCompatActivity;[m
+[32m+[m[32mimport androidx.core.view.GravityCompat;[m
+ import androidx.drawerlayout.widget.DrawerLayout;[m
+ [m
+ import com.google.android.material.navigation.NavigationView;[m
+[36m@@ -25,16 +28,20 @@[m [mpublic class navbar extends AppCompatActivity {[m
+         super.onCreate(savedInstanceState);[m
+         setContentView(R.layout.activity_main);[m
+ [m
+[31m-        Toolbar toolbar = findViewById(R.id.navbar);[m
+[31m-        setSupportActionBar(toolbar);[m
+[32m+[m
+[32m+[m[32m        final ImageView toolbar1 = (ImageView) findViewById(R.id.Toolbar1);[m
+[32m+[m[32m        final DrawerLayout drawer =  findViewById(R.id.drawer_layout);[m
+[32m+[m[32m        toolbar1.setOnClickListener(new View.OnClickListener() {[m
+[32m+[m[32m            @Override[m
+[32m+[m[32m            public void onClick(View view) {[m
+[32m+[m[32m                drawer.openDrawer(GravityCompat.START);[m
+[32m+[m[32m            }[m
+[32m+[m[32m        });[m
+ [m
+         getSupportActionBar().setDisplayHomeAsUpEnabled(true);[m
+ [m
+[31m-        drawerLayout = findViewById(R.id.drawer_layout);[m
+[31m-        actionBarDrawerToggle = new ActionBarDrawerToggle(navbar.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);[m
+[31m-        drawerLayout.addDrawerListener(actionBarDrawerToggle);[m
+ [m
+[31m-        actionBarDrawerToggle.syncState();[m
+[32m+[m
+         navigationView = findViewById(R.id.nav_view);[m
+         View navView = navigationView.inflateHeaderView(R.layout.navigation_header);[m
+ [m
+[36m@@ -58,7 +65,7 @@[m [mpublic class navbar extends AppCompatActivity {[m
+ [m
+     public void UserMenuSelected(MenuItem menuItem){[m
+         switch(menuItem.getItemId()){[m
+[31m-            case R.id.nav_home:[m
+[32m+[m[32m            case R.id.nav_inventory:[m
+                 break;[m
+             case R.id.nav_profile:[m
+                 break;[m
+[1mdiff --git a/app/src/main/res/drawable/ic_baseline_archive_24.xml b/app/src/main/res/drawable/ic_baseline_archive_24.xml[m
+[1mindex 0cb9afd..8baf57f 100644[m
+[1m--- a/app/src/main/res/drawable/ic_baseline_archive_24.xml[m
+[1m+++ b/app/src/main/res/drawable/ic_baseline_archive_24.xml[m
+[36m@@ -1,5 +1,9 @@[m
+[31m-<vector android:height="24dp" android:tint="#FFFFFF"[m
+[31m-    android:viewportHeight="24" android:viewportWidth="24"[m
+[31m-    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">[m
+[31m-    <path android:fillColor="@android:color/white" android:pathData="M20.54,5.23l-1.39,-1.68C18.88,3.21 18.47,3 18,3H6c-0.47,0 -0.88,0.21 -1.16,0.55L3.46,5.23C3.17,5.57 3,6.02 3,6.5V19c0,1.1 0.9,2 2,2h14c1.1,0 2,-0.9 2,-2V6.5c0,-0.48 -0.17,-0.93 -0.46,-1.27zM12,17.5L6.5,12H10v-2h4v2h3.5L12,17.5zM5.12,5l0.81,-1h12l0.94,1H5.12z"/>[m
+[32m+[m[32m<vector android:height="24dp"[m
+[32m+[m[32m    android:tint="?attr/colorControlNormal"[m
+[32m+[m[32m    android:viewportHeight="24"[m
+[32m+[m[32m    android:viewportWidth="24"[m
+[32m+[m[32m    android:width="24dp"[m
+[32m+[m[32m    xmlns:android="http://schemas.android.com/apk/res/android">[m
+[32m+[m[32m    <path android:fillColor="@android:color/white"[m
+[32m+[m[32m          android:pathData="M20.54,5.23l-1.39,-1.68C18.88,3.21 18.47,3 18,3H6c-0.47,0 -0.88,0.21 -1.16,0.55L3.46,5.23C3.17,5.57 3,6.02 3,6.5V19c0,1.1 0.9,2 2,2h14c1.1,0 2,-0.9 2,-2V6.5c0,-0.48 -0.17,-0.93 -0.46,-1.27zM12,17.5L6.5,12H10v-2h4v2h3.5L12,17.5zM5.12,5l0.81,-1h12l0.94,1H5.12z"/>[m
+ </vector>[m
+[1mdiff --git a/app/src/main/res/layout/activity_add_item.xml b/app/src/main/res/layout/activity_add_item.xml[m
+[1mindex c9ac7b6..2d1ca45 100644[m
+[1m--- a/app/src/main/res/layout/activity_add_item.xml[m
+[1m+++ b/app/src/main/res/layout/activity_add_item.xml[m
+[36m@@ -54,10 +54,11 @@[m
+             <RelativeLayout[m
+                 android:layout_width="match_parent"[m
+                 android:layout_height="match_parent"[m
+[31m-                android:id="@+id/imgPreview"[m
+[32m+[m[32m                android:id="@+id/regimgPreview"[m
+                 android:layout_weight="0.65">[m
+ [m
+                 <ImageView[m
+[32m+[m[32m                    android:id="@+id/imgPreview"[m
+                     android:layout_width="match_parent"[m
+                     android:layout_height="wrap_content" />[m
+ [m
+[36m@@ -71,7 +72,7 @@[m
+                 app:layout_constraintStart_toStartOf="parent"[m
+                 app:layout_constraintTop_toTopOf="parent"[m
+                 android:layout_marginVertical="@dimen/components_sm_margin"[m
+[31m-                android:layout_below="@id/imgPreview"[m
+[32m+[m[32m                android:layout_below="@id/regimgPreview"[m
+                 android:layout_weight="0.3">[m
+ [m
+ [m
+[36m@@ -79,7 +80,7 @@[m
+                 <Button[m
+                     android:id="@+id/selectImgBtn"[m
+                     android:layout_width="match_parent"[m
+[31m-                    android:layout_height="wrap_content"[m
+[32m+[m[32m                    android:layout_height="20dp"[m
+                     android:layout_marginVertical="@dimen/components_sm_margin"[m
+                     android:text="Select Image"[m
+                     android:font="@font/orienta"[m
+[1mdiff --git a/app/src/main/res/layout/activity_inventory.xml b/app/src/main/res/layout/activity_inventory.xml[m
+[1mindex 9207425..71d0b55 100644[m
+[1m--- a/app/src/main/res/layout/activity_inventory.xml[m
+[1m+++ b/app/src/main/res/layout/activity_inventory.xml[m
+[36m@@ -4,18 +4,18 @@[m
+     xmlns:tools="http://schemas.android.com/tools"[m
+     android:layout_width="match_parent"[m
+     android:layout_height="match_parent"[m
+[31m-    tools:context=".inventory.InventoryActivity">[m
+[32m+[m[32m    >[m
+ [m
+[31m-    <com.google.android.material.floatingactionbutton.FloatingActionButton[m
+[31m-        android:id="@+id/fab_add_item"[m
+[31m-        android:layout_width="wrap_content"[m
+[31m-        android:layout_height="wrap_content"[m
+[31m-        android:layout_gravity="bottom|right"[m
+[31m-        android:layout_margin="16dp"[m
+[31m-        android:backgroundTint="@color/blue_main1"[m
+[31m-        android:src="@drawable/ic_baseline_add_24"[m
+[31m-        android:contentDescription="@string/fab_add_item"[m
+[31m-        app:layout_constraintBottom_toBottomOf="parent"[m
+[31m-        app:layout_constraintEnd_toEndOf="parent" />[m
+[32m+[m[32m<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->[m
+[32m+[m[32m<!--        android:id="@+id/fab_add_item"-->[m
+[32m+[m[32m<!--        android:layout_width="wrap_content"-->[m
+[32m+[m[32m<!--        android:layout_height="wrap_content"-->[m
+[32m+[m[32m<!--        android:layout_gravity="bottom|right"-->[m
+[32m+[m[32m<!--        android:layout_margin="16dp"-->[m
+[32m+[m[32m<!--        app:backgroundTint="@color/black"-->[m
+[32m+[m[32m<!--        android:src="@drawable/ic_baseline_add_24"-->[m
+[32m+[m[32m<!--        android:contentDescription="@string/fab_add_item"-->[m
+[32m+[m[32m<!--        app:layout_constraintBottom_toBottomOf="parent"-->[m
+[32m+[m[32m<!--        app:layout_constraintEnd_toEndOf="parent" />-->[m
+ [m
+ </androidx.constraintlayout.widget.ConstraintLayout>[m
+\ No newline at end of file[m
+[1mdiff --git a/app/src/main/res/layout/activity_item_detail_pichart.xml b/app/src/main/res/layout/activity_item_detail_pichart.xml[m
+[1mindex 1f017aa..15658cb 100644[m
+[1m--- a/app/src/main/res/layout/activity_item_detail_pichart.xml[m
+[1m+++ b/app/src/main/res/layout/activity_item_detail_pichart.xml[m
+[36m@@ -104,11 +104,28 @@[m
+                         android:background="@color/Available"/>[m
+ [m
+                     <!--Text view to display R -->[m
+[31m-                    <TextView[m
+[32m+[m[32m                    <TableLayout[m
+                         android:layout_width="wrap_content"[m
+                         android:layout_height="wrap_content"[m
+[31m-                        android:text="Available"[m
+[31m-                        android:paddingLeft="10dp"/>[m
+[32m+[m[32m                        android:paddingRight="20dp"[m
+[32m+[m[32m                        android:stretchColumns="0,1">[m
+[32m+[m[32m                        <TableRow>[m
+[32m+[m[32m                            <TextView[m
+[32m+[m[32m                                android:layout_width="wrap_content"[m
+[32m+[m[32m                                android:layout_height="wrap_content"[m
+[32m+[m[32m                                android:text="Available:"[m
+[32m+[m[32m                                android:paddingLeft="10dp"/>[m
+[32m+[m
+[32m+[m[32m                            <TextView[m
+[32m+[m[32m                                android:id="@+id/tvQtyAvailable"[m
+[32m+[m[32m                                android:layout_width="wrap_content"[m
+[32m+[m[32m                                android:layout_height="wrap_content"[m
+[32m+[m[32m                                android:textAlignment="textEnd"[m
+[32m+[m[32m                                android:text="0"[m
+[32m+[m[32m                                android:paddingLeft="10dp"/>[m
+[32m+[m[32m                        </TableRow>[m
+[32m+[m
+[32m+[m[32m                    </TableLayout>[m
+ [m
+                 </LinearLayout>[m
+ [m
+[36m@@ -126,11 +143,28 @@[m
+                         android:background="@color/Broken"/>[m
+ [m
+                     <!--Text view to display python text -->[m
+[31m-                    <TextView[m
+[32m+[m[32m                    <TableLayout[m
+                         android:layout_width="wrap_content"[m
+                         android:layout_height="wrap_content"[m
+[31m-                        android:text="Broken"[m
+[31m-                        android:paddingLeft="10dp"/>[m
+[32m+[m[32m                        android:paddingRight="20dp"[m
+[32m+[m[32m                        android:stretchColumns="0,1">[m
+[32m+[m[32m                        <TableRow>[m
+[32m+[m[32m                            <TextView[m
+[32m+[m[32m                                android:layout_width="wrap_content"[m
+[32m+[m[32m                                android:layout_height="wrap_content"[m
+[32m+[m[32m                                android:text="Broken:"[m
+[32m+[m[32m                                android:paddingLeft="10dp"/>[m
+[32m+[m
+[32m+[m[32m                            <TextView[m
+[32m+[m[32m                                android:id="@+id/tvQtyBroken"[m
+[32m+[m[32m                                android:layout_width="wrap_content"[m
+[32m+[m[32m                                android:layout_height="wrap_content"[m
+[32m+[m[32m                                android:textAlignment="textEnd"[m
+[32m+[m[32m                                android:text="0"[m
+[32m+[m[32m                                android:paddingLeft="10dp"/>[m
+[32m+[m[32m                        </TableRow>[m
+[32m+[m
+[32m+[m[32m                    </TableLayout>[m
+ [m
+                 </LinearLayout>[m
+ [m
+[36m@@ -148,11 +182,28 @@[m
+                         android:background="@color/On_Repair"/>[m
+ [m
+                     <!--Text view to display C++ text -->[m
+[31m-                    <TextView[m
+[32m+[m[32m                    <TableLayout[m
+                         android:layout_width="wrap_content"[m
+                         android:layout_height="wrap_content"[m
+[31m-                        android:text="On Repair"[m
+[31m-                        android:paddingLeft="10dp"/>[m
+[32m+[m[32m                        android:paddingRight="20dp"[m
+[32m+[m[32m                        android:stretchColumns="0,1">[m
+[32m+[m[32m                        <TableRow>[m
+[32m+[m[32m                            <TextView[m
+[32m+[m[32m                                android:layout_width="wrap_content"[m
+[32m+[m[32m                                android:layout_height="wrap_content"[m
+[32m+[m[32m                                android:text="On Repair:"[m
+[32m+[m[32m                                android:paddingLeft="10dp"/>[m
+[32m+[m
+[32m+[m[32m                            <TextView[m
+[32m+[m[32m                                android:id="@+id/tvQtyOnRepair"[m
+[32m+[m[32m                                android:layout_width="wrap_content"[m
+[32m+[m[32m                                android:layout_height="wrap_content"[m
+[32m+[m[32m                                android:textAlignment="textEnd"[m
+[32m+[m[32m                                android:text="0"[m
+[32m+[m[32m                                android:paddingLeft="10dp"/>[m
+[32m+[m[32m                        </TableRow>[m
+[32m+[m
+[32m+[m[32m                    </TableLayout>[m
+ [m
+                 </LinearLayout>[m
+ [m
+[36m@@ -170,11 +221,28 @@[m
+                         android:background="@color/Loan"/>[m
+ [m
+                     <!--Text view to display Java text -->[m
+[31m-                    <TextView[m
+[32m+[m[32m                    <TableLayout[m
+                         android:layout_width="wrap_content"[m
+                         android:layout_height="wrap_content"[m
+[31m-                        android:text="On Loan"[m
+[31m-                        android:paddingLeft="10dp"/>[m
+[32m+[m[32m                        android:paddingRight="20dp"[m
+[32m+[m[32m                        android:stretchColumns="0,1">[m
+[32m+[m[32m                        <TableRow>[m
+[32m+[m[32m                            <TextView[m
+[32m+[m[32m                                android:layout_width="wrap_content"[m
+[32m+[m[32m                                android:layout_height="wrap_content"[m
+[32m+[m[32m                                android:text="On Loan:"[m
+[32m+[m[32m                                android:paddingLeft="10dp"/>[m
+[32m+[m
+[32m+[m[32m                            <TextView[m
+[32m+[m[32m                                android:id="@+id/tvQtyOnLoan"[m
+[32m+[m[32m                                android:layout_width="wrap_content"[m
+[32m+[m[32m                                android:layout_height="wrap_content"[m
+[32m+[m[32m                                android:textAlignment="textEnd"[m
+[32m+[m[32m                                android:text="0"[m
+[32m+[m[32m                                android:paddingLeft="10dp"/>[m
+[32m+[m[32m                        </TableRow>[m
+[32m+[m
+[32m+[m[32m                    </TableLayout>[m
+ [m
+                 </LinearLayout>[m
+ [m
+[1mdiff --git a/app/src/main/res/layout/activity_item_details.xml b/app/src/main/res/layout/activity_item_details.xml[m
+[1mindex c177b68..21e7c69 100644[m
+[1m--- a/app/src/main/res/layout/activity_item_details.xml[m
+[1m+++ b/app/src/main/res/layout/activity_item_details.xml[m
+[36m@@ -5,6 +5,7 @@[m
+     android:id="@+id/drawer_layout"[m
+     android:layout_width="match_parent"[m
+     android:layout_height="match_parent"[m
+[32m+[m[32m    android:background="@color/gray_light"[m
+     tools:context=".inventory.items.ItemDetailsActivity">[m
+ [m
+     <RelativeLayout[m
+[36m@@ -290,7 +291,7 @@[m
+                     <ImageView[m
+                         android:id="@+id/ivQrCode"[m
+                         android:layout_width="match_parent"[m
+[31m-                        android:layout_height="50" />[m
+[32m+[m[32m                        android:layout_height="50dp" />[m
+                 </RelativeLayout>[m
+ [m
+                 `</LinearLayout>[m
+[1mdiff --git a/app/src/main/res/layout/activity_main.xml b/app/src/main/res/layout/activity_main.xml[m
+[1mindex 3df2ce6..c9ba13c 100644[m
+[1m--- a/app/src/main/res/layout/activity_main.xml[m
+[1m+++ b/app/src/main/res/layout/activity_main.xml[m
+[36m@@ -11,49 +11,49 @@[m
+     <RelativeLayout[m
+         android:layout_width="match_parent"[m
+         android:layout_height="match_parent">[m
+[31m-    <RelativeLayout[m
+[31m-        android:layout_width="match_parent"[m
+[31m-        android:layout_height="wrap_content"[m
+[31m-        android:id="@+id/relative_reg"[m
+[31m-        android:background="@drawable/white_rectangle">[m
+[31m-[m
+         <RelativeLayout[m
+             android:layout_width="match_parent"[m
+             android:layout_height="wrap_content"[m
+[31m-            android:id="@+id/stock_take"[m
+[31m-            android:layout_marginLeft="10dp">[m
+[31m-            <TextView[m
+[31m-                android:layout_width="140dp"[m
+[31m-                android:layout_height="wrap_content"[m
+[31m-                android:layout_marginStart="@dimen/activity_horizontal_margin"[m
+[31m-                android:layout_marginTop="60dp"[m
+[31m-                android:text="@string/app_name"[m
+[31m-                android:textSize="@dimen/text_title"[m
+[31m-                android:textColor="@color/black"[m
+[31m-                android:fontFamily="sans-serif"[m
+[31m-                android:font="@font/orienta"[m
+[31m-                app:layout_constraintStart_toStartOf="parent"[m
+[31m-                app:layout_constraintTop_toTopOf="parent" />[m
+[31m-        </RelativeLayout>[m
+[32m+[m[32m            android:id="@+id/relative_reg"[m
+[32m+[m[32m            android:background="@drawable/white_rectangle">[m
+ [m
+[31m-    </RelativeLayout>[m
+[32m+[m[32m            <RelativeLayout[m
+[32m+[m[32m                android:layout_width="match_parent"[m
+[32m+[m[32m                android:layout_height="wrap_content"[m
+[32m+[m[32m                android:id="@+id/stock_take"[m
+[32m+[m[32m                android:layout_marginLeft="10dp">[m
+[32m+[m[32m                <TextView[m
+[32m+[m[32m                    android:layout_width="140dp"[m
+[32m+[m[32m                    android:layout_height="wrap_content"[m
+[32m+[m[32m                    android:layout_marginStart="@dimen/activity_horizontal_margin"[m
+[32m+[m[32m                    android:layout_marginTop="60dp"[m
+[32m+[m[32m                    android:text="@string/app_name"[m
+[32m+[m[32m                    android:textSize="@dimen/text_title"[m
+[32m+[m[32m                    android:textColor="@color/black"[m
+[32m+[m[32m                    android:fontFamily="sans-serif"[m
+[32m+[m[32m                    android:font="@font/orienta"[m
+[32m+[m[32m                    app:layout_constraintStart_toStartOf="parent"[m
+[32m+[m[32m                    app:layout_constraintTop_toTopOf="parent" />[m
+[32m+[m[32m            </RelativeLayout>[m
+ [m
+[31m-    <RelativeLayout[m
+[31m-        android:layout_width="match_parent"[m
+[31m-        android:layout_height="wrap_content"[m
+[31m-        android:layout_below="@id/relative_reg"[m
+[31m-        app:layout_constraintTop_toBottomOf="@+id/relative_reg">[m
+[32m+[m[32m        </RelativeLayout>[m
+ [m
+[31m-        <fragment[m
+[31m-            android:id="@+id/navHost_fragment"[m
+[32m+[m[32m        <RelativeLayout[m
+             android:layout_width="match_parent"[m
+[31m-            android:layout_height="fill_parent"[m
+[32m+[m[32m            android:layout_height="wrap_content"[m
+[32m+[m[32m            android:layout_below="@id/relative_reg"[m
+[32m+[m[32m            app:layout_constraintTop_toBottomOf="@+id/relative_reg">[m
+ [m
+[31m-            android:name="androidx.navigation.fragment.NavHostFragment"[m
+[31m-            app:defaultNavHost="true"[m
+[31m-            app:navGraph="@navigation/main" />[m
+[32m+[m[32m            <fragment[m
+[32m+[m[32m                android:id="@+id/navHost_fragment"[m
+[32m+[m[32m                android:layout_width="match_parent"[m
+[32m+[m[32m                android:layout_height="fill_parent"[m
+ [m
+[31m-    </RelativeLayout>[m
+[32m+[m[32m                android:name="androidx.navigation.fragment.NavHostFragment"[m
+[32m+[m[32m                app:defaultNavHost="true"[m
+[32m+[m[32m                app:navGraph="@navigation/main" />[m
+[32m+[m
+[32m+[m[32m        </RelativeLayout>[m
+     </RelativeLayout>[m
+ [m
+     <androidx.constraintlayout.widget.ConstraintLayout[m
+[1mdiff --git a/app/src/main/res/layout/activity_profile.xml b/app/src/main/res/layout/activity_profile.xml[m
+[1mindex 9d0513a..1742e41 100644[m
+[1m--- a/app/src/main/res/layout/activity_profile.xml[m
+[1m+++ b/app/src/main/res/layout/activity_profile.xml[m
+[36m@@ -1,5 +1,6 @@[m
+ <?xml version="1.0" encoding="utf-8"?>[m
+ <androidx.constraintlayout.widget.ConstraintLayout[m
+[32m+[m[32m    android:id="@+id/activity_profile"[m
+     xmlns:android="http://schemas.android.com/apk/res/android"[m
+     xmlns:app="http://schemas.android.com/apk/res-auto"[m
+     xmlns:tools="http://schemas.android.com/tools"[m
+[36m@@ -75,6 +76,7 @@[m
+                         android:layout_height="wrap_content"[m
+                         android:layout_weight="1"[m
+                         android:textSize="25dp"[m
+[32m+[m[32m                        android:inputType="textCapWords"[m
+                         android:text="Name"/>[m
+                 </TableRow>[m
+ [m
+[36m@@ -136,7 +138,7 @@[m
+                         android:text="Role:"/>[m
+ [m
+                     <TextView[m
+[31m-                        android:id="@+id/role"[m
+[32m+[m[32m                        android:id="@+id/profileMembershipInfo"[m
+                         android:layout_width="0dp"[m
+                         android:layout_height="wrap_content"[m
+                         android:layout_weight="1"[m
+[36m@@ -147,7 +149,7 @@[m
+             </TableLayout>[m
+ [m
+             <TableLayout[m
+[31m-                android:id="@+id/profileClubName"[m
+[32m+[m[32m                android:id="@+id/tabClubName"[m
+                 android:layout_width="match_parent"[m
+                 android:layout_height="wrap_content"[m
+                 android:layout_below="@+id/profileRole"[m
+[36m@@ -169,7 +171,7 @@[m
+                         android:text="Club Name:"/>[m
+ [m
+                     <TextView[m
+[31m-                        android:id="@+id/profileMembershipInfo"[m
+[32m+[m[32m                        android:id="@+id/ClubName"[m
+                         android:layout_width="0dp"[m
+                         android:layout_height="wrap_content"[m
+                         android:layout_weight="1"[m
+[36m@@ -183,7 +185,7 @@[m
+                 android:id="@+id/profileTelegram"[m
+                 android:layout_width="match_parent"[m
+                 android:layout_height="wrap_content"[m
+[31m-                android:layout_below="@+id/profileClubName"[m
+[32m+[m[32m                android:layout_below="@+id/tabClubName"[m
+                 android:stretchColumns="0,1">[m
+ [m
+                 <TableRow[m
+[1mdiff --git a/app/src/main/res/layout/fragment_home__screen__place_holder.xml b/app/src/main/res/layout/fragment_home__screen__place_holder.xml[m
+[1mindex 96974d2..8e135f0 100644[m
+[1m--- a/app/src/main/res/layout/fragment_home__screen__place_holder.xml[m
+[1m+++ b/app/src/main/res/layout/fragment_home__screen__place_holder.xml[m
+[36m@@ -3,9 +3,34 @@[m
+     xmlns:tools="http://schemas.android.com/tools"[m
+     android:layout_width="match_parent"[m
+     android:layout_height="match_parent"[m
+[31m-    tools:context=".auth.Home_Screen_PlaceHolder">[m
+[32m+[m[32m    xmlns:app="http://schemas.android.com/apk/res-auto"[m
+[32m+[m[32m    tools:context=".inventory.InventoryActivity">[m
+ [m
+     <!-- TODO: Update blank fragment layout -->[m
+[32m+[m[32m    <LinearLayout[m
+[32m+[m
+[32m+[m[32m        android:layout_width="match_parent"[m
+[32m+[m[32m        android:layout_height="match_parent"[m
+[32m+[m[32m        android:orientation="vertical"[m
+[32m+[m[32m        android:name="androidx.navigation.fragment.NavHostFragment"[m
+[32m+[m[32m        >[m
+[32m+[m
+[32m+[m[32m        <com.google.android.material.tabs.TabLayout[m
+[32m+[m[32m            android:id="@+id/tab_layout"[m
+[32m+[m[32m            android:layout_width="match_parent"[m
+[32m+[m[32m            android:layout_height="?attr/actionBarSize"[m
+[32m+[m[32m            android:background="@color/colorPrimaryDark"[m
+[32m+[m[32m            app:tabTextColor="#FFF"[m
+[32m+[m[32m            app:tabGravity="fill"[m
+[32m+[m[32m            app:tabSelectedTextColor="@color/colorAccent"/>[m
+[32m+[m
+[32m+[m[32m        <androidx.viewpager.widget.ViewPager[m
+[32m+[m[32m            android:id="@+id/view_pager"[m
+[32m+[m[32m            android:layout_width="match_parent"[m
+[32m+[m[32m            android:layout_height="match_parent"/>[m
+[32m+[m
+[32m+[m
+[32m+[m[32m    </LinearLayout>[m
+ [m
+ [m
+ </FrameLayout>[m
+\ No newline at end of file[m
+[1mdiff --git a/app/src/main/res/layout/inventory_base.xml b/app/src/main/res/layout/inventory_base.xml[m
+[1mindex b1d0e72..c8e3e68 100644[m
+[1m--- a/app/src/main/res/layout/inventory_base.xml[m
+[1m+++ b/app/src/main/res/layout/inventory_base.xml[m
+[36m@@ -1,32 +1,110 @@[m
+ <?xml version="1.0" encoding="utf-8"?>[m
+[31m-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"[m
+[32m+[m[32m<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"[m
+     xmlns:app="http://schemas.android.com/apk/res-auto"[m
+     xmlns:tools="http://schemas.android.com/tools"[m
+[31m-    android:layout_height="match_parent"[m
+[32m+[m[32m    android:id="@+id/drawer_layout"[m
+     android:layout_width="match_parent"[m
+[31m-    >[m
+[32m+[m[32m    android:layout_height="match_parent"[m
+ [m
+[31m-    <LinearLayout[m
+[31m-        android:id="@+id/layout"[m
+[32m+[m[32m    android:background="@color/gray_light"[m
+[32m+[m[32m    tools:context=".MainActivity">[m
+[32m+[m[32m    <RelativeLayout[m
+         android:layout_width="match_parent"[m
+[31m-        android:layout_height="match_parent"[m
+[31m-        android:orientation="vertical"[m
+[31m-        tools:context=".inventory.InventoryActivity">[m
+[32m+[m[32m        android:layout_height="match_parent">[m
+[32m+[m[32m        <RelativeLayout[m
+[32m+[m[32m            android:layout_width="match_parent"[m
+[32m+[m[32m            android:layout_height="wrap_content"[m
+[32m+[m[32m            android:id="@+id/relative_reg"[m
+[32m+[m[32m            android:background="@drawable/white_rectangle">[m
+[32m+[m
+[32m+[m[32m            <RelativeLayout[m
+[32m+[m[32m                android:layout_width="match_parent"[m
+[32m+[m[32m                android:layout_height="wrap_content"[m
+[32m+[m[32m                android:id="@+id/stock_take"[m
+[32m+[m[32m                android:layout_marginLeft="10dp">[m
+[32m+[m[32m                <TextView[m
+[32m+[m[32m                    android:layout_width="140dp"[m
+[32m+[m[32m                    android:layout_height="wrap_content"[m
+[32m+[m[32m                    android:layout_marginStart="@dimen/activity_horizontal_margin"[m
+[32m+[m[32m                    android:layout_marginTop="60dp"[m
+[32m+[m[32m                    android:text="@string/app_name"[m
+[32m+[m[32m                    android:textSize="@dimen/text_title"[m
+[32m+[m[32m                    android:textColor="@color/black"[m
+[32m+[m[32m                    android:fontFamily="sans-serif"[m
+[32m+[m[32m                    android:font="@font/orienta"[m
+[32m+[m[32m                    app:layout_constraintStart_toStartOf="parent"[m
+[32m+[m[32m                    app:layout_constraintTop_toTopOf="parent" />[m
+[32m+[m[32m            </RelativeLayout>[m
+ [m
+[31m-        <com.google.android.material.tabs.TabLayout[m
+[31m-            android:id="@+id/tab_layout"[m
+[32m+[m[32m        </RelativeLayout>[m
+[32m+[m
+[32m+[m[32m        <RelativeLayout[m
+             android:layout_width="match_parent"[m
+[31m-            android:layout_height="?attr/actionBarSize"[m
+[31m-            android:background="@color/colorPrimaryDark"[m
+[31m-            app:tabTextColor="#FFF"[m
+[31m-            app:tabGravity="fill"[m
+[31m-            app:tabSelectedTextColor="@color/colorAccent"/>[m
+[31m-[m
+[31m-        <androidx.viewpager.widget.ViewPager[m
+[31m-            android:id="@+id/view_pager"[m
+[32m+[m[32m            android:layout_height="wrap_content"[m
+[32m+[m[32m            android:layout_below="@id/relative_reg"[m
+[32m+[m[32m            app:layout_constraintTop_toBottomOf="@+id/relative_reg">[m
+[32m+[m
+[32m+[m[32m            <LinearLayout[m
+[32m+[m[32m                android:id="@+id/navHost_fragment"[m
+[32m+[m[32m                android:layout_width="match_parent"[m
+[32m+[m[32m                android:layout_height="match_parent"[m
+[32m+[m[32m                android:orientation="vertical"[m
+[32m+[m[32m                tools:context=".inventory.InventoryActivity">[m
+[32m+[m
+[32m+[m[32m                <com.google.android.material.tabs.TabLayout[m
+[32m+[m[32m                    android:id="@+id/tab_layout"[m
+[32m+[m[32m                    android:layout_width="match_parent"[m
+[32m+[m[32m                    android:layout_height="?attr/actionBarSize"[m
+[32m+[m[32m                    android:background="@color/colorPrimaryDark"[m
+[32m+[m[32m                    app:tabTextColor="#FFF"[m
+[32m+[m[32m                    app:tabGravity="fill"[m
+[32m+[m[32m                    app:tabSelectedTextColor="@color/colorAccent"/>[m
+[32m+[m
+[32m+[m[32m                <androidx.viewpager.widget.ViewPager[m
+[32m+[m[32m                    android:id="@+id/view_pager"[m
+[32m+[m[32m                    android:layout_width="match_parent"[m
+[32m+[m[32m                    android:layout_height="match_parent"/>[m
+[32m+[m
+[32m+[m[32m            </LinearLayout>[m
+[32m+[m
+[32m+[m[32m        </RelativeLayout>[m
+[32m+[m[32m    </RelativeLayout>[m
+[32m+[m
+[32m+[m[32m    <androidx.constraintlayout.widget.ConstraintLayout[m
+[32m+[m[32m        android:layout_width="match_parent"[m
+[32m+[m[32m        android:layout_height="match_parent">[m
+[32m+[m[32m        <LinearLayout[m
+[32m+[m[32m            android:id="@+id/layout_toolbar"[m
+             android:layout_width="match_parent"[m
+[31m-            android:layout_height="match_parent"/>[m
+[32m+[m[32m            android:layout_height="?actionBarSize"[m
+[32m+[m[32m            android:background="@color/white"[m
+[32m+[m[32m            android:gravity="center_vertical"[m
+[32m+[m[32m            android:orientation="horizontal"[m
+[32m+[m[32m            android:paddingStart="15dp"[m
+[32m+[m[32m            android:paddingTop="15dp"[m
+[32m+[m[32m            app:layout_constraintTop_toTopOf="parent">[m
+[32m+[m
+[32m+[m[32m            <ImageView[m
+[32m+[m[32m                android:id="@+id/imageMenu"[m
+[32m+[m[32m                android:layout_width="30dp"[m
+[32m+[m[32m                android:layout_height="30dp"[m
+[32m+[m[32m                android:contentDescription="@string/app_name"[m
+[32m+[m[32m                android:src="@drawable/ic_baseline_menu_24"[m
+[32m+[m[32m                app:tint="@color/black" />[m
+[32m+[m
+[32m+[m[32m        </LinearLayout>[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32m    </androidx.constraintlayout.widget.ConstraintLayout>[m
+[32m+[m
+[32m+[m[32m    <com.google.android.material.navigation.NavigationView[m
+[32m+[m[32m        android:id="@+id/navigation_view"[m
+[32m+[m[32m        android:layout_width="wrap_content"[m
+[32m+[m[32m        android:layout_height="match_parent"[m
+[32m+[m[32m        app:menu="@menu/navigation_menu"[m
+[32m+[m[32m        android:layout_gravity="start"[m
+[32m+[m[32m        app:headerLayout="@layout/navigation_header"/>[m
+ [m
+[31m-    </LinearLayout>[m
+[32m+[m[32m</androidx.drawerlayout.widget.DrawerLayout>[m
+ [m
+[31m-</RelativeLayout>[m
+\ No newline at end of file[m
+[1mdiff --git a/app/src/main/res/layout/inventory_item.xml b/app/src/main/res/layout/inventory_item.xml[m
+[1mindex ca00caf..178b5ba 100644[m
+[1m--- a/app/src/main/res/layout/inventory_item.xml[m
+[1m+++ b/app/src/main/res/layout/inventory_item.xml[m
+[36m@@ -4,10 +4,10 @@[m
+     android:layout_height="wrap_content"[m
+     xmlns:app="http://schemas.android.com/apk/res-auto">[m
+ [m
+[31m-    <com.google.android.material.card.MaterialCardView[m
+[32m+[m[32m    <androidx.cardview.widget.CardView[m
+         android:layout_width="match_parent"[m
+         android:layout_height="wrap_content"[m
+[31m-        style="@style/MyCardView">[m
+[32m+[m[32m       >[m
+         [m
+         <androidx.constraintlayout.widget.ConstraintLayout[m
+             android:layout_width="match_parent"[m
+[36m@@ -74,5 +74,5 @@[m
+                 app:layout_constraintGuide_percent=".5" />[m
+ [m
+         </androidx.constraintlayout.widget.ConstraintLayout>[m
+[31m-    </com.google.android.material.card.MaterialCardView>[m
+[32m+[m[32m    </androidx.cardview.widget.CardView>[m
+ </RelativeLayout>[m
+\ No newline at end of file[m
+[1mdiff --git a/app/src/main/res/layout/inventory_list.xml b/app/src/main/res/layout/inventory_list.xml[m
+[1mindex de8c224..cf3dfda 100644[m
+[1m--- a/app/src/main/res/layout/inventory_list.xml[m
+[1m+++ b/app/src/main/res/layout/inventory_list.xml[m
+[36m@@ -20,6 +20,7 @@[m
+         android:id="@+id/fab_add_item"[m
+         android:layout_gravity="end|bottom"[m
+         android:src = "@drawable/ic_baseline_add_24"[m
+[32m+[m[32m        app:backgroundTint="@color/blue_main1"[m
+         android:layout_margin="16dp"[m
+         android:elevation="4dp"[m
+         android:layout_alignParentBottom="true"[m
+[1mdiff --git a/app/src/main/res/layout/navigationbar.xml b/app/src/main/res/layout/navigationbar.xml[m
+[1mindex ceb308a..238d23a 100644[m
+[1m--- a/app/src/main/res/layout/navigationbar.xml[m
+[1m+++ b/app/src/main/res/layout/navigationbar.xml[m
+[36m@@ -8,22 +8,29 @@[m
+     android:layout_height="match_parent"[m
+     android:fitsSystemWindows="true"[m
+     tools:openDrawer="start"[m
+[31m-    tools:context=".navigationdrawer.navbar">[m
+[32m+[m[32m    tools:context=".inventory.InventoryActivity">[m
+ [m
+     <RelativeLayout[m
+         android:layout_width="match_parent"[m
+[31m-        android:layout_height="match_parent">[m
+[31m-    <androidx.appcompat.widget.Toolbar[m
+[31m-        android:id="@+id/navbar"[m
+[31m-        android:background="@color/white"[m
+[31m-        android:theme="@style/ThemeOverlay.AppCompat.Dark"[m
+[31m-        android:layout_width="match_parent"[m
+[31m-        android:layout_height="?attr/actionBarSize"[m
+[31m-        app:navigationIcon="@drawable/baseline_notes_black_18dp">[m
+[32m+[m[32m        android:layout_height="wrap_content">[m
+[32m+[m[32m        <ImageView[m
+[32m+[m[32m            android:id="@+id/Toolbar1"[m
+[32m+[m[32m            android:layout_width="match_parent"[m
+[32m+[m[32m            android:layout_height="40dp"[m
+[32m+[m[32m            android:src="@drawable/ic_baseline_menu_24"[m
+[32m+[m[32m            android:scaleType="fitStart"/>[m
+[32m+[m
+[32m+[m[32m        <FrameLayout[m
+[32m+[m[32m            android:id="@+id/container"[m
+[32m+[m[32m            android:layout_width="match_parent"[m
+[32m+[m[32m            android:layout_height="match_parent"[m
+[32m+[m[32m            android:layout_below="@id/Toolbar1"[m
+[32m+[m[32m            />[m
+ [m
+[31m-    </androidx.appcompat.widget.Toolbar>[m
+     </RelativeLayout>[m
+ [m
+[32m+[m
+[32m+[m
+     <com.google.android.material.navigation.NavigationView[m
+         android:id="@+id/nav_view"[m
+         app:menu="@menu/navigation_menu"[m
+[36m@@ -33,4 +40,6 @@[m
+         android:layout_height="match_parent"[m
+         android:layout_width="wrap_content"/>[m
+ [m
+[32m+[m
+[32m+[m
+ </androidx.drawerlayout.widget.DrawerLayout>[m
+\ No newline at end of file[m
+[1mdiff --git a/app/src/main/res/menu/navigation_menu.xml b/app/src/main/res/menu/navigation_menu.xml[m
+[1mindex 0ff962f..8f1f6e2 100644[m
+[1m--- a/app/src/main/res/menu/navigation_menu.xml[m
+[1m+++ b/app/src/main/res/menu/navigation_menu.xml[m
+[36m@@ -12,5 +12,7 @@[m
+ [m
+     <item[m
+         android:id="@+id/nav_inventory"[m
+[31m-        android:title="Inventory"/>[m
+[32m+[m[32m        android:title="Inventory"[m
+[32m+[m[32m        android:iconTint="@color/black"[m
+[32m+[m[32m        android:icon="@drawable/ic_baseline_archive_24"/>[m
+ </menu>[m
+\ No newline at end of file[m
+[1mdiff --git a/app/src/main/res/navigation/main.xml b/app/src/main/res/navigation/main.xml[m
+[1mindex 6dc9b81..e1f8958 100644[m
+[1m--- a/app/src/main/res/navigation/main.xml[m
+[1m+++ b/app/src/main/res/navigation/main.xml[m
+[36m@@ -3,15 +3,24 @@[m
+     xmlns:app="http://schemas.android.com/apk/res-auto"[m
+     xmlns:tools="http://schemas.android.com/tools"[m
+     android:id="@+id/main"[m
+[31m-    app:startDestination="@id/nav_inventory">[m
+[32m+[m[32m    app:startDestination="@id/mainActivity">[m
+[32m+[m
+     <activity[m
+         android:id="@+id/nav_profile"[m
+         android:name="com.infosys.stocktake.Profile"[m
+         android:label="Profile"[m
+         tools:layout="@layout/activity_profile" />[m
+[32m+[m[32m    <fragment[m
+[32m+[m[32m        android:id="@+id/home_Screen_PlaceHolder"[m
+[32m+[m[32m        android:name="com.infosys.stocktake.auth.Home_Screen_PlaceHolder"[m
+[32m+[m[32m        android:label="fragment_home__screen__place_holder"[m
+[32m+[m[32m        tools:layout="@layout/fragment_home__screen__place_holder" />[m
+[32m+[m
+     <activity[m
+[31m-        android:id="@+id/nav_inventory"[m
+[31m-        android:name="com.infosys.stocktake.inventory.InventoryActivity"[m
+[31m-        android:label="activity_inventory"[m
+[31m-        tools:layout="@layout/activity_inventory" />[m
+[32m+[m[32m        android:id="@+id/mainActivity"[m
+[32m+[m[32m        android:name="com.infosys.stocktake.MainActivity"[m
+[32m+[m[32m        android:label="inventory_base"[m
+[32m+[m[32m        tools:layout="@layout/inventory_base" />[m
+[32m+[m
+[32m+[m
+ </navigation>[m
+\ No newline at end of file[m
+[1mdiff --git a/app/src/main/res/values/colors.xml b/app/src/main/res/values/colors.xml[m
+[1mindex 8c50c35..685c550 100644[m
+[1m--- a/app/src/main/res/values/colors.xml[m
+[1m+++ b/app/src/main/res/values/colors.xml[m
+[36m@@ -13,4 +13,9 @@[m
+     <color name="black">#FF000000</color>[m
+     <color name="white">#FFFFFFFF</color>[m
+ [m
+[32m+[m
+[32m+[m[32m    <color name="Available">#66BB6A</color>[m
+[32m+[m[32m    <color name="Broken">#EF5350</color>[m
+[32m+[m[32m    <color name="On_Repair">#FFA726</color>[m
+[32m+[m[32m    <color name="Loan">#707070</color>[m
+ </resources>[m
+\ No newline at end of file[m
+[1mdiff --git a/app/src/main/res/values/styles.xml b/app/src/main/res/values/styles.xml[m
+[1mindex 7e3bab6..deafa01 100644[m
+[1m--- a/app/src/main/res/values/styles.xml[m
+[1m+++ b/app/src/main/res/values/styles.xml[m
+[36m@@ -1,11 +1,11 @@[m
+[31m-<resources>[m
+[32m+[m[32m<resources xmlns:tools="http://schemas.android.com/tools">[m
+     <!-- Base application theme. -->[m
+[31m-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">[m
+[31m-        <!-- Customize your theme here. -->[m
+[31m-        <item name="colorPrimary">@color/colorPrimary</item>[m
+[31m-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>[m
+[31m-        <item name="colorAccent">@color/colorAccent</item>[m
+[31m-    </style>[m
+[32m+[m[32m<!--    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->[m
+[32m+[m[32m<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->[m
+[32m+[m[32m<!--        <item name="colorPrimary">@color/white</item>-->[m
+[32m+[m[32m<!--        <item name="colorPrimaryDark">@color/white</item>-->[m
+[32m+[m[32m<!--        <item name="colorAccent">@color/white</item>-->[m
+[32m+[m[32m<!--    </style>-->[m
+ [m
+     <style name="TabLayoutStyle" parent="Base.Widget.Design.TabLayout">[m
+         <item name="android:textSize">20sp</item>[m
+[36m@@ -13,18 +13,21 @@[m
+         <item name="android:textAllCaps">true</item>[m
+     </style>[m
+ [m
+[31m-    <style name="MyCardView" parent="@style/Widget.MaterialComponents.CardView">[m
+[31m-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialCardView.Cut</item>[m
+[32m+[m[32m    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">[m
+[32m+[m[32m        <!-- Customize your theme here. -->[m
+[32m+[m[32m        <item name="windowActionBar">false</item>[m
+[32m+[m[32m        <item name="windowNoTitle">true</item>[m
+[32m+[m[32m        <item name="colorPrimaryDark">@android:color/transparent</item>[m
+[32m+[m[32m        <item name="android:navigationBarColor" tools:targetApi="21">@android:color/transparent</item>[m
+[32m+[m[32m        <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="21">true</item>[m
+[32m+[m[32m        <item name="android:statusBarColor" tools:targetApi="21">@android:color/transparent</item>[m
+[32m+[m[32m        <item name="android:windowTranslucentStatus" tools:targetApi="21">true</item>[m
+     </style>[m
+ [m
+[31m-[m
+[31m-    <style name="ShapeAppearanceOverlay.MaterialCardView.Cut" parent="">[m
+[31m-        <item name="cornerFamily">rounded</item>[m
+[31m-        <item name="cornerSizeTopRight">8dp</item>[m
+[31m-        <item name="cornerSizeTopLeft">8dp</item>[m
+[31m-        <item name="cornerSizeBottomRight">8dp</item>[m
+[31m-        <item name="cornerSizeBottomLeft">8dp</item>[m
+[31m-        <item name="elevationOverlayEnabled">true</item>[m
+[32m+[m[32m    <style name="AppTheme.NoActionBar">[m
+[32m+[m[32m        <item name="windowActionBar">false</item>[m
+[32m+[m[32m        <item name="windowNoTitle">true</item>[m
+     </style>[m
+ [m
+[32m+[m
+ </resources>[m
+\ No newline at end of file[m

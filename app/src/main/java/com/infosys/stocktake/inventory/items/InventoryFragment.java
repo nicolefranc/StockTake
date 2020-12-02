@@ -73,6 +73,7 @@ public class InventoryFragment extends Fragment {
             startActivity(intent);
         }
     });
+
     return view;
     }
 

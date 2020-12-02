@@ -36,6 +36,7 @@ public class ViewClubActivity extends AppCompatActivity {
     private Item item;
     StockTakeFirebase<Item> itemStockTakeFirebase;
     private static final String TAG = "ViewClub: ";
+    TextView clubName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,8 @@ public class ViewClubActivity extends AppCompatActivity {
         setContentView(R.layout.club_list);
         // Populate components with Item data from passed Intent
         club = (Club) getIntent().getSerializableExtra("ClubIntent");
+        clubName = findViewById(R.id.clubName);
+        clubName.setText(club.getClubName());
         itemStockTakeFirebase = new StockTakeFirebase<Item>(Item.class, "items");
         populateItems();
     }
