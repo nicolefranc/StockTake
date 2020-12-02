@@ -184,7 +184,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
     }
 
-}
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();

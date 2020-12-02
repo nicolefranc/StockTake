@@ -18,9 +18,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 //import info.androidhive.viewpager2.databinding.ActivityFragmentViewPagerBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.infosys.stocktake.MainActivity;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.inventory.items.AddItemActivity;
+import com.infosys.stocktake.inventory.items.ItemDetailsActivity;
 import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Membership;
 import com.infosys.stocktake.models.User;
@@ -81,5 +83,12 @@ public class InventoryActivity extends AppCompatActivity {
         viewPager.setAdapter(inventoryAdapter);
         tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        Intent itemIntent = new Intent(InventoryActivity.this, MainActivity.class);
+        startActivity(itemIntent);
     }
 }
