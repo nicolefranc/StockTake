@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.inventory.items.ItemDetailsActivity;
+import com.infosys.stocktake.loans.AddLoanActivity;
 import com.infosys.stocktake.loans.LoanDetailsActivity;
 import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Item;
@@ -33,7 +34,7 @@ import java.util.Date;
 
 public class LoanRecyclerViewAdapter extends RecyclerView.Adapter<LoanRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "RecyclerViewAdapter";
-
+    public static final String ACTIVITY_NAME = "ItemLoansHistory";
     private Context mContext;
     private ArrayList<Loan> mLoans;
     private ArrayList<String> clubNames = new ArrayList<String>();
@@ -99,7 +100,8 @@ public class LoanRecyclerViewAdapter extends RecyclerView.Adapter<LoanRecyclerVi
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, LoanDetailsActivity.class);
-                    intent.putExtra("LOAN_ID_INTENT", mLoans.get(position).getLoanID());
+                    intent.putExtra(AddLoanActivity.LOAN_INTENT_KEY, mLoans.get(position));
+                    intent.putExtra(LoanDetailsActivity.PREVIOUS_ACTIVITY_KEY,ACTIVITY_NAME);
                     mContext.startActivity(intent);
                     Log.d(TAG, "tapped");
                 }

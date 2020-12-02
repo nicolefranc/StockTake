@@ -38,6 +38,7 @@ import java.util.Objects;
 
 public class NfcReaderActivity extends AppCompatActivity {
     public static final String TAG = "NFC";
+    public static final String ACTIVITY_NAME="nfcReader";
     private TextView text;
     private NfcAdapter nfcAdapter;
     private PendingIntent pendingIntent;
@@ -65,7 +66,7 @@ public class NfcReaderActivity extends AppCompatActivity {
         // Accept intent to check which screen it came from: ProfileSetup or AddLoan
         source = getIntent().getStringExtra("source");
         user = (User) getIntent().getSerializableExtra("UserIntent");
-        loan = (Loan) getIntent().getSerializableExtra("LoanIntent");
+        loan = (Loan) getIntent().getSerializableExtra(AddLoanActivity.LOAN_INTENT_KEY);
 
 //        if (source.equals("profile")) {
 //            // Do profile things
@@ -138,7 +139,8 @@ public class NfcReaderActivity extends AppCompatActivity {
 //                detailsIntent.putExtra("LoanIntent", currentLoan);
                                 // TODO: Change to pass Loan object instead
                                 Log.d(TAG,"PASSING LOAN ID: "+loan.getLoanID());
-                                detailsIntent.putExtra(AddLoanActivity.LOAN_INTENT_KEY, loan.getLoanID());
+                                detailsIntent.putExtra(AddLoanActivity.LOAN_INTENT_KEY, loan);
+                                detailsIntent.putExtra(LoanDetailsActivity.PREVIOUS_ACTIVITY_KEY,ACTIVITY_NAME);
                                 startActivity(detailsIntent);
                             }
                         });
