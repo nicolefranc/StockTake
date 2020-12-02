@@ -107,7 +107,7 @@ public class AddLoanActivity extends AppCompatActivity {
 
                         // Proceed to read NFC
                         Intent detailsIntent = new Intent(AddLoanActivity.this, NfcReaderActivity.class);
-                        detailsIntent.putExtra("LoanIntent", currentLoan);
+                        detailsIntent.putExtra(LOAN_INTENT_KEY, currentLoan);
                         detailsIntent.putExtra("source", "loan");
                         startActivity(detailsIntent);
 

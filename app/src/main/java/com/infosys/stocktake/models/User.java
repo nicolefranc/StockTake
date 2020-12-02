@@ -54,7 +54,7 @@ public class User implements Serializable {
         this.fullName = signInAccount.getDisplayName();
         this.telegramHandle = telegramHandle;
         this.clubMembership = new HashMap<>();
-        clubMembership.put("0q38hnjpiou4", Membership.ADMIN);
+//        clubMembership.put("0q38hnjpiou4", Membership.ADMIN);
         if(currentUser != null){
             this.uuid = currentUser.getUid();
         }

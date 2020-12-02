@@ -113,6 +113,12 @@ public class ItemLoanHistoryActivity extends AppCompatActivity {
                         }
                     }
                 });
+                userTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        userNames.add("Deleted User");
+                    }
+                });
             }
             else{
                 Log.d(TAG, "getUserNames: else loop entered");

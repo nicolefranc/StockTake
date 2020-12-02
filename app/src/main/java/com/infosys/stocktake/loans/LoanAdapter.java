@@ -1,6 +1,7 @@
 package com.infosys.stocktake.loans;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +25,7 @@ import java.util.Date;
 
 public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoanViewHolder> {
     private static final String TAG = "LOAN ADAPTER";
+    public static final String ACTIVITY_NAME="personalLoanHistory";
 
     private Context loanContext;
     private ArrayList<Loan> loanArrayList;
@@ -78,6 +81,18 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoanViewHolder
                     .error(R.drawable.ic_launcher_background)
                     .into(holder.cardLoanImage);
 
+            holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(loanContext, LoanDetailsActivity.class);
+                    intent.putExtra(AddLoanActivity.LOAN_INTENT_KEY, loanArrayList.get(position));
+                    Log.d(TAG,"LOAN ARRAY LIST GET POSITION: "+loanArrayList.get(position));
+                    intent.putExtra(LoanDetailsActivity.PREVIOUS_ACTIVITY_KEY,ACTIVITY_NAME);
+                    loanContext.startActivity(intent);
+                    Log.d(TAG, "tapped");
+                }
+            });
+
         }
         else{
             Log.d(TAG,"No loans found");
@@ -105,6 +120,8 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoanViewHolder
 
     //to populate empty loan history
     TextView itemNameText,itemDescriptionText;
+    ConstraintLayout parentLayout;
+
 
 
     public LoanViewHolder(@NonNull View itemView) {
@@ -115,6 +132,8 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoanViewHolder
         loanQuantityText = itemView.findViewById(R.id.loanQuantity);
         loanDateText = itemView.findViewById(R.id.loanDate);
         loanIDText = itemView.findViewById(R.id.loanIDText);
+
+        parentLayout = itemView.findViewById(R.id.loan_card_parent);
 
         itemNameText = itemView.findViewById(R.id.item_name);
         itemDescriptionText = itemView.findViewById(R.id.item_description);

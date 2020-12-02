@@ -25,6 +25,7 @@ import com.infosys.stocktake.inventory.itemloanhistory.ItemLoanHistoryActivity;
 import com.infosys.stocktake.inventory.InventoryActivity;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.ItemStatus;
+import com.infosys.stocktake.models.Loan;
 import com.infosys.stocktake.models.QrCode;
 import com.infosys.stocktake.models.User;
 import com.squareup.picasso.Picasso;
@@ -47,7 +48,9 @@ public class ItemDetailsActivity extends AppCompatActivity {
     PieChart pieChart;
     Button tvLoanHistory;
     private boolean isAdmin;
-    private StockTakeFirebase<User> stockTakeFirebase = new StockTakeFirebase<User>(User.class, "users");;
+    private StockTakeFirebase<User> stockTakeFirebase = new StockTakeFirebase<User>(User.class, "users");
+    private StockTakeFirebase<Loan> loanFirebase = new StockTakeFirebase<Loan>(Loan.class, "loans");
+
     private ArrayList<String> admins = new ArrayList<>();
 
     @Override
@@ -147,10 +150,10 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
     private void setLoanWidgets(String loaneeID) {
         if (loaneeID != null) {
-            Task<User> getUserTask = stockTakeFirebase.query(loaneeID);
-            getUserTask.addOnSuccessListener(new OnSuccessListener<User>() {
+            Task<ArrayList<Loan>> getLoanTask = loanFirebase.compoundQuery("item_ID", item.getItemID());
+            getLoanTask.addOnSuccessListener(new OnSuccessListener<ArrayList<Loan>>() {
                 @Override
-                public void onSuccess(User user) {
+                public void onSuccess(ArrayList<Loan> loans) {
                     try {
                         Log.d(TAG, "onSuccess: Found user! Setting loan widgets...");
                         String userName = user.getFullName();
@@ -165,11 +168,12 @@ public class ItemDetailsActivity extends AppCompatActivity {
                         });
                     }
                     catch (Exception e){
+                        e.printStackTrace();
                         no_loaneee();
                     }
                 }
             });
-            getUserTask.addOnFailureListener(new OnFailureListener() {
+            getLoanTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     no_loaneee();

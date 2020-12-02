@@ -19,15 +19,17 @@ import com.infosys.stocktake.MainActivity;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.inventory.InventoryActivity;
+import com.infosys.stocktake.inventory.itemloanhistory.LoanRecyclerViewAdapter;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.Loan;
 import com.squareup.picasso.Picasso;
 
 public class LoanDetailsActivity extends AppCompatActivity {
     public static final String TAG = "Loan Details Activity";
+    public static final String PREVIOUS_ACTIVITY_KEY = "prev_act_key";
     TextView loanIDText,loanItemNameText,quantityText;
     ImageView loanDetailsImage;
-    Button homeButton;
+    Button returnButton, homeButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class LoanDetailsActivity extends AppCompatActivity {
         loanItemNameText = findViewById(R.id.loanItemNameText);
         quantityText = findViewById(R.id.loanDetailsQuantityText);
         homeButton = findViewById(R.id.homeButton);
+        returnButton = findViewById(R.id.returnButton);
         loanDetailsImage = findViewById(R.id.loanDetailsImage);
 
         final StockTakeFirebase<Loan> stockTakeFirebaseLoan = new StockTakeFirebase<>(Loan.class,"loans");
@@ -45,8 +48,13 @@ public class LoanDetailsActivity extends AppCompatActivity {
 
         //Get the intent from the previous state
         Intent loanDetailsIntent = getIntent();
+        String previousActivity = loanDetailsIntent.getStringExtra(PREVIOUS_ACTIVITY_KEY);
         Loan currentLoan = (Loan) loanDetailsIntent.getSerializableExtra(AddLoanActivity.LOAN_INTENT_KEY);
         String loanID = currentLoan.getLoanID();
+
+        if(!previousActivity.equals(LoanRecyclerViewAdapter.ACTIVITY_NAME)){
+            returnButton.setVisibility(View.INVISIBLE);
+        }
         loanIDText.setText(loanID);
 
         quantityText.setText(String.valueOf(currentLoan.getQuantity()));
