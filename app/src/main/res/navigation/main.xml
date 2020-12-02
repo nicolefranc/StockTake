@@ -17,6 +17,21 @@
         tools:layout="@layout/fragment_home__screen__place_holder" />
 
     <activity
+        android:id="@+id/nav_qr"
+        android:name="com.infosys.stocktake.qr.QrScannerActivity"
+        android:label="activity_qr_scanner"
+        tools:layout="@layout/activity_qr_scanner" />
+    <activity
+        android:id="@+id/nav_nfc"
+        android:name="com.infosys.stocktake.nfc.NfcReaderActivity"
+        android:label="activity_nfc_reader"
+        tools:layout="@layout/activity_nfc_reader" />
+    <activity
+        android:id="@+id/nav_loans"
+        android:name="com.infosys.stocktake.loans.AddLoanActivity"
+        android:label="AddLoanActivity" />
+
+    <activity
         android:id="@+id/mainActivity"
         android:name="com.infosys.stocktake.MainActivity"
         android:label="inventory_base"

@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
-public class Loan {
+public class Loan implements Serializable {
 
     private static final String TAG="Loan Operations";
     // CONSTANTS
@@ -99,5 +99,7 @@ public class Loan {
         this.returnDate = returnDate;
     }
 
-
+    public void setLoaneeID(String loaneeID) {
+        this.loaneeID = loaneeID;
+    }
 }
