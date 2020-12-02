@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
-public class Loan implements Serializable {
+public class Loan implements Serializable{
 
     private static final String TAG="Loan Operations";
     // CONSTANTS

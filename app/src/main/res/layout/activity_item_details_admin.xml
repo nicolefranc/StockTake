@@ -104,32 +104,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="The description of the item here"
-            android:singleLine="false"
-            android:paddingBottom="6dp"/>
-        
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Contact the following admins to loan: "/>
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="telegram handle"
-                android:id="@+id/telegramhandle"/>
-            
-        </LinearLayout>
+            android:singleLine="false" />
 
         <ImageView
             android:id="@+id/ivQrCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Last Loaned By: " />
+            <TextView
+                android:id="@+id/last_loan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Loan History"
+            android:id="@+id/loan_history"/>
 
     </LinearLayout>
 

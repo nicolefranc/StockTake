@@ -18,7 +18,9 @@
         android:theme="@style/AppTheme">
 <!--        Inventory Activities-->
         <activity android:name=".inventory.InventoryActivity"/>
-        <activity android:name=".inventory.items.ItemDetailsActivity" />
+        <activity android:name=".Profile"></activity>
+        <activity android:name=".auth.ProfileSetupActivity"></activity>
+        <activity android:name=".inventory.items.ItemDetailsActivity"></activity>
         <activity android:name=".inventory.items.AddItemActivity" />
 
 <!--        QR Activities-->
@@ -26,6 +28,7 @@
         <activity android:name=".qr.QrOptionsActivity"></activity>
 
 <!--        Loan Activities-->
+        <activity android:name=".inventory.itemloanhistory.ItemLoanHistoryActivity"/>
         <activity android:name=".loans.AddLoanActivity"/>
         <activity android:name=".loans.LoanDetailsActivity"/>
 
@@ -45,6 +48,11 @@
 
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
@@ -60,11 +68,7 @@
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
