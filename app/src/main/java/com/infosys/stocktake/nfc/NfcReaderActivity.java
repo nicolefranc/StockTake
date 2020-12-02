@@ -31,6 +31,7 @@ import com.infosys.stocktake.models.User;
 import com.infosys.stocktake.nfc.parser.NdefMessageParser;
 import com.infosys.stocktake.nfc.record.ParsedNdefRecord;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,6 +42,7 @@ public class NfcReaderActivity extends AppCompatActivity {
     private PendingIntent pendingIntent;
     private String source;
     private User user;
+    private Loan loan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,8 @@ public class NfcReaderActivity extends AppCompatActivity {
 
         // Accept intent to check which screen it came from: ProfileSetup or AddLoan
         source = getIntent().getStringExtra("source");
-        user = (User) getIntent().getSerializableExtra("UserIntent");;
+        user = (User) getIntent().getSerializableExtra("UserIntent");
+        loan = (Loan) getIntent().getSerializableExtra("LoanIntent");
 
 //        if (source.equals("profile")) {
 //            // Do profile things
@@ -115,20 +118,36 @@ public class NfcReaderActivity extends AppCompatActivity {
         });
     }
 
-    private void resolveLoanIntent() {
-        Loan loan = (Loan) getIntent().getSerializableExtra("LoanIntent");
-        StockTakeFirebase<Loan> loanRepo = new StockTakeFirebase<>(Loan.class, Loan.LOAN_COLLECTION);
-        loanRepo.create(loan, loan.getLoanID()).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(NfcReaderActivity.this, R.string.create_loan_success, Toast.LENGTH_SHORT).show();
-                Intent detailsIntent = new Intent(NfcReaderActivity.this, LoanDetailsActivity.class);
+    private void resolveLoanIntent(String nfcTag) {
+        // Retrieve User by NFC Tag, extract uid
+        StockTakeFirebase<User> userRepo = new StockTakeFirebase<>(User.class, User.USER_COLLECTION);
+        userRepo.compoundQuery(User.NFC_TAG, nfcTag)
+                .addOnSuccessListener(new OnSuccessListener<ArrayList<User>>() {
+                    @Override
+                    public void onSuccess(ArrayList<User> users) {
+                        loan.setLoaneeID(users.get(0).getUuid());
+
+                        // Add uuid into Loan
+                        StockTakeFirebase<Loan> loanRepo = new StockTakeFirebase<>(Loan.class, Loan.LOAN_COLLECTION);
+                        loanRepo.create(loan, loan.getLoanID()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(NfcReaderActivity.this, R.string.create_loan_success, Toast.LENGTH_SHORT).show();
+                                Intent detailsIntent = new Intent(NfcReaderActivity.this, LoanDetailsActivity.class);
 //                detailsIntent.putExtra("LoanIntent", currentLoan);
-                // TODO: Change to pass Loan object instead
-                detailsIntent.putExtra(AddLoanActivity.LOAN_INTENT_KEY, loan.getLoanDate());
-                startActivity(detailsIntent);
-            }
-        });
+                                // TODO: Change to pass Loan object instead
+                                detailsIntent.putExtra(AddLoanActivity.LOAN_INTENT_KEY, loan.getLoanDate());
+                                startActivity(detailsIntent);
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                       e.printStackTrace();
+                    }
+                });
+
     }
 
     private void resolveIntent(Intent intent) {
@@ -188,7 +207,7 @@ public class NfcReaderActivity extends AppCompatActivity {
         } else if (Objects.requireNonNull(source).equals("loan")) {
             // Do add loan things
             // Accept loan object and add the nfcTag
-            resolveLoanIntent();
+            resolveLoanIntent(builder.toString());
         } else {
             // Shouldn't be opened
             Log.d(TAG, "There's something wrong with NFC");
