@@ -2,6 +2,7 @@ package com.infosys.stocktake.inventory.itemloanhistory;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +33,7 @@ public class ItemLoanHistoryActivity extends AppCompatActivity {
     private ArrayList<String> userNames = new ArrayList<String>();
     private ArrayList<Date> dueDates = new ArrayList<Date>();
     private ArrayList<Date> returnDates = new ArrayList<Date>();
+    private TextView itemName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,8 @@ public class ItemLoanHistoryActivity extends AppCompatActivity {
         // Populate components with Item data from passed Intent
         item = (Item) getIntent().getSerializableExtra("itemIntent");
         itemStockTakeFirebase = new StockTakeFirebase<Loan>(Loan.class, "loans");
+        itemName = findViewById(R.id.clubName);
+        itemName.setText(item.getItemName());
         populateItems();
     }
 

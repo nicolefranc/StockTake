@@ -63,7 +63,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         if(isAdmin){
             //Initialize firebase
             setContentView(R.layout.activity_item_detail_pichart_admin);
-            setLoanWidgets(item.getLoaneeID());
+            setLoanWidgets();
 
         }
         else{
@@ -148,41 +148,36 @@ public class ItemDetailsActivity extends AppCompatActivity {
         pieChart.startAnimation();
     }
 
-    private void setLoanWidgets(String loaneeID) {
-        if (loaneeID != null) {
-            Task<ArrayList<Loan>> getLoanTask = loanFirebase.compoundQuery("item_ID", item.getItemID());
+    private void setLoanWidgets() {
+            Task<ArrayList<Loan>> getLoanTask = loanFirebase.compoundQuery("itemID", item.getItemID());
             getLoanTask.addOnSuccessListener(new OnSuccessListener<ArrayList<Loan>>() {
                 @Override
                 public void onSuccess(ArrayList<Loan> loans) {
-                    try {
-                        Log.d(TAG, "onSuccess: Found user! Setting loan widgets...");
-                        String userName = user.getFullName();
-                        tvLoanHistory = findViewById(R.id.loan_history);
-                        tvLoanHistory.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent loanHistoryIntent = new Intent(view.getContext(), ItemLoanHistoryActivity.class);
-                                loanHistoryIntent.putExtra("itemIntent", item);
-                                startActivity(loanHistoryIntent);
-                            }
-                        });
-                    }
-                    catch (Exception e){
-                        e.printStackTrace();
-                        no_loaneee();
-                    }
+                        if(loans != null) {
+                            Log.d(TAG, "onSuccess: Found user! Setting loan widgets...");
+                            tvLoanHistory = findViewById(R.id.loan_history);
+                            tvLoanHistory.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent loanHistoryIntent = new Intent(view.getContext(), ItemLoanHistoryActivity.class);
+                                    loanHistoryIntent.putExtra("itemIntent", item);
+                                    startActivity(loanHistoryIntent);
+                                }
+                            });
+                        }
+                        else{
+                            Log.d(TAG, "onSuccess: did not find loanee");
+                            no_loaneee();
+                        }
                 }
             });
             getLoanTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG, "onFailure: Did not find loanee");
                     no_loaneee();
                 }
             });
-        }
-        else{
-            no_loaneee();
-        }
     }
 
     private void no_loaneee(){

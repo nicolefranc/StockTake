@@ -149,11 +149,11 @@ public class InventoryActivity extends AppCompatActivity implements NavigationVi
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-//
-//    @Override
-//    public void onBackPressed() {
-////        super.onBackPressed();
-//        Intent itemIntent = new Intent(InventoryActivity.this, MainActivity.class);
-//        startActivity(itemIntent);
-//    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        InventoryActivity.this.finishAffinity();
+        System.exit(0);
+    }
 }
