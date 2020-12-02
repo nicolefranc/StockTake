@@ -32,5 +32,10 @@
     <!--  Inventory String Constants-->
     <string name="fab_add_item">Add Inventory Item</string>
     <string name="invalid_quantity">Quantity must be a number between 0 and the total available quantity</string>
+
+    <!-- QR String Constants -->
+    <string name="option_view_details">View Item Details</string>
+    <string name="option_loan">Loan This Item</string>
+    <string name="unable_to_loan">This item is completely loaned out.</string>
     <string name="create_loan_success">Successfully created a loan object</string>
 </resources>

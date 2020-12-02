@@ -20,6 +20,11 @@
         android:label="activity_inventory"
         tools:layout="@layout/activity_inventory" />
     <activity
+        android:id="@+id/nav_qr"
+        android:name="com.infosys.stocktake.qr.QrScannerActivity"
+        android:label="activity_qr_scanner"
+        tools:layout="@layout/activity_qr_scanner" />
+    <activity
         android:id="@+id/nav_loans"
         android:name="com.infosys.stocktake.loans.AddLoanActivity"
         android:label="AddLoanActivity" />

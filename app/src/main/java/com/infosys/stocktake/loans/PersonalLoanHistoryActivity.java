@@ -54,8 +54,9 @@ public class PersonalLoanHistoryActivity extends AppCompatActivity {
         //On success: initialize the recycler view
         queryLoans
         .addOnSuccessListener(loans -> {
-            personalLoans = loans;
-            Log.d(TAG,"Fetching personal loan history. First loan: "+loans.get(0).getLoanID());
+            if(loans!=null){
+                personalLoans = loans;
+            }
             getItemDetails();
         })
         .addOnFailureListener(e -> {
@@ -77,15 +78,20 @@ public class PersonalLoanHistoryActivity extends AppCompatActivity {
                 }
             });
         }
-        stockTakeFirebaseItem.query(personalLoans.get(i).getItemID()).addOnSuccessListener(new OnSuccessListener<Item>() {
-            @Override
-            public void onSuccess(Item item) {
-                Log.d(TAG,"Fetching the last item name");
-                itemNames.add(item.getItemName());
-                itemImages.add(item.getItemPicture());
-                getLoanQuantities();
-            }
-        });
+        if(personalLoans.size()!=0){
+            stockTakeFirebaseItem.query(personalLoans.get(i).getItemID()).addOnSuccessListener(new OnSuccessListener<Item>() {
+                @Override
+                public void onSuccess(Item item) {
+                    Log.d(TAG,"Fetching the last item name");
+                    itemNames.add(item.getItemName());
+                    itemImages.add(item.getItemPicture());
+                    getLoanQuantities();
+                }
+            });
+        }
+        else{
+            getLoanQuantities();
+        }
     }
 
     private void getLoanQuantities(){

@@ -1,4 +1,4 @@
-package com.infosys.stocktake.inventory.items;
+package com.infosys.stocktake.inventory.dependencies;
 
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;

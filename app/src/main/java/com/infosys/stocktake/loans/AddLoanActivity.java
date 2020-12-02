@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.Loan;
+import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 
@@ -32,6 +34,7 @@ public class AddLoanActivity extends AppCompatActivity {
     Button loanButton;
     TextView itemNameText,itemIDText,clubIDText;
     EditText quantityEdit;
+    ImageView ivItemPicture;
     String itemID;
     Loan currentLoan;
     Item currentItem;
@@ -47,6 +50,7 @@ public class AddLoanActivity extends AppCompatActivity {
         itemIDText = findViewById(R.id.itemIDText);
         clubIDText = findViewById(R.id.clubIDText);
         quantityEdit = findViewById(R.id.quantityEdit);
+        ivItemPicture = findViewById(R.id.ivItemPicture);
 
         //Firebase Operations
         final StockTakeFirebase<Item> stockTakeFirebaseItem = new StockTakeFirebase<>(Item.class,"items");
@@ -62,17 +66,21 @@ public class AddLoanActivity extends AppCompatActivity {
         //Intent itemIntent = getIntent();
 
         //Hardcoding item details
-        itemID = "748379437-6282858f";
+//        itemID = "748379437-6282858f";
+        // Get Item Intent from scanning qr (QrOptionsActivity)
+        currentItem = (Item) getIntent().getSerializableExtra("ItemIntent");
 
 
         //Set the item details to the respective fields
-        stockTakeFirebaseItem.query(itemID).addOnSuccessListener(item -> {
-            //TODO set the item image
-            currentItem = item;
+//        stockTakeFirebaseItem.query(itemID).addOnSuccessListener(item -> {
+//            TODO set the item image
+        Picasso.get().load(currentItem.getItemPicture())
+                .fit().centerCrop().into(ivItemPicture);
+//            currentItem = item;
             itemNameText.setText(currentItem.getItemName());
             itemIDText.setText(currentItem.getItemID());
             clubIDText.setText(currentItem.getClubID());
-        });
+//        });
         //Add OnClickListener to the loan button
         loanButton.setOnClickListener(v -> {
             if(quantityEdit.getText().toString().equals("")){

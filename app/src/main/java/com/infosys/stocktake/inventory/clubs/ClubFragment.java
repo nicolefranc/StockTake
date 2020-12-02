@@ -1,4 +1,4 @@
-package com.infosys.stocktake.inventory;
+package com.infosys.stocktake.inventory.clubs;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -17,10 +17,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
-import com.infosys.stocktake.inventory.items.ClubRecyclerViewAdapter;
-import com.infosys.stocktake.inventory.items.ItemRecyclerViewAdapter;
 import com.infosys.stocktake.models.Club;
-import com.infosys.stocktake.models.Item;
 
 import java.util.ArrayList;
 
@@ -29,10 +26,10 @@ import java.util.ArrayList;
 public class ClubFragment extends Fragment {
 
     private TextView textView;
-    private ArrayList<String> mClubNames = new ArrayList<>();
-    private ArrayList<String> mClubImages = new ArrayList<>();
+    private ArrayList<Club> mClubs = new ArrayList<>();
     private static final String TAG = "Club Fragment";
     private StockTakeFirebase<Club> stockTakeFirebase;
+    private String currentClub;
 
     @Override
     public View onCreateView(
@@ -40,8 +37,9 @@ public class ClubFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-    View view = inflater.inflate(R.layout.inventory_list,container,false);
+    View view = inflater.inflate(R.layout.club_list,container,false);
     String message = getArguments().getString("message");
+    currentClub = getArguments().getString("club");
     stockTakeFirebase = new StockTakeFirebase<Club>(Club.class, "clubs");
     return view;
     }
@@ -58,11 +56,14 @@ public class ClubFragment extends Fragment {
         populateTask.addOnSuccessListener(new OnSuccessListener<ArrayList<Club>>() {
             @Override
             public void onSuccess(ArrayList<com.infosys.stocktake.models.Club> clubs) {
-                Log.d(TAG,"Accessed firebase! populating items now...");
+                Log.d(TAG,"Accessed firebase! populating clubs now...");
                 for(Club club:clubs){
-                    mClubNames.add(club.getClubName());
-                    initRecyclerView();
+                    if (!club.getClubID().matches(currentClub)) {
+                        mClubs.add(club);
+                        Log.d(TAG, "onSuccess: Club ID is " + club.getClubID() + " and current club is " + currentClub);
+                    }
                 }
+                initRecyclerView();
             }
         });
         populateTask.addOnFailureListener(new OnFailureListener() {
@@ -77,9 +78,8 @@ public class ClubFragment extends Fragment {
 
     private void initRecyclerView(){
         RecyclerView recyclerView = getView().findViewById(R.id.recyclerView);
-        ClubRecyclerViewAdapter recyclerAdapter = new ClubRecyclerViewAdapter(mClubNames,mClubImages, getActivity());
+        ClubRecyclerViewAdapter recyclerAdapter = new ClubRecyclerViewAdapter(mClubs, getActivity());
         recyclerView.setAdapter(recyclerAdapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
     }
 }
