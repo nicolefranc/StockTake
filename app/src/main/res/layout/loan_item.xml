@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="Loaned to:"
+                android:text="Loaned from:"
                 android:textSize="9dp"
                 android:textColor="#000"
                 android:fontFamily="sans-serif"

@@ -1,34 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardLoanImage"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/loanDetailsImage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/components_md_margin"
+        tools:srcCompat="@tools:sample/avatars" />
+
+
     <TextView
         android:id="@+id/loanItemNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ItemName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.086"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.166" />
+        android:layout_below="@+id/loanDetailsImage"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/components_xs_margin"
+        android:textSize="20dp"
+        android:font="@font/orienta"
+        android:text="ItemName" />
+
+    <TextView
+        android:id="@+id/QuantityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/components_xs_margin"
+        android:textSize="20dp"
+        android:font="@font/orienta"
+        android:text="value here"
+        android:gravity="left"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintLeft_toRightOf="@id/loanItemNameText"
+        android:layout_below="@id/loanItemNameText"/>
 
     <TextView
         android:id="@+id/loanDetailsQuantityText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Quantity"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.086"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.229" />
+        android:layout_marginTop="@dimen/components_xs_margin"
+        android:textSize="20dp"
+        android:font="@font/orienta"
+        android:layout_marginHorizontal="20dp"
+
+        android:text="Quantity:"
+        android:layout_below="@id/loanItemNameText"/>
 
     <TextView
         android:id="@+id/loanIDText"
@@ -47,30 +69,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back to Home"
-        tools:layout_editor_absoluteX="143dp"
-        tools:layout_editor_absoluteY="277dp" />
+        android:layout_below="@id/returnButton"
+        android:layout_marginLeft="@dimen/components_md_margin"
 
-    <ImageView
-        android:id="@+id/loanDetailsImage"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.915"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:gravity="right"
+        />
+
 
     <Button
         android:id="@+id/returnButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Return"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.585" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginLeft="@dimen/components_md_margin"
+        android:layout_below="@id/QuantityText" />
+
+
+</RelativeLayout>

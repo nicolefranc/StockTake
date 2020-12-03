@@ -6,10 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".nfc.NfcReaderActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="-20dp"
+        android:src="@drawable/sutdcard"
+        tools:ignore="MissingConstraints" />
+
+
     <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textSize="20dp"
+        android:font="@font/orienta"
+
         android:text="Scan your card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

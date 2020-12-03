@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/relative_reg"
-        android:background="@drawable/white_rectangle">
+        android:background="@drawable/white_rectangle"
+        tools:ignore="MissingConstraints">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -107,21 +108,6 @@
                 android:layout_height="35dp"
                 android:background="@android:drawable/btn_dropdown"
                 android:spinnerMode="dropdown" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/role"
-                android:font="@font/orienta"
-                android:textColor="@color/black"
-                android:textSize="19dp"/>
-
-            <Spinner android:id="@+id/role"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:background="@android:drawable/btn_dropdown"
-                android:spinnerMode="dropdown"/>
-
 
 
             <Button
