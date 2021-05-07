@@ -3,11 +3,19 @@ package com.infosys.stocktake.inventory.items;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,9 +41,10 @@ import com.squareup.picasso.Picasso;
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 
 public class ItemDetailsActivity extends AppCompatActivity {
     private static final String TAG = "inventory";
@@ -113,11 +122,101 @@ public class ItemDetailsActivity extends AppCompatActivity {
         QrCode qr = new QrCode(QR_HEIGHT, QR_WIDTH);
         Bitmap bitmap = qr.stringToBitmap(item.getEncodedQr());
         ivQrCode.setImageBitmap(bitmap);
+        ivQrCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("btnViewQrImage", "clicked");
+//                Intent intent = new Intent(getApplicationContext(), ViewQrActivity.class);
+//                intent.putExtra("QRBitMap", bitmap);
+//                intent.putExtra("ItemName", item.getItemName());
+//                startActivity(intent);
 
+
+                try {
+                    Toast.makeText(ItemDetailsActivity.this , "Downloading QR code... ", Toast.LENGTH_SHORT).show();
+                    Bitmap bmp = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+                    Canvas c = new Canvas(bmp);
+                    String text = item.getItemName();
+                    Paint p = new Paint();
+                    p.setTypeface(Typeface.DEFAULT);
+                    if (item.getItemName().length() > 20) {
+                        p.setTextSize(12);
+                    } else {
+                        p.setTextSize(18);
+                    }
+                    p.setColor(getResources().getColor(R.color.black));
+                    int width = (int) p.measureText(text);
+//                    int yPos = (int) ((c.getHeight() / 2)
+//                            - ((p.descent() + p.ascent()) / 2) - 10);
+                    int yPos = (int) ((c.getHeight()) - ((p.descent() + p.ascent()) / 2) - 10);
+                    c.drawText(text, (bmp.getWidth() - width) / 2, yPos, p);
+                    saveBitmap(getApplicationContext(), bmp, Bitmap.CompressFormat.PNG, "image/jpeg", item.getItemName());
+
+                    Toast.makeText(ItemDetailsActivity.this, "QR Downloaded", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         setData();
     }
 
+    private void saveBitmap(@NonNull final Context context, @NonNull final Bitmap bitmap,
+                            @NonNull final Bitmap.CompressFormat format, @NonNull final String mimeType,
+                            @NonNull final String displayName) throws IOException
+    {
+        final String relativeLocation = Environment.DIRECTORY_PICTURES;
 
+        final ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, displayName);
+        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);
+        contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, relativeLocation);
+
+        final ContentResolver resolver = context.getContentResolver();
+
+        OutputStream stream = null;
+        Uri uri = null;
+
+        try
+        {
+            final Uri contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+            uri = resolver.insert(contentUri, contentValues);
+
+            if (uri == null)
+            {
+                throw new IOException("Failed to create new MediaStore record.");
+            }
+
+            stream = resolver.openOutputStream(uri);
+
+            if (stream == null)
+            {
+                throw new IOException("Failed to get output stream.");
+            }
+
+            if (bitmap.compress(format, 95, stream) == false)
+            {
+                throw new IOException("Failed to save bitmap.");
+            }
+        }
+        catch (IOException e)
+        {
+            if (uri != null)
+            {
+                // Don't leave an orphan entry in the MediaStore
+                resolver.delete(uri, null, null);
+            }
+
+            throw e;
+        }
+        finally
+        {
+            if (stream != null)
+            {
+                stream.close();
+            }
+        }
+    }
     private void setData()
     {
 
