@@ -13,9 +13,11 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
@@ -47,6 +49,7 @@ public class AddItemActivity extends AppCompatActivity {
     private EditText etItemName;
     private EditText etItemDesc;
     private ElegantNumberButton etQty;
+    private Switch swShare;
 
 
     // Instance for Firebase Storage, Storage Reference
@@ -72,6 +75,7 @@ public class AddItemActivity extends AppCompatActivity {
         etItemName = findViewById(R.id.editTextItemName);
         etItemDesc = findViewById(R.id.editTextItemDescription);
         etQty = findViewById(R.id.editTextQty);
+        swShare = findViewById(R.id.sharingToggleSwitch);
 
         // Event Listeners
         imagePreview.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +95,13 @@ public class AddItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String num = etQty.getNumber();
+            }
+        });
+        swShare.setChecked(false);
+        swShare.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(getBaseContext(),"sharing is "+ (swShare.isChecked() ? "on":"off"), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -170,8 +181,9 @@ public class AddItemActivity extends AppCompatActivity {
         int qty = Integer.parseInt(etQty.getNumber());
         String loaneeID = null;
         String clubID = currentClub;
+        boolean isPublic = swShare.isChecked();
 
-        final Item item = new Item(itemName, itemDesc, storageLocation, qty, loaneeID, clubID);
+        final Item item = new Item(itemName, itemDesc, storageLocation, qty, loaneeID, clubID, isPublic);
 
         String documentId = item.getItemID();
 
