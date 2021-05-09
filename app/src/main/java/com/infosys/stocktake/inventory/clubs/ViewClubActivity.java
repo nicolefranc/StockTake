@@ -29,9 +29,6 @@ import java.util.ArrayList;
 
 public class ViewClubActivity extends AppCompatActivity {
     private Club club;
-    private ArrayList<String> mItemNames = new ArrayList<>();
-    private ArrayList<String> mItemDescriptions= new ArrayList<>();
-    private ArrayList<String> mImages= new ArrayList<>();
     private ArrayList<Item> mItems = new ArrayList<>();
     private Item item;
     private boolean isAdmin = false;
@@ -58,7 +55,11 @@ public class ViewClubActivity extends AppCompatActivity {
             @Override
             public void onSuccess(ArrayList<com.infosys.stocktake.models.Item> items) {
                 if(items != null) {
-                    mItems = items;
+                    for(Item item: items){
+                        if(item.getIsPublic()){
+                            mItems.add(item);
+                        }
+                    }
                 }
                 else{
                     mItems = new ArrayList<Item>();

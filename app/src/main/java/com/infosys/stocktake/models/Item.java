@@ -55,7 +55,7 @@ public class Item implements Serializable {
 
     // Constructor when inserting item
     // Accepts integer qty automatically indicating ALL AVAILABLE as its status
-    public Item(String itemName, String itemDescription, String itemPicture, int qtyAvailable, String loaneeID, String clubID, boolean isPublic) {
+    public Item(String itemName, String itemDescription, String itemPicture, int qtyAvailable, String loaneeID, String clubID, Boolean isPublic) {
         // ItemID: clubID-<8d-uuid>
         this.itemID = clubID.concat("-").concat(UUID.randomUUID().toString().substring(0, 8));
         this.itemName = itemName;
@@ -94,11 +94,15 @@ public class Item implements Serializable {
         return itemPicture;
     }
 
+    public Boolean getIsPublic() { return isPublic;}
+
     public Map<String, Integer> getQtyStatus() {
         return qtyStatus;
     }
 
     public void setQtyStatus(String status, int quantity) {this.qtyStatus.put(status,quantity);}
+
+    public void setIsPublic(Boolean isPublic) {this.isPublic = isPublic;}
 
     public String getLoaneeID() {
         return loaneeID;

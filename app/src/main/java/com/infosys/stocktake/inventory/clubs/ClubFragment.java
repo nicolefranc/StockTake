@@ -62,6 +62,7 @@ public class ClubFragment extends Fragment {
                 Log.d(TAG,"Accessed firebase! populating clubs now...");
                 for(Club club:clubs){
                     if (!club.getClubID().matches(currentClub) && !club.getClubName().matches("Not a Club Exco")) {
+//                    if (!club.getClubName().matches("Not a Club Exco")) { //change to top line after testing is done
                         mClubs.add(club);
                         Log.d(TAG, "onSuccess: Club ID is " + club.getClubID() + " and current club is " + currentClub);
                     }

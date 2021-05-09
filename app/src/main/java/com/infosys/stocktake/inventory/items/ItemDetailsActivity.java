@@ -11,8 +11,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +37,6 @@ import org.eazegraph.lib.models.PieModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 
 public class ItemDetailsActivity extends AppCompatActivity {
     private static final String TAG = "inventory";
@@ -47,9 +48,11 @@ public class ItemDetailsActivity extends AppCompatActivity {
     ImageView ivItemPicture, ivQrCode;
     PieChart pieChart;
     Button tvLoanHistory;
+    Switch sharingSwitch;
     private boolean isAdmin;
     private StockTakeFirebase<User> stockTakeFirebase = new StockTakeFirebase<User>(User.class, "users");
     private StockTakeFirebase<Loan> loanFirebase = new StockTakeFirebase<Loan>(Loan.class, "loans");
+    private StockTakeFirebase<Item> itemFirebase = new StockTakeFirebase<>(Item.class, "items");
 
     private ArrayList<String> admins = new ArrayList<>();
 
@@ -82,6 +85,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         ivItemPicture = findViewById(R.id.ivItemPicture);
         ivQrCode = findViewById(R.id.ivQrCode);
         pieChart = findViewById(R.id.piechart);
+        sharingSwitch = findViewById(R.id.itemShareSw);
 
 
         Log.d(TAG, "Retrieving items...");
@@ -103,6 +107,16 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
         tvItemDesc.addView(tv); //and here -felia
 
+        // set sharing switch depending on sharing status
+        sharingSwitch.setChecked(item.getIsPublic());
+        sharingSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                item.setIsPublic(isChecked);
+                itemFirebase.update(item, item.getItemID());
+                Toast.makeText(ItemDetailsActivity.this, "Sharing " + (isChecked? "enabled":"disabled"),Toast.LENGTH_SHORT);
+            }
+        });
 
         // Display item image from the download url
         Uri imageUri = Uri.parse(item.getItemPicture());
