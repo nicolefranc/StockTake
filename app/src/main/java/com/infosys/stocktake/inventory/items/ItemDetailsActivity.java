@@ -132,7 +132,10 @@ public class ItemDetailsActivity extends AppCompatActivity {
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(ItemDetailsActivity.this, "I'll finish this feature later", Toast.LENGTH_SHORT).show();
+                    Intent editIntent = new Intent(ItemDetailsActivity.this, AddItemActivity.class);
+                    editIntent.putExtra("edit", true);
+                    editIntent.putExtra("item", item);
+                    startActivity(editIntent);
                 }
             });
 
