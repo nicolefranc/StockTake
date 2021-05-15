@@ -20,4 +20,10 @@
     inner_frame_layout_padding (below variable) on round screens.
     -->
     <dimen name="inner_frame_layout_padding">5dp</dimen>
+
+    <!--
+    Padding for Drawables
+    -->
+    <dimen name="elevation">10dp</dimen>
+
 </resources>
