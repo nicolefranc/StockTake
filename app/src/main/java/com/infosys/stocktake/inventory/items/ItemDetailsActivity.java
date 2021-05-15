@@ -28,8 +28,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
+import com.infosys.stocktake.inventory.clubs.ViewClubActivity;
 import com.infosys.stocktake.inventory.itemloanhistory.ItemLoanHistoryActivity;
 import com.infosys.stocktake.inventory.InventoryActivity;
+import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.ItemStatus;
 import com.infosys.stocktake.models.Loan;
@@ -46,6 +48,7 @@ import java.util.HashMap;
 public class ItemDetailsActivity extends AppCompatActivity {
     private static final String TAG = "inventory";
     Item item;
+    Club club;
     private static final int QR_HEIGHT = 200;
     private static final int QR_WIDTH = 200;
     TextView tvItemName, tvQtyAvailable, tvQtyBroken, tvQtyOnLoan, tvQtyOnRepair, teleHandle;
@@ -65,6 +68,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         item = (Item) getIntent().getSerializableExtra("ItemIntent");
+        club = (Club) getIntent().getSerializableExtra("club");
         isAdmin = getIntent().getBooleanExtra("isAdmin", false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail_pichart);
@@ -95,8 +99,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
         Log.d(TAG, "Retrieving items...");
         // Populate components with Item data from passed Intent
-
-
 
         item = (Item) getIntent().getSerializableExtra("ItemIntent");
         TextView tv = new TextView(this); //changes are here -felia
@@ -292,8 +294,13 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
-        Intent itemIntent = new Intent(ItemDetailsActivity.this, InventoryActivity.class);
-        startActivity(itemIntent);
+        if(club!=null) {
+            Intent clubIntent = new Intent(ItemDetailsActivity.this, ViewClubActivity.class);
+            clubIntent.putExtra("ClubIntent", club);
+            startActivity(clubIntent);
+        } else {
+            Intent invIntent = new Intent(ItemDetailsActivity.this, InventoryActivity.class);
+            startActivity(invIntent);
+        }
     }
 }
