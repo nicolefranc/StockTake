@@ -18,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
+        <activity android:name=".loans.ReturnHealthCheck"></activity>
         <!-- Inventory Activities -->
         <activity android:name=".inventory.InventoryActivity" />
         <activity android:name=".inventory.items.ItemDetailsActivity" />
