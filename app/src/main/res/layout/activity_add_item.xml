@@ -106,12 +106,33 @@
                     android:gravity="right"
                     app:backGroundColor="@color/blue_main1" />
 
+                <TextView
+                    android:id="@+id/sharingToggle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/components_sm_margin"
+                    android:layout_toStartOf="@+id/editTextQty"
+                    android:layout_below="@id/stockCount"
+                    android:text="Share Item:"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    />
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sharingToggleSwitch"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="14dp"
+                    android:layout_below="@id/editTextQty"
+                    />
+
 
                 <EditText
                     android:id="@+id/editTextItemName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/stockCount"
+                    android:layout_below="@id/sharingToggle"
                     android:layout_marginVertical="@dimen/components_xs_margin"
                     android:layout_marginHorizontal="@dimen/components_sm_margin"
                     android:ems="10"
