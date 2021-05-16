@@ -18,11 +18,13 @@ public class InventoryAdapter extends FragmentPagerAdapter{
     private User currentUser;
     private String currentClub;
     private boolean hasClub;
+    private boolean toClub;
 
-    public InventoryAdapter(@NonNull FragmentManager fm, User user, String club) {
+    public InventoryAdapter(@NonNull FragmentManager fm, User user, String club, Boolean toClub) {
         super(fm);
         currentUser = user;
         currentClub = club;
+        this.toClub = toClub;
         if (currentClub == ""){
             hasClub = false;
         }
