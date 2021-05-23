@@ -37,6 +37,8 @@ public class User implements Serializable {
     private int studentID;
     private String telegramHandle;
     private HashMap<String,Membership> clubMembership;
+    private boolean superAdmin=true;
+
 //    private String[] itemsBorrowed;
 //    User queryUser;
 //    FirebaseFirestore db;
@@ -103,5 +105,13 @@ public class User implements Serializable {
 
     public HashMap<String, Membership> getClubMembership() {
         return clubMembership;
+    }
+
+    public boolean isSuperAdmin() {
+        return superAdmin;
+    }
+
+    public void setSuperAdmin(boolean superAdmin) {
+        superAdmin = superAdmin;
     }
 }

@@ -52,6 +52,9 @@
              <category android:name="android.intent.category.LAUNCHER" />
              </intent-filter>
         </activity>
+<!--        SuperAdmin Activities-->
+        <activity android:name=".superadmin.SuperadminClubViewActivity"/>
+
 <!--        <activity-->
 <!--            android:name=".auth.LoginActivity"-->
 <!--            android:label="@string/title_activity_login" />-->
