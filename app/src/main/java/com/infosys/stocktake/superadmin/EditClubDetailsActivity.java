@@ -1,4 +1,4 @@
 package com.infosys.stocktake.superadmin;
 
-public class EditClubDetailActivity {
+public class EditClubDetailsActivity {
 }

@@ -54,7 +54,7 @@
         </activity>
 <!--        SuperAdmin Activities-->
         <activity android:name=".superadmin.SuperadminClubViewActivity"/>
-
+        <activity android:name=".superadmin.AddClubDetailsActivity"/>
 <!--        <activity-->
 <!--            android:name=".auth.LoginActivity"-->
 <!--            android:label="@string/title_activity_login" />-->

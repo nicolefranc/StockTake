@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.inventory.dependencies.SquareCardView;
 import com.infosys.stocktake.models.Club;
-import com.infosys.stocktake.superadmin.EditClubDetailActivity;
+import com.infosys.stocktake.superadmin.EditClubDetailsActivity;
 import com.infosys.stocktake.superadmin.SuperadminClubViewActivity;
 
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class ClubRecyclerViewAdapter extends RecyclerView.Adapter<ClubRecyclerVi
             public void onClick(View view) {
                 Intent intent;
                 if(mContext.getClass() == SuperadminClubViewActivity.class){
-                    intent = new Intent(mContext, EditClubDetailActivity.class);
+                    intent = new Intent(mContext, EditClubDetailsActivity.class);
                 }
                 else {
                     intent = new Intent(mContext, ViewClubActivity.class);

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,11 +15,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.inventory.clubs.ClubRecyclerViewAdapter;
-import com.infosys.stocktake.inventory.items.ItemRecyclerViewAdapter;
 import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.User;
 
@@ -56,7 +53,7 @@ public class SuperadminClubViewActivity  extends AppCompatActivity {
         createClubBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent createClubIntent = new Intent(SuperadminClubViewActivity.this,AddClubDetailActivity.class);
+                Intent createClubIntent = new Intent(SuperadminClubViewActivity.this, AddClubDetailsActivity.class);
                 startActivity(createClubIntent);
             }
         });

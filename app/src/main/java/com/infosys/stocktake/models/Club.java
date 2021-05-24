@@ -22,6 +22,7 @@ public class Club implements Serializable {
     public static final String LOAN_COUNTER = "loanCounter";
     public static final String ADMIN_LIST = "adminList";
 
+    private String clubImage;
     private String clubID;
     private String clubName;
     private int loanCounter;
@@ -41,9 +42,15 @@ public class Club implements Serializable {
     public String getClubID() {
         return clubID;
     }
-
     public void setClubID(String clubID) {
         this.clubID = clubID;
+    }
+
+    public String getClubImage(){
+        return clubImage;
+    }
+    public void setClubImage(String clubImageURL){
+        this.clubImage = clubImageURL;
     }
 
     public String getClubName() {
