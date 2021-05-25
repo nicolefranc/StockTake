@@ -1,6 +1,7 @@
 <resources>
 
-    <string name="app_name">Stock Take</string>
+    <string name="app_name">StockTake</string>
+    <string name="slogan">Inventory made easy.</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_studentId">Student ID</string>
     <string name="prompt_fifthRow">Fifth Row</string>

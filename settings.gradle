@@ -1,2 +1,3 @@
+include ':navigationtabbar'
 include ':app'
 rootProject.name = "StockTake"

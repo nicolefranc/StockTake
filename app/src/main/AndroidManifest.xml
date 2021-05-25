@@ -29,7 +29,7 @@
         <activity android:name=".loans.AddLoanActivity" />
         <activity android:name=".loans.LoanDetailsActivity" /> <!-- Profile Activities -->
         <activity android:name=".Profile" />
-        <activity android:name=".auth.ProfileSetupActivity" />
+        <activity android:name=".auth.ProfileSetupAddClubActivity" />
         <activity android:name=".nfc.NfcReaderActivity" />
         <activity android:name=".loans.PersonalLoanHistoryActivity" />
         <activity android:name=".inventory.clubs.ViewClubActivity" /> <!-- Auth Activities -->
