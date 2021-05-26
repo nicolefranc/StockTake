@@ -102,7 +102,14 @@ public class AddClubDetailsActivity extends AppCompatActivity {
                 });
             }
         });
-        //TODO 4: Implement  back button
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent backIntent = new Intent(AddClubDetailsActivity.this,SuperadminClubViewActivity.class);
+                startActivity(backIntent);
+            }
+        });
     }
     private void selectImage(){
         Intent intent = new Intent();
