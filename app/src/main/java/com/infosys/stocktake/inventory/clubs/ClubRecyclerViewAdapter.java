@@ -64,8 +64,8 @@ public class ClubRecyclerViewAdapter extends RecyclerView.Adapter<ClubRecyclerVi
                 }
                 else {
                     intent = new Intent(mContext, ViewClubActivity.class);
-                    intent.putExtra("ClubIntent", mClubs.get(position));
                 }
+                intent.putExtra("ClubIntent", mClubs.get(position));
                 mContext.startActivity(intent);
                 Log.d(TAG, "tapped");
             }
