@@ -11,9 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.infosys.stocktake.Profile;
 import com.infosys.stocktake.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ClubDataAdapter extends ArrayAdapter<ClubDataModel> implements View.OnClickListener{
 
@@ -59,17 +61,18 @@ public class ClubDataAdapter extends ArrayAdapter<ClubDataModel> implements View
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.clubname);
             viewHolder.txtType = (TextView) convertView.findViewById(R.id.usertype);
 
-            Button btn=(Button)convertView.findViewById(R.id.delete);
-            btn.setTag(position);
-            btn.setOnClickListener(new View.OnClickListener() {
-
+            Button delete =(Button)convertView.findViewById(R.id.delete);
+            delete.setTag(position);
+            delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Integer index = (Integer) v.getTag();
                     //items.remove(index.intValue());
+                    ProfileSetupAddClubActivity.clubArrayList.add(dataSet.get(position).clubName);
+                    Collections.sort(ProfileSetupAddClubActivity.clubArrayList);
+                    ProfileSetupAddClubActivity.clubdataAdapter.notifyDataSetChanged();
                     dataSet.remove(position);
                     notifyDataSetChanged();
-
                 }
             });
 

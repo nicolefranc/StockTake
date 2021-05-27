@@ -34,6 +34,7 @@ import com.infosys.stocktake.models.User;
 import com.infosys.stocktake.nfc.NfcReaderActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ProfileSetupAddClubActivity extends AppCompatActivity {
@@ -44,11 +45,11 @@ public class ProfileSetupAddClubActivity extends AppCompatActivity {
     Spinner clubSpinner;
     Spinner userSpinner;
     ListView clublist;
-    List<String> clubArrayList;
+    static List<String> clubArrayList;
     List<String> userTypeArrayList;
     static String studentId, telegramHandle;
     ArrayList<ClubDataModel> dataModels;
-    ArrayAdapter<String> clubdataAdapter;
+    static ArrayAdapter<String> clubdataAdapter;
     private static ClubDataAdapter adapter;
 
 
@@ -67,8 +68,8 @@ public class ProfileSetupAddClubActivity extends AppCompatActivity {
         loadClubData();
         loadUserTypeData();
 
-        dataModels= new ArrayList<>();
-        adapter= new ClubDataAdapter(dataModels,getApplicationContext());
+        dataModels = new ArrayList<>();
+        adapter = new ClubDataAdapter(dataModels,getApplicationContext());
         clublist.setAdapter(adapter);
 
         final GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
@@ -85,12 +86,21 @@ public class ProfileSetupAddClubActivity extends AppCompatActivity {
             }
         });
 
-        
+
 
 
         profileSetupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                for (int i = 0; i< dataModels.size(); i++){
+//                    String clubChoice = dataModels.get(i).getClubName();
+//                    String userPriviledges = dataModels.get(i).getUserType();
+//
+//                    User newUser = new User(Integer.parseInt(studentId) , telegramHandle , signInAccount);
+//                    if(userPriviledges.equals("Member")){
+//
+//                    }
+//                }
                 String clubChoice =  clubSpinner.getSelectedItem().toString();
                 final String documentId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 Log.d(TAG,documentId);
@@ -175,6 +185,7 @@ public class ProfileSetupAddClubActivity extends AppCompatActivity {
                         for (Club c: clubs) {
                             clubArrayList.add(c.getClubName());
                         }
+                        Collections.sort(clubArrayList);
                         clubdataAdapter = new ArrayAdapter<String>(ProfileSetupAddClubActivity.this, android.R.layout.simple_spinner_item, clubArrayList);
                         clubdataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
                         clubSpinner.setAdapter(clubdataAdapter);
