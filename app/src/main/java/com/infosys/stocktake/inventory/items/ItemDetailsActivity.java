@@ -34,6 +34,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.infosys.stocktake.HomeActivity;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.inventory.clubs.ViewClubActivity;
@@ -399,7 +400,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
             clubIntent.putExtra("ClubIntent", club);
             startActivity(clubIntent);
         } else {
-            Intent invIntent = new Intent(ItemDetailsActivity.this, InventoryActivity.class);
+            Intent invIntent = new Intent(ItemDetailsActivity.this, HomeActivity.class);
             startActivity(invIntent);
         }
     }
