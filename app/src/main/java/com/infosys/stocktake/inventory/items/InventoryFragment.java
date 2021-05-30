@@ -62,17 +62,17 @@ public class InventoryFragment extends Fragment {
     itemStockTakeFirebase = new StockTakeFirebase<Item>(Item.class, "items");
     userStockTakeFirebase = new StockTakeFirebase<User>(User.class, "users");
 
-    // Floating Action Button that directs to Add Item Activity
-    fab_add_item = (FloatingActionButton) view.findViewById(R.id.fab_add_item);
-    fab_add_item.setOnClickListener( new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(getContext(), AddItemActivity.class);
-            intent.putExtra("club", currentClub);
-            intent.putExtra("user", currentUser);
-            startActivity(intent);
-        }
-    });
+//    // Floating Action Button that directs to Add Item Activity
+//    fab_add_item = (FloatingActionButton) view.findViewById(R.id.fab_add_item);
+//    fab_add_item.setOnClickListener( new View.OnClickListener() {
+//        @Override
+//        public void onClick(View view) {
+//            Intent intent = new Intent(getContext(), AddItemActivity.class);
+//            intent.putExtra("club", currentClub);
+//            intent.putExtra("user", currentUser);
+//            startActivity(intent);
+//        }
+//    });
 
     return view;
     }

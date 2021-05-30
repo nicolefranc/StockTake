@@ -26,6 +26,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.infosys.stocktake.HomeActivity;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.inventory.InventoryActivity;
 
@@ -144,7 +145,7 @@ public class GoogleLoginActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d(TAG, "Document exists!");
-                        Intent profileIntent = new Intent(getApplicationContext(), InventoryActivity.class);
+                        Intent profileIntent = new Intent(getApplicationContext(), HomeActivity.class);
 //                        Intent profileIntent = new Intent(getApplicationContext(), InventoryActivity.class);
                         startActivity(profileIntent);
                     } else {

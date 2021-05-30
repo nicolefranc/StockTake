@@ -87,6 +87,9 @@ dependencies {
 
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
 
+    implementation project(':navigationtabbar')
+
+
     // QR Scanner
     dependencies {
         implementation 'com.budiyev.android:code-scanner:2.1.0'

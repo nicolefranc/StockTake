@@ -38,10 +38,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
+
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.viewpager.widget.ViewPager;
+import androidx.core.view.ViewCompat;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -89,9 +90,9 @@ public class NavigationTabBar extends View implements ViewPager.OnPageChangeList
     protected final static float DEFAULT_ICON_SIZE_FRACTION = 0.5F;
     protected final static float DEFAULT_TITLE_ICON_SIZE_FRACTION = 0.5F;
 
-    protected final static int DEFAULT_INACTIVE_COLOR = Color.parseColor("#9f90af");
+    protected final static int DEFAULT_INACTIVE_COLOR = Color.parseColor("#61B0FF");
     protected final static int DEFAULT_ACTIVE_COLOR = Color.WHITE;
-    protected final static int DEFAULT_BG_COLOR = Color.parseColor("#605271");
+    protected final static int DEFAULT_BG_COLOR = Color.parseColor("#3399FF");
 
     protected final static float MIN_FRACTION = 0.0F;
     protected final static float MAX_FRACTION = 1.0F;

@@ -138,14 +138,9 @@ public class InventoryActivity extends AppCompatActivity implements NavigationVi
                 break;
             }
 
-            case R.id.nav_qr: {
-                Toast.makeText(this,"nav qr",Toast.LENGTH_LONG);
-                startActivity(new Intent(this, QrScannerActivity.class));
 
-                break;
-            }
 
-            case R.id.nav_personal_loans: {
+            case R.id.nav_my_loans: {
                 Toast.makeText(this,"nav personal loan",Toast.LENGTH_LONG);
                 startActivity(new Intent(this, PersonalLoanHistoryActivity.class));
 

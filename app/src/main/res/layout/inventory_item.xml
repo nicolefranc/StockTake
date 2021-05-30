@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/gray_light"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray_light"
+        android:background="@color/white"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
@@ -85,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:background="#23110000"
+                android:background="@color/white"
                 />
 
             <androidx.constraintlayout.widget.Guideline
