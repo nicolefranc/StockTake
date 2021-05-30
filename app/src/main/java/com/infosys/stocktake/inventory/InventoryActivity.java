@@ -50,6 +50,7 @@ public class InventoryActivity extends AppCompatActivity implements NavigationVi
     private String currentClub;
     private final String userUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private final String TAG = "Inventory Activity: ";
+    private boolean toClub;
 
     private ActionBarDrawerToggle mToggle;
     private NavigationView navigationView;
@@ -60,6 +61,8 @@ public class InventoryActivity extends AppCompatActivity implements NavigationVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inventory_base);
         getCurrentUser();
+        Intent intent = getIntent();
+        toClub = intent.getBooleanExtra("toClub", false);
 
         setContentView(R.layout.inventory_base);
 
@@ -114,10 +117,14 @@ public class InventoryActivity extends AppCompatActivity implements NavigationVi
 
 
         viewPager = findViewById(R.id.view_pager);
-        inventoryAdapter = new InventoryAdapter(getSupportFragmentManager(), currentUser, currentClub);
+        inventoryAdapter = new InventoryAdapter(getSupportFragmentManager(), currentUser, currentClub, toClub);
         viewPager.setAdapter(inventoryAdapter);
         tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
+        if(toClub){
+            TabLayout.Tab tab = tabLayout.getTabAt(1);
+            tabLayout.selectTab(tab);
+        }
     }
 
     @Override
@@ -153,7 +160,12 @@ public class InventoryActivity extends AppCompatActivity implements NavigationVi
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
-        InventoryActivity.this.finishAffinity();
-        System.exit(0);
+        if(tabLayout.getSelectedTabPosition()==1){
+            TabLayout.Tab home = tabLayout.getTabAt(0);
+            tabLayout.selectTab(home);
+        } else {
+            InventoryActivity.this.finishAffinity();
+            System.exit(0);
+        }
     }
 }
