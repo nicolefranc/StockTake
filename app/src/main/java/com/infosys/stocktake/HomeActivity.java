@@ -95,7 +95,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setUpViews(){
         Map<String, Membership> membershipMap = currentUser.getClubMembership();
-        Log.d(TAG, "setUpViews: " + membershipMap.toString());
+        Log.d(TAG, "setUpViews: " + membershipMap.entrySet().iterator().next().getKey().toString());
         if(membershipMap.size() != 0) {
             Map.Entry<String, Membership> entry = membershipMap.entrySet().iterator().next();
             currentClub = entry.getKey();
@@ -111,8 +111,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initUI() {
-//
-
         final String[] colors = getResources().getStringArray(R.array.default_preview);
 
         final NavigationTabBar navigationTabBar = (NavigationTabBar) findViewById(R.id.ntb_horizontal);
@@ -197,16 +195,7 @@ public class HomeActivity extends AppCompatActivity {
                     }, i * 100);
                 }
 
-//                coordinatorLayout.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        final Snackbar snackbar = Snackbar.make(navigationTabBar, "Coordinator NTB", Snackbar.LENGTH_SHORT);
-//                        snackbar.getView().setBackgroundColor(Color.parseColor("#9b92b3"));
-//                        ((TextView) snackbar.getView().findViewById(R.id.snackbar_text))
-//                                .setTextColor(Color.parseColor("#423752"));
-//                        snackbar.show();
-//                    }
-//                }, 1000);
+//
             }
         });
 

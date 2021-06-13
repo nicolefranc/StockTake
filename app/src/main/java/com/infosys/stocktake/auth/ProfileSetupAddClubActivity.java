@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,8 +35,12 @@ import com.infosys.stocktake.models.User;
 import com.infosys.stocktake.nfc.NfcReaderActivity;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class ProfileSetupAddClubActivity extends AppCompatActivity {
     //    final String TAG = ProfileSetupActivity.class.getSimpleName();
@@ -46,6 +51,7 @@ public class ProfileSetupAddClubActivity extends AppCompatActivity {
     Spinner userSpinner;
     ListView clublist;
     static List<String> clubArrayList;
+    static Map<String, String> clubIDArrayList;
     List<String> userTypeArrayList;
     static String studentId, telegramHandle;
     ArrayList<ClubDataModel> dataModels;
@@ -95,12 +101,12 @@ public class ProfileSetupAddClubActivity extends AppCompatActivity {
                 for (int i = 0; i< dataModels.size(); i++){
                     String clubChoice = dataModels.get(i).getClubName();
                     String userPriviledges = dataModels.get(i).getUserType();
-
+                    String clubId = clubIDArrayList.get(clubChoice);
                     if(userPriviledges.equals("Member")){
-                        newUser.setClubMembership(clubChoice, Membership.MEMBER );
+                        newUser.setClubMembership(clubId, Membership.MEMBER );
                     }
                     else{
-                        newUser.setClubMembership(clubChoice, Membership.ADMIN);
+                        newUser.setClubMembership(clubId, Membership.ADMIN);
                     }
                 }
 
@@ -123,6 +129,7 @@ public class ProfileSetupAddClubActivity extends AppCompatActivity {
 //        StockTakeFirebase<Club> stockTakeFirebase = new StockTakeFirebase<>(Club.class, "clubs");
 
         clubArrayList = new ArrayList<>();
+        clubIDArrayList = new HashMap<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("clubs")
                 .get()
@@ -132,6 +139,7 @@ public class ProfileSetupAddClubActivity extends AppCompatActivity {
                         List<Club> clubs = queryDocumentSnapshots.toObjects(Club.class);
                         for (Club c: clubs) {
                             clubArrayList.add(c.getClubName());
+                            clubIDArrayList.put(c.getClubName(), c.getClubID());
                         }
                         Collections.sort(clubArrayList);
                         clubdataAdapter = new ArrayAdapter<String>(ProfileSetupAddClubActivity.this, android.R.layout.simple_spinner_item, clubArrayList);
