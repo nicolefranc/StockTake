@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.drawable.Animatable;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -12,15 +13,18 @@ import android.nfc.Tag;
 import android.nfc.tech.MifareClassic;
 import android.nfc.tech.MifareUltralight;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.infosys.stocktake.HomeActivity;
 import com.infosys.stocktake.MainActivity;
 import com.infosys.stocktake.Profile;
 import com.infosys.stocktake.R;
@@ -47,6 +51,7 @@ public class NfcReaderActivity extends AppCompatActivity {
     private NfcAdapter nfcAdapter;
     private PendingIntent pendingIntent;
     private String source;
+    private ImageView mImgCheck;
     private User user;
     private Loan loan;
 
@@ -55,6 +60,7 @@ public class NfcReaderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfc_reader);
         text = (TextView) findViewById(R.id.text);
+        mImgCheck = (ImageView) findViewById(R.id.imageView);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
         if (nfcAdapter == null) {
@@ -98,12 +104,23 @@ public class NfcReaderActivity extends AppCompatActivity {
         Toast.makeText(NfcReaderActivity.this, "User's nfc tag is " + user.getNfcTag(), Toast.LENGTH_SHORT).show();;
         String documentId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         StockTakeFirebase<User> userRepo = new StockTakeFirebase<>(User.class, User.USER_COLLECTION);
+
         userRepo.create( user , documentId).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG,"successfully succeed");
-                Intent intent = new Intent(getApplicationContext(), InventoryActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                ((Animatable) mImgCheck.getDrawable()).start();
+                new CountDownTimer(2000, 1000) {
+                    public void onFinish() {
+                        // When timer is finished
+                        // Execute your code here
+                        startActivity(intent);
+                    }
+                    public void onTick(long millisUntilFinished) {
+                        // millisUntilFinished    The amount of time until finished.
+                    }
+                }.start();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

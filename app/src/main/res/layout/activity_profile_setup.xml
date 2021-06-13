@@ -103,7 +103,7 @@
             android:hint="Telegram Handle"
             android:paddingVertical="10dp"
             android:paddingLeft="20dp"
-            android:inputType="number"
+            android:maxLines="1"
             android:fontFamily="@font/roboto_regular"
             android:background="@drawable/rounded_rectangle_white"/>
 

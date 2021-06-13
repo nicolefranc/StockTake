@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.infosys.stocktake.HomeActivity;
 import com.infosys.stocktake.Profile;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
@@ -62,6 +63,8 @@ public class ProfileSetupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ProfileSetupAddClubActivity.studentId = studentIdField.getText().toString();
                 ProfileSetupAddClubActivity.telegramHandle = teleHandleField.getText().toString();
+                Intent intent = new Intent(getApplicationContext(), ProfileSetupAddClubActivity.class);
+                startActivity(intent);
 
             }
         });

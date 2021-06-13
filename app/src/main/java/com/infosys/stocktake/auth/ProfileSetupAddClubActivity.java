@@ -87,45 +87,29 @@ public class ProfileSetupAddClubActivity extends AppCompatActivity {
         });
 
 
-
-
         profileSetupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                for (int i = 0; i< dataModels.size(); i++){
-//                    String clubChoice = dataModels.get(i).getClubName();
-//                    String userPriviledges = dataModels.get(i).getUserType();
-//
-//                    User newUser = new User(Integer.parseInt(studentId) , telegramHandle , signInAccount);
-//                    if(userPriviledges.equals("Member")){
-//
-//                    }
-//                }
-                String clubChoice =  clubSpinner.getSelectedItem().toString();
-                final String documentId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                Log.d(TAG,documentId);
+                User newUser = new User(Integer.parseInt(studentId) , telegramHandle , signInAccount);
 
-                if (!TextUtils.isEmpty(studentId) && !TextUtils.isEmpty(telegramHandle) && signInAccount != null) {
-                    User newUser = new User( Integer.parseInt(studentId) , telegramHandle , signInAccount);
-                    String NOT_EXCO_ID = "q93pgnhj3q5g";
+                for (int i = 0; i< dataModels.size(); i++){
+                    String clubChoice = dataModels.get(i).getClubName();
+                    String userPriviledges = dataModels.get(i).getUserType();
 
-                    if (clubChoice.equals("Not a Club Exco")) {
-                        newUser.setClubMembership( NOT_EXCO_ID, Membership.MEMBER );
-                        StockTakeFirebase<User> stockTakeFirebase = new StockTakeFirebase<>(User.class, "users");
-                        Intent intent = new Intent(getApplicationContext(), NfcReaderActivity.class);
-                        intent.putExtra("UserIntent", newUser);
-                        intent.putExtra("source", "profile");
-                        startActivity(intent);
-
-                    } else {
-                        // TODO: STANDARDISE CLUB IDS based on ClubChoice
-                        // We have the club name
-                        // We need to query the club collection for the CLub ID associated with that Club Name
-                        setClubIdFromName(clubChoice, newUser);
-
+                    if(userPriviledges.equals("Member")){
+                        newUser.setClubMembership(clubChoice, Membership.MEMBER );
                     }
-
+                    else{
+                        newUser.setClubMembership(clubChoice, Membership.ADMIN);
+                    }
                 }
+
+                Intent intent = new Intent(getApplicationContext(), NfcReaderActivity.class);
+                intent.putExtra("UserIntent", newUser);
+                intent.putExtra("source", "profile");
+                startActivity(intent);
+
+
             }});
 
 
@@ -133,42 +117,6 @@ public class ProfileSetupAddClubActivity extends AppCompatActivity {
 
 
     }
-
-    private void setClubIdFromName (final String clubName, final User user) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        final GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
-
-//            final String documentId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        assert signInAccount != null;
-        final String documentId = signInAccount.getId();
-        db.collection("clubs")
-                .whereEqualTo("clubName", clubName)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot document : task.getResult()) {
-                                Log.d("YEEEEEEEET",document.toString());
-                                String clubId = document.get("clubID").toString();
-                                Log.d(TAG, clubId);
-                                user.setClubMembership(clubId, Membership.ADMIN);
-                                Intent intent = new Intent(getApplicationContext(), NfcReaderActivity.class);
-                                intent.putExtra("UserIntent", user);
-                                intent.putExtra("source", "profile");
-                                startActivity(intent);
-                            }
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
-                        }
-                    }
-                });
-    }
-
-//        private void setMembershipFromId(String clubID, User user) {
-//
-//        }
 
 
     private void loadClubData() {

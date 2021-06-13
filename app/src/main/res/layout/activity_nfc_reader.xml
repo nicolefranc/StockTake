@@ -1,31 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_blue"
     tools:context=".nfc.NfcReaderActivity">
 
-    <ImageView
+    <RelativeLayout
+        android:id="@+id/relative_reg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="110dp"
+            android:id="@+id/stLogo"
+            android:background="@drawable/stocktakelogo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/stLogo"
+            android:id="@+id/appname"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto_mono_mid"
+            android:textSize="50dp"
+            android:text="@string/app_name"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/appname"
+            android:fontFamily="@font/roboto_mono"
+            android:textColor="@color/black"
+            android:text="@string/slogan"/>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="-20dp"
-        android:src="@drawable/sutdcard"
-        tools:ignore="MissingConstraints" />
+        android:background="@drawable/top_rounded_rectangle"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/relative_reg"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:id="@+id/sutdcard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/signup"
+            android:src="@drawable/sutdcard"
+            android:layout_marginTop="30dp"
+            tools:ignore="MissingConstraints" />
 
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:textSize="20dp"
-        android:font="@font/orienta"
+        <TextView
+            android:id="@+id/text"
+            android:layout_below="@+id/sutdcard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:font="@font/roboto_regular"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:text="Scan your student card"/>
 
-        android:text="Scan your card"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:visibility="visible"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/animated_check"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/text"
+             />
+    </RelativeLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

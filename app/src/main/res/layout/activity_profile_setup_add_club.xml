@@ -62,6 +62,7 @@
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="201dp"
+            android:layout_below="@+id/signup"
             android:layout_above="@+id/userclub"
             android:layout_marginBottom="25dp"
             android:divider="@android:color/transparent"

@@ -150,7 +150,7 @@ public class GoogleLoginActivity extends AppCompatActivity {
                         startActivity(profileIntent);
                     } else {
                         Log.d(TAG, "Document does not exist!");
-                        Intent noProfileIntent = new Intent(getApplicationContext(), ProfileSetupAddClubActivity.class);
+                        Intent noProfileIntent = new Intent(getApplicationContext(), ProfileSetupActivity.class);
                         startActivity(noProfileIntent);
                     }
                 } else {
