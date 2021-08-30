@@ -8,10 +8,34 @@
     tools:context=".inventory.items.InventoryFragment"
     android:orientation="vertical">
 
+<!--    <Spinner-->
+<!--        android:id="@+id/spinner"-->
+<!--        style="@style/Widget.AppCompat.Spinner"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginVertical="10dp"-->
+<!--        android:layout_centerHorizontal="true"></Spinner>-->
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="120dp"
+        android:layout_height="55dp"
+        android:textColor="@color/black"
+        android:layout_marginVertical="10dp"
+        android:paddingHorizontal="10dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/gradient_spinner"
+        android:theme="@style/AppTheme.Spinner"
+        android:overlapAnchor="false"
+        />
+
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/recyclerView"
+        android:layout_below="@id/spinner"
         app:layout_constraintTop_toTopOf="parent"/>
 
 

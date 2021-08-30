@@ -68,6 +68,7 @@ public class HomeActivity extends AppCompatActivity {
         getCurrentUser();
         Intent intent = getIntent();
         toClub = intent.getBooleanExtra("toClub", false);
+        Log.d(TAG, "toClub: " + toClub);
         setContentView(R.layout.activity_home_screen);
         initUI();
     }
@@ -95,6 +96,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setUpViews(){
         Map<String, Membership> membershipMap = currentUser.getClubMembership();
+        Log.d(TAG, "MembershipMap: " + membershipMap.toString());
         Log.d(TAG, "setUpViews: " + membershipMap.entrySet().iterator().next().getKey().toString());
         if(membershipMap.size() != 0) {
             Map.Entry<String, Membership> entry = membershipMap.entrySet().iterator().next();
@@ -106,7 +108,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
         viewPager = findViewById(R.id.vp_horizontal_ntb);
-        inventoryAdapter = new InventoryAdapter(getSupportFragmentManager(), currentUser, currentClub, toClub);
+        inventoryAdapter = new InventoryAdapter(getSupportFragmentManager(), currentUser, membershipMap, toClub);
         viewPager.setAdapter(inventoryAdapter);
     }
 

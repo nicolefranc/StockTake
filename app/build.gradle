@@ -87,6 +87,9 @@ dependencies {
 
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
 
+    implementation 'com.google.android.material:material:1.0.0-beta01'
+
+
     implementation project(':navigationtabbar')
 
 

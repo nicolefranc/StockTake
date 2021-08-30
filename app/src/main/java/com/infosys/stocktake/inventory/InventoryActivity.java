@@ -47,7 +47,8 @@ public class InventoryActivity extends AppCompatActivity implements NavigationVi
     private InventoryAdapter inventoryAdapter;
     private TabLayout tabLayout;
     private User currentUser;
-    private String currentClub;
+//    private String currentClub;
+    private Map currentClub;
     private final String userUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private final String TAG = "Inventory Activity: ";
     private boolean toClub;
@@ -109,10 +110,12 @@ public class InventoryActivity extends AppCompatActivity implements NavigationVi
         Log.d(TAG, "setUpViews: " + membershipMap.toString());
         if(membershipMap.size() != 0) {
             Map.Entry<String, Membership> entry = membershipMap.entrySet().iterator().next();
-            currentClub = entry.getKey();
+//            currentClub = entry.getKey();
+            currentClub =  membershipMap;
         }
         else{
-            currentClub = "";
+//            currentClub = "";
+            currentClub = null;
         }
 
 

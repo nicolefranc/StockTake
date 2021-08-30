@@ -9,23 +9,25 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.infosys.stocktake.inventory.clubs.ClubFragment;
 import com.infosys.stocktake.inventory.items.InventoryFragment;
+import com.infosys.stocktake.models.Membership;
 import com.infosys.stocktake.models.User;
 
 import java.io.Serializable;
+import java.util.Map;
 
 public class InventoryAdapter extends FragmentPagerAdapter{
 
     private User currentUser;
-    private String currentClub;
+    private Map<String, Membership> currentClub;
     private boolean hasClub;
     private boolean toClub;
 
-    public InventoryAdapter(@NonNull FragmentManager fm, User user, String club, Boolean toClub) {
+    public InventoryAdapter(@NonNull FragmentManager fm, User user, Map<String, Membership> club, Boolean toClub) {
         super(fm);
         currentUser = user;
         currentClub = club;
         this.toClub = toClub;
-        if (currentClub == ""){
+        if (currentClub.entrySet().iterator().next().getKey().toString() == ""){
             hasClub = false;
         }
         else{
@@ -42,7 +44,7 @@ public class InventoryAdapter extends FragmentPagerAdapter{
             Bundle bundle = new Bundle();
             bundle.putString("message", "Fragement: " + position);
             bundle.putSerializable("user", currentUser);
-            bundle.putString("club", currentClub);
+            bundle.putString("club", currentClub.entrySet().iterator().next().getKey().toString());
             inventoryFragment.setArguments(bundle);
             return inventoryFragment;
         }
@@ -52,7 +54,7 @@ public class InventoryAdapter extends FragmentPagerAdapter{
             Bundle bundle = new Bundle();
             bundle.putString("message", "Fragement: " + position);
             bundle.putSerializable("user", currentUser);
-            bundle.putString("club", currentClub);
+            bundle.putString("club", currentClub.entrySet().iterator().next().getKey().toString());
             clubFragment.setArguments(bundle);
             return clubFragment;
         }
