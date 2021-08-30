@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
-import com.infosys.stocktake.inventory.InventoryActivity;
+//import com.infosys.stocktake.inventory.InventoryActivity;
 import com.infosys.stocktake.inventory.items.ItemRecyclerViewAdapter;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.Membership;
@@ -98,17 +98,17 @@ public class InventoryFragment extends Fragment {
     spinner.setAdapter(dataAdapter);
 
 
-//    // Floating Action Button that directs to Add Item Activity
-//    fab_add_item = (FloatingActionButton) view.findViewById(R.id.fab_add_item);
-//    fab_add_item.setOnClickListener( new View.OnClickListener() {
-//        @Override
-//        public void onClick(View view) {
-//            Intent intent = new Intent(getContext(), AddItemActivity.class);
-//            intent.putExtra("club", currentClub);
-//            intent.putExtra("user", currentUser);
-//            startActivity(intent);
-//        }
-//    });
+    // Floating Action Button that directs to Add Item Activity
+    fab_add_item = (FloatingActionButton) view.findViewById(R.id.fab_add_item);
+    fab_add_item.setOnClickListener( new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(getContext(), AddItemActivity.class);
+            intent.putExtra("club", currentClub);
+            intent.putExtra("user", currentUser);
+            startActivity(intent);
+        }
+    });
 
     return view;
     }

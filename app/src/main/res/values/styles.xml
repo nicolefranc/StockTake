@@ -60,5 +60,10 @@
         <item name="android:popupBackground">#DFFFFFFF</item>
     </style>
 
+    <style name="text_size">
+        <item name="android:textSize">30dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
 
 </resources>

@@ -12,9 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.infosys.stocktake.HomeActivity;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
-import com.infosys.stocktake.inventory.InventoryActivity;
+//import com.infosys.stocktake.inventory.InventoryActivity;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.ItemStatus;
 import com.infosys.stocktake.models.Loan;
@@ -174,7 +175,7 @@ public class ReturnHealthCheck extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Toast.makeText(ReturnHealthCheck.this, "Item Successfully Returned", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(ReturnHealthCheck.this,InventoryActivity.class);
+                                            Intent intent = new Intent(ReturnHealthCheck.this, HomeActivity.class);
                                             startActivity(intent);
                                         }
                                     });

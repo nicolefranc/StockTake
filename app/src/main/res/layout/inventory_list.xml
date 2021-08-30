@@ -27,6 +27,7 @@
         android:background="@drawable/gradient_spinner"
         android:theme="@style/AppTheme.Spinner"
         android:overlapAnchor="false"
+
         />
 
 
@@ -37,6 +38,20 @@
         android:id="@+id/recyclerView"
         android:layout_below="@id/spinner"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fab_add_item"
+        android:layout_gravity="end|bottom"
+        android:src = "@drawable/ic_baseline_add_24"
+        app:backgroundTint="@color/blue_main1"
+        android:layout_marginVertical="10dp"
+        android:layout_marginLeft="50dp"
+
+        android:layout_toRightOf="@+id/spinner"
+        />
+
 
 
 </RelativeLayout>

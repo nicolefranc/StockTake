@@ -29,7 +29,7 @@ import com.infosys.stocktake.MainActivity;
 import com.infosys.stocktake.Profile;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
-import com.infosys.stocktake.inventory.InventoryActivity;
+//import com.infosys.stocktake.inventory.InventoryActivity;
 import com.infosys.stocktake.loans.AddLoanActivity;
 import com.infosys.stocktake.loans.LoanDetailsActivity;
 import com.infosys.stocktake.models.Item;

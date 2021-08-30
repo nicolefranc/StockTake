@@ -28,7 +28,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.infosys.stocktake.HomeActivity;
 import com.infosys.stocktake.R;
-import com.infosys.stocktake.inventory.InventoryActivity;
+//import com.infosys.stocktake.inventory.InventoryActivity;
 
 
 public class GoogleLoginActivity extends AppCompatActivity {

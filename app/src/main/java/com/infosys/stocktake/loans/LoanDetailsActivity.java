@@ -16,9 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.infosys.stocktake.HomeActivity;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
-import com.infosys.stocktake.inventory.InventoryActivity;
+//import com.infosys.stocktake.inventory.InventoryActivity;
 import com.infosys.stocktake.inventory.itemloanhistory.LoanRecyclerViewAdapter;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.ItemStatus;
@@ -91,7 +92,7 @@ public class LoanDetailsActivity extends AppCompatActivity {
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent homeIntent = new Intent(LoanDetailsActivity.this, InventoryActivity.class);
+                Intent homeIntent = new Intent(LoanDetailsActivity.this, HomeActivity.class);
                 startActivity(homeIntent);
             }
         });
@@ -125,7 +126,7 @@ public class LoanDetailsActivity extends AppCompatActivity {
                                     public void onSuccess(Void aVoid) {
                                         Log.d(TAG,"Successfully added the quantity back to the club");
                                         Toast.makeText(LoanDetailsActivity.this, "Item successfully returned", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(LoanDetailsActivity.this,InventoryActivity.class);
+                                        Intent intent = new Intent(LoanDetailsActivity.this,HomeActivity.class);
                                         startActivity(intent);
                                     }
                                 });

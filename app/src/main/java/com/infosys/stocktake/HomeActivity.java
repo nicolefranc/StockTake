@@ -180,31 +180,32 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         final CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.parent);
-        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                for (int i = 0; i < navigationTabBar.getModels().size(); i++) {
-                    final NavigationTabBar.Model model = navigationTabBar.getModels().get(i);
-                    navigationTabBar.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            final String title = String.valueOf(new Random().nextInt(15));
-                            if (!model.isBadgeShowed()) {
-                                model.setBadgeTitle(title);
-                                model.showBadge();
-                            } else model.updateBadgeTitle(title);
-                        }
-                    }, i * 100);
-                }
-
+//        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(final View v) {
+//                for (int i = 0; i < navigationTabBar.getModels().size(); i++) {
+//                    final NavigationTabBar.Model model = navigationTabBar.getModels().get(i);
+//                    navigationTabBar.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            final String title = String.valueOf(new Random().nextInt(15));
+//                            if (!model.isBadgeShowed()) {
+//                                model.setBadgeTitle(title);
+//                                model.showBadge();
+//                            } else model.updateBadgeTitle(title);
+//                        }
+//                    }, i * 100);
+//                }
 //
-            }
-        });
+////
+//            }
+//        });
 
         final CollapsingToolbarLayout collapsingToolbarLayout =
                 (CollapsingToolbarLayout) findViewById(R.id.toolbar);
         collapsingToolbarLayout.setExpandedTitleColor(Color.parseColor("#009F90AF"));
-        collapsingToolbarLayout.setCollapsedTitleTextColor(Color.parseColor("#9f90af"));
+        collapsingToolbarLayout.setCollapsedTitleTextColor(Color.parseColor("#3399FF"));
+        collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.text_size);
     }
 
     public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHolder> {

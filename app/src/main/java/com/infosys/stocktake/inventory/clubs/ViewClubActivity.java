@@ -17,9 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.infosys.stocktake.HomeActivity;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
-import com.infosys.stocktake.inventory.InventoryActivity;
+//import com.infosys.stocktake.inventory.InventoryActivity;
 import com.infosys.stocktake.inventory.items.ItemDetailsActivity;
 import com.infosys.stocktake.inventory.items.ItemRecyclerViewAdapter;
 import com.infosys.stocktake.models.Club;
@@ -90,7 +91,7 @@ public class ViewClubActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent clubIntent = new Intent(ViewClubActivity.this, InventoryActivity.class);
+        Intent clubIntent = new Intent(ViewClubActivity.this, HomeActivity.class);
         clubIntent.putExtra("toClub", true);
         startActivity(clubIntent);
     }

@@ -39,7 +39,7 @@ import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.inventory.clubs.ViewClubActivity;
 import com.infosys.stocktake.inventory.itemloanhistory.ItemLoanHistoryActivity;
-import com.infosys.stocktake.inventory.InventoryActivity;
+//import com.infosys.stocktake.inventory.InventoryActivity;
 import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.ItemStatus;
@@ -165,7 +165,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     itemFirebase.delete(item.getItemID());
                                     Toast.makeText(ItemDetailsActivity.this, item.getItemName() + " has been deleted", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(ItemDetailsActivity.this, InventoryActivity.class);
+                                    Intent intent = new Intent(ItemDetailsActivity.this, HomeActivity.class);
                                     startActivity(intent);
                                 }
                             })
