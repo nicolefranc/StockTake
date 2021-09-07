@@ -52,6 +52,7 @@ public class InventoryFragment extends Fragment {
     private Map<String, Membership> userClubs;
     private FloatingActionButton fab_add_item;
     private Spinner spinner;
+
     private boolean isAdmin = true;
 
     @Override
@@ -83,7 +84,9 @@ public class InventoryFragment extends Fragment {
     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+            // TODO: 7/9/2021 change this lmao, u are so close alrdy u got dis felia...one more step away 
+            currentClub = spinner.getSelectedItem().toString();
+            populateItems();
         }
 
         @Override

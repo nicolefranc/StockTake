@@ -29,6 +29,7 @@
         android:background="@drawable/top_rounded_rectangle"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/relative_reg"
+        android:elevation="5dp"
         android:layout_alignParentBottom="true">
 
         <RelativeLayout

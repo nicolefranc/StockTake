@@ -57,7 +57,10 @@ public class HomeActivity extends AppCompatActivity {
     private InventoryAdapter inventoryAdapter;
     private BottomNavigationView bottomNavigationView;
     private MenuItem prevMenuItem;
+    private int viewPosition;
+    private CharSequence pageTitle;
     private TabLayout tabLayout;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
     private User currentUser;
     private String currentClub;
     private final String userUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -129,6 +132,7 @@ public class HomeActivity extends AppCompatActivity {
                 else
                     bottomNavigationView.getMenu().getItem(0).setChecked(false);
 
+                viewPosition = position;
                 bottomNavigationView.getMenu().getItem(position).setChecked(true);
                 prevMenuItem = bottomNavigationView.getMenu().getItem(position);
             }
@@ -149,6 +153,7 @@ public class HomeActivity extends AppCompatActivity {
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        pageTitle = item.getTitle();
                         switch (item.getItemId()) {
                             case R.id.nav_my_clubs:
                                 viewPager.setCurrentItem(0);
@@ -171,10 +176,10 @@ public class HomeActivity extends AppCompatActivity {
 
         final CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.parent);
 
-        final CollapsingToolbarLayout collapsingToolbarLayout =
-                (CollapsingToolbarLayout) findViewById(R.id.toolbar);
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar);
+        collapsingToolbarLayout.setTitle(pageTitle);
         collapsingToolbarLayout.setExpandedTitleColor(Color.parseColor("#009F90AF"));
-        collapsingToolbarLayout.setCollapsedTitleTextColor(Color.parseColor("#3399FF"));
+        collapsingToolbarLayout.setCollapsedTitleTextColor(Color.parseColor("#000000"));
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.text_size);
     }
 

@@ -33,6 +33,7 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="colorPrimary">@color/bg_blue</item>
         <item name="colorPrimaryDark">@color/bg_blue</item>
+        <item name="android:elevation">0dp</item>
     </style>
 
     <style name="AppTheme.Spinner">
@@ -62,8 +63,10 @@
 
     <style name="text_size">
         <item name="android:textSize">30dp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:font">@font/roboto_regular</item>
+        <item name="android:paddingBottom">10dp</item>
     </style>
+
+
 
 </resources>
