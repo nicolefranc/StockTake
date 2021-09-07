@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +35,7 @@ import com.infosys.stocktake.models.User;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -53,11 +55,13 @@ public class HomeActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private InventoryAdapter inventoryAdapter;
+    private BottomNavigationView bottomNavigationView;
+    private MenuItem prevMenuItem;
     private TabLayout tabLayout;
     private User currentUser;
     private String currentClub;
     private final String userUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    private final String TAG = "Inventory Activity: ";
+    private final String TAG = "InventoryActivity";
     private boolean toClub;
 
 
@@ -110,96 +114,62 @@ public class HomeActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.vp_horizontal_ntb);
         inventoryAdapter = new InventoryAdapter(getSupportFragmentManager(), currentUser, membershipMap, toClub);
         viewPager.setAdapter(inventoryAdapter);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                if (prevMenuItem != null)
+                    prevMenuItem.setChecked(false);
+                else
+                    bottomNavigationView.getMenu().getItem(0).setChecked(false);
+
+                bottomNavigationView.getMenu().getItem(position).setChecked(true);
+                prevMenuItem = bottomNavigationView.getMenu().getItem(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
     }
 
     private void initUI() {
         final String[] colors = getResources().getStringArray(R.array.default_preview);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        final NavigationTabBar navigationTabBar = (NavigationTabBar) findViewById(R.id.ntb_horizontal);
-        final ArrayList<NavigationTabBar.Model> models = new ArrayList<>();
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.ic_baseline_heart_24),
-                        Color.parseColor(colors[0]))
-                        .title("My Club")
-                        .build()
-        );
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.ic_baseline_search_24),
-                        Color.parseColor(colors[1]))
-                        .title("Other Club")
-                        .build()
-        );
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.ic_baseline_shopping_cart_24),
-                        Color.parseColor(colors[2]))
-                        .title("My Loans")
-                        .build()
-        );
-        models.add(
-                new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.ic_baseline_account_circle_24),
-                        Color.parseColor(colors[3]))
-                        .title("Profile")
-                        .build()
-        );
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.nav_my_clubs:
+                                viewPager.setCurrentItem(0);
+                                break;
+                            case R.id.nav_other_clubs:
+                                viewPager.setCurrentItem(1);
+                                break;
+                            case R.id.nav_my_loans:
+                                viewPager.setCurrentItem(2);
+                                break;
+                            case R.id.nav_profile:
+                                viewPager.setCurrentItem(3);
+                                break;
+                        }
+                        return false;
+                    }
+                });
 
-        navigationTabBar.setModels(models);
-        navigationTabBar.setViewPager(viewPager, 4);
 
-        //IMPORTANT: ENABLE SCROLL BEHAVIOUR IN COORDINATOR LAYOUT
-        navigationTabBar.setBehaviorEnabled(true);
-
-        navigationTabBar.setOnTabBarSelectedIndexListener(new NavigationTabBar.OnTabBarSelectedIndexListener() {
-            @Override
-            public void onStartTabSelected(final NavigationTabBar.Model model, final int index) {
-            }
-
-            @Override
-            public void onEndTabSelected(final NavigationTabBar.Model model, final int index) {
-                model.hideBadge();
-            }
-        });
-        navigationTabBar.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(final int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(final int state) {
-
-            }
-        });
 
         final CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.parent);
-//        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(final View v) {
-//                for (int i = 0; i < navigationTabBar.getModels().size(); i++) {
-//                    final NavigationTabBar.Model model = navigationTabBar.getModels().get(i);
-//                    navigationTabBar.postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            final String title = String.valueOf(new Random().nextInt(15));
-//                            if (!model.isBadgeShowed()) {
-//                                model.setBadgeTitle(title);
-//                                model.showBadge();
-//                            } else model.updateBadgeTitle(title);
-//                        }
-//                    }, i * 100);
-//                }
-//
-////
-//            }
-//        });
 
         final CollapsingToolbarLayout collapsingToolbarLayout =
                 (CollapsingToolbarLayout) findViewById(R.id.toolbar);
