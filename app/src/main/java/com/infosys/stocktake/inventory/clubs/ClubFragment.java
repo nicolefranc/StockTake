@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class ClubFragment extends Fragment {
 
     private TextView textView;
-    private ArrayList<Club> mClubs = new ArrayList<>();
+    private ArrayList<Club> mClubs;
     private static final String TAG = "Club Fragment";
     private StockTakeFirebase<Club> stockTakeFirebase;
     private String currentClub;
@@ -60,8 +60,9 @@ public class ClubFragment extends Fragment {
             @Override
             public void onSuccess(ArrayList<com.infosys.stocktake.models.Club> clubs) {
                 Log.d(TAG,"Accessed firebase! populating clubs now...");
+                mClubs = new ArrayList<>();
                 for(Club club:clubs){
-                    if (!club.getClubID().matches(currentClub) && !club.getClubName().matches("Not a Club Exco")) {
+                    if (!club.getClubID().matches(currentClub) && !club.getClubName().matches("Not a Club Exco") && !mClubs.contains(club)) {
 //                    if (!club.getClubName().matches("Not a Club Exco")) { //change to top line after testing is done
                         mClubs.add(club);
                         Log.d(TAG, "onSuccess: Club ID is " + club.getClubID() + " and current club is " + currentClub);
