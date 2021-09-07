@@ -22,6 +22,7 @@
                 android:id="@+id/stock_take"
                 android:layout_marginLeft="10dp">
                 <TextView
+                    android:id="@+id/title"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -33,6 +34,32 @@
                     android:font="@font/orienta"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="50px"
+                    android:paddingLeft="50px"
+                    android:layout_marginRight="50px"
+                    android:layout_marginTop="20px"
+                    android:layout_alignTop="@id/title"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_baseline_edit_24"
+                    android:id="@+id/editButton"
+                    />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="50px"
+                    android:paddingLeft="50px"
+                    android:layout_marginRight="50px"
+                    android:layout_below="@id/editButton"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_baseline_delete_24"
+                    android:id="@+id/deleteButton"
+                    />
+
      </RelativeLayout>
     </RelativeLayout>
 

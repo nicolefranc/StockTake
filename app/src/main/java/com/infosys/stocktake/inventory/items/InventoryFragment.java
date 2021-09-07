@@ -6,6 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
-import com.infosys.stocktake.inventory.InventoryActivity;
+//import com.infosys.stocktake.inventory.InventoryActivity;
 import com.infosys.stocktake.inventory.items.ItemRecyclerViewAdapter;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.Membership;
@@ -29,6 +32,7 @@ import com.infosys.stocktake.models.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 //import info.androidhive.viewpager2.R;
@@ -45,7 +49,9 @@ public class InventoryFragment extends Fragment {
     private static final String TAG = "Inventory Fragment: ";
     private User currentUser;
     private String currentClub;
+    private Map<String, Membership> userClubs;
     private FloatingActionButton fab_add_item;
+    private Spinner spinner;
     private boolean isAdmin = true;
 
     @Override
@@ -58,9 +64,39 @@ public class InventoryFragment extends Fragment {
     String message = getArguments().getString("message");
     currentUser = (User) getArguments().getSerializable("user");
     currentClub = getArguments().getString("club");
+    userClubs = currentUser.getClubMembership();
     Log.d(TAG, "onCreateView: currentClub is " + currentClub);
     itemStockTakeFirebase = new StockTakeFirebase<Item>(Item.class, "items");
     userStockTakeFirebase = new StockTakeFirebase<User>(User.class, "users");
+
+    List<String> categories = new ArrayList<String>();
+    categories.add(currentClub);
+    categories.add("Item 2");
+    categories.add("Item 3");
+    categories.add("Item 4");
+    categories.add("Item 5");
+    categories.add("Item 6");
+
+    ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, categories);
+
+    spinner = (Spinner) view.findViewById(R.id.spinner);
+    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    });
+
+    dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+    // attaching data adapter to spinner
+    spinner.setAdapter(dataAdapter);
+
 
     // Floating Action Button that directs to Add Item Activity
     fab_add_item = (FloatingActionButton) view.findViewById(R.id.fab_add_item);

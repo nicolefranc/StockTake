@@ -2,34 +2,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/nav_my_clubs"
+        android:title="My Clubs"
+        android:iconTint="@color/white"
+        android:icon="@drawable/ic_baseline_heart_24"
+        />
+
+    <item
+        android:id="@+id/nav_other_clubs"
+        android:title="Other Clubs"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:iconTint="@color/white"/>
+
+    <item
+        android:id="@+id/nav_my_loans"
+        android:title="My Loans"
+        android:iconTint="@color/white"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        />
+
+
+    <item
         android:id="@+id/nav_profile"
-        android:title="User Profile"
-        android:iconTint="@color/black"
-        android:icon="@drawable/ic_baseline_account_circle_24"
-        />
-
-
-
-    <item
-        android:id="@+id/nav_personal_loans"
-        android:title="Personal Loans"
-        android:icon="@drawable/ic_baseline_person_search_24"
-        android:iconTint="@color/black"/>
-
-    <item
-        android:id="@+id/nav_qr"
-        android:title="QR Scanner"
-        android:iconTint="@color/black"
-        android:icon="@drawable/ic_baseline_qr_code_scanner_24"
-        />
-
-<!--    <item-->
-<!--        android:id="@+id/nav_nfc"-->
-<!--        android:title="NFC Reader" />-->
-
-    <item
-        android:id="@+id/mainActivity"
-        android:title="Inventory"
-        android:iconTint="@color/black"
-        android:icon="@drawable/ic_baseline_archive_24"/>
+        android:title="My Profile"
+        android:iconTint="@color/white"
+        android:icon="@drawable/ic_baseline_account_circle_24"/>
 </menu>

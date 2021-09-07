@@ -1,5 +1,6 @@
 package com.infosys.stocktake.inventory.clubs;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,8 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.infosys.stocktake.HomeActivity;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
+//import com.infosys.stocktake.inventory.InventoryActivity;
+import com.infosys.stocktake.inventory.items.ItemDetailsActivity;
 import com.infosys.stocktake.inventory.items.ItemRecyclerViewAdapter;
 import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Item;
@@ -80,8 +84,15 @@ public class ViewClubActivity extends AppCompatActivity {
     private void initRecyclerView(){
         Log.d(TAG,"Initializing recycler view...");
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        ItemRecyclerViewAdapter recyclerAdapter = new ItemRecyclerViewAdapter(mItems, isAdmin, this);
+        ClubItemRecyclerViewAdapter recyclerAdapter = new ClubItemRecyclerViewAdapter(mItems, isAdmin,club, this);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent clubIntent = new Intent(ViewClubActivity.this, HomeActivity.class);
+        clubIntent.putExtra("toClub", true);
+        startActivity(clubIntent);
     }
 }

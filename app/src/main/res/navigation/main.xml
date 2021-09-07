@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    app:startDestination="@id/mainActivity">
+    app:startDestination="@id/homeActivity">
 
     <activity
         android:id="@+id/nav_profile"
@@ -39,6 +39,10 @@
         android:name="com.infosys.stocktake.loans.PersonalLoanHistoryActivity"
         android:label="activity_personal_loans"
         tools:layout="@layout/activity_personal_loans" />
+    <activity
+        android:id="@+id/homeActivity"
+        android:name="com.infosys.stocktake.HomeActivity"
+        android:label="HomeActivity" />
 
 
 </navigation>

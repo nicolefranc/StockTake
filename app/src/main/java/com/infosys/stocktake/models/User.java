@@ -37,7 +37,7 @@ public class User implements Serializable {
     private int studentID;
     private String telegramHandle;
     private HashMap<String,Membership> clubMembership;
-    private boolean superAdmin=true;
+    private boolean superAdmin;
 
 //    private String[] itemsBorrowed;
 //    User queryUser;

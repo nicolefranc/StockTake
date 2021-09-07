@@ -16,10 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.infosys.stocktake.MainActivity;
+import com.infosys.stocktake.HomeActivity;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
-import com.infosys.stocktake.inventory.InventoryActivity;
+//import com.infosys.stocktake.inventory.InventoryActivity;
 import com.infosys.stocktake.inventory.itemloanhistory.LoanRecyclerViewAdapter;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.ItemStatus;
@@ -29,7 +29,7 @@ import com.squareup.picasso.Picasso;
 import java.util.Date;
 
 public class LoanDetailsActivity extends AppCompatActivity {
-    public static final String TAG = "Loan Details Activity";
+    public static final String TAG = "LoanDetailsActivity";
     public static final String PREVIOUS_ACTIVITY_KEY = "prev_act_key";
     final StockTakeFirebase<Loan> stockTakeFirebaseLoan = new StockTakeFirebase<>(Loan.class,"loans");
     final StockTakeFirebase<Item> stockTakeFirebaseItem = new StockTakeFirebase<>(Item.class, "items");
@@ -56,7 +56,11 @@ public class LoanDetailsActivity extends AppCompatActivity {
         Loan currentLoan = (Loan) loanDetailsIntent.getSerializableExtra(AddLoanActivity.LOAN_INTENT_KEY);
         String loanID = currentLoan.getLoanID();
 
-        if(!previousActivity.equals(LoanRecyclerViewAdapter.ACTIVITY_NAME)){
+
+        Log.d(TAG, "Is it returned? " + currentLoan.getReturned());
+        if((!previousActivity.equals(LoanRecyclerViewAdapter.ACTIVITY_NAME) || (currentLoan.getReturned()))){
+
+
             returnButton.setVisibility(View.INVISIBLE);
         }
         loanIDText.setText(loanID);
@@ -65,7 +69,8 @@ public class LoanDetailsActivity extends AppCompatActivity {
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                returnLoan(loanID);
+                    beginHealthCheck(loanID);
+//                returnLoan(loanID);
             }
         });
         String itemID = currentLoan.getItemID();
@@ -87,11 +92,18 @@ public class LoanDetailsActivity extends AppCompatActivity {
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent homeIntent = new Intent(LoanDetailsActivity.this, InventoryActivity.class);
+                Intent homeIntent = new Intent(LoanDetailsActivity.this, HomeActivity.class);
                 startActivity(homeIntent);
             }
         });
     }
+
+    private void beginHealthCheck(String loanID) {
+        Intent healthCheckIntent = new Intent(LoanDetailsActivity.this , ReturnHealthCheck.class);
+        healthCheckIntent.putExtra("loan-id" , loanID);
+        startActivity(healthCheckIntent);
+    }
+
     private void returnLoan(String loanID){
         stockTakeFirebaseLoan.query(loanID).addOnSuccessListener(new OnSuccessListener<Loan>() {
             @Override
@@ -114,7 +126,7 @@ public class LoanDetailsActivity extends AppCompatActivity {
                                     public void onSuccess(Void aVoid) {
                                         Log.d(TAG,"Successfully added the quantity back to the club");
                                         Toast.makeText(LoanDetailsActivity.this, "Item successfully returned", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(LoanDetailsActivity.this,InventoryActivity.class);
+                                        Intent intent = new Intent(LoanDetailsActivity.this,HomeActivity.class);
                                         startActivity(intent);
                                     }
                                 });

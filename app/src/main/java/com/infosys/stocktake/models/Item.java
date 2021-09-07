@@ -104,6 +104,12 @@ public class Item implements Serializable {
 
     public void setIsPublic(Boolean isPublic) {this.isPublic = isPublic;}
 
+    public void setItemName(String name){this.itemName = name;}
+
+    public void setItemDesc(String desc) {this.itemDescription = desc;}
+
+    public void setItemPicture(String url) {this.itemPicture = url;}
+
     public String getLoaneeID() {
         return loaneeID;
     }

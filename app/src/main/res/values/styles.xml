@@ -30,5 +30,40 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorPrimary">@color/bg_blue</item>
+        <item name="colorPrimaryDark">@color/bg_blue</item>
+    </style>
+
+    <style name="AppTheme.Spinner">
+        <item name="android:spinnerItemStyle">@style/spinner_style</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
+    </style>
+
+
+    <style name="SpinnerDropDownItem">
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:paddingVertical">10dp</item>
+        <item name="android:paddingHorizontal">10dp</item>
+    </style>
+
+    <style name="spinner_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/gradient_spinner</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">20dp</item>
+
+        <item name="android:popupBackground">#DFFFFFFF</item>
+    </style>
+
+    <style name="text_size">
+        <item name="android:textSize">30dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
 
 </resources>

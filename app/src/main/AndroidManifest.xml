@@ -5,11 +5,10 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
-
-
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
 
     <uses-feature android:name="android.hardware.nfc" />
 
@@ -21,36 +20,29 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-<!--        Inventory Activities-->
-        <activity android:name=".inventory.InventoryActivity"/>
-        <activity android:name=".inventory.items.ItemDetailsActivity"></activity>
-        <activity android:name=".inventory.items.AddItemActivity" />
-
-<!--        QR Activities-->
+        <activity android:name=".loans.ReturnHealthCheck"></activity>
+        <!-- Inventory Activities -->
+        <activity android:name=".inventory.InventoryActivity" />
+        <activity android:name=".inventory.items.ItemDetailsActivity" />
+        <activity android:name=".inventory.items.AddItemActivity" /> <!-- QR Activities -->
         <activity android:name=".qr.QrScannerActivity" />
-        <activity android:name=".qr.QrOptionsActivity"
-            ></activity>
-
-<!--        Loan Activities-->
-        <activity android:name=".inventory.itemloanhistory.ItemLoanHistoryActivity"/>
-        <activity android:name=".loans.AddLoanActivity"/>
-        <activity android:name=".loans.LoanDetailsActivity"/>
-
-        <!--        Profile Activities-->
-        <activity android:name=".Profile"></activity>
-        <activity android:name=".auth.ProfileSetupActivity"></activity>
-        <activity android:name=".nfc.NfcReaderActivity"></activity>
-        <activity android:name=".loans.PersonalLoanHistoryActivity"/>
-        <activity android:name=".inventory.clubs.ViewClubActivity" />
-
-<!--        Auth Activities-->
+        <activity android:name=".qr.QrOptionsActivity" /> <!-- Loan Activities -->
+        <activity android:name=".inventory.itemloanhistory.ItemLoanHistoryActivity" />
+        <activity android:name=".loans.AddLoanActivity" />
+        <activity android:name=".loans.LoanDetailsActivity" /> <!-- Profile Activities -->
+        <activity android:name=".Profile" />
+        <activity android:name=".auth.ProfileSetupAddClubActivity" />
+        <activity android:name=".auth.ProfileSetupActivity" />
+        <activity android:name=".nfc.NfcReaderActivity" />
+        <activity android:name=".loans.PersonalLoanHistoryActivity" />
+        <activity android:name=".HomeActivity"/>
+        <activity android:name=".inventory.clubs.ViewClubActivity" /> <!-- Auth Activities -->
         <activity android:name=".auth.GoogleLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 <!--        SuperAdmin Activities-->
         <activity android:name=".superadmin.SuperadminClubViewActivity"/>

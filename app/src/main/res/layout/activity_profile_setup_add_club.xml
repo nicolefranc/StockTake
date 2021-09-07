@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_blue"
+    tools:context=".auth.ProfileSetupActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/relative_reg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:id="@+id/stLogo"
+            android:background="@drawable/stocktakelogo" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/top_rounded_rectangle"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/relative_reg"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/signup">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:id="@+id/signuptext"
+                android:text="Sign Up"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/roboto_mono_mid"
+                android:textSize="40dp"
+                android:textColor="@color/black"/>
+
+            <View
+                android:layout_width="200dp"
+                android:layout_height="1dp"
+                android:layout_below="@+id/signuptext"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/line1"
+                android:background="@color/gray" />
+
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="201dp"
+            android:layout_below="@+id/signup"
+            android:layout_above="@+id/userclub"
+            android:layout_marginBottom="25dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="5dp"
+            android:paddingHorizontal="10dp"
+            tools:layout_editor_absoluteY="260dp" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/userclub"
+            android:layout_above="@+id/userpriviledge"
+            android:paddingLeft="20dp"
+            android:paddingVertical="10dp"
+            android:layout_marginHorizontal="30dp"
+            android:background="@drawable/spinimagebg"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/userpriviledge"
+            android:layout_above="@+id/addClub"
+            android:paddingLeft="20dp"
+            android:paddingVertical="10dp"
+            android:layout_marginHorizontal="30dp"
+            android:background="@drawable/spinimagebg"/>
+
+        <Button
+            android:id="@+id/addClub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/finProfileSetupBtn"
+            android:layout_marginBottom="25dp"
+            android:font="@font/roboto_regular"
+            android:layout_centerHorizontal="true"
+            android:text="Add Club"
+            android:textAllCaps="false"
+            android:background="@drawable/rounded_button_b2"
+            android:textSize="20dp"
+            android:paddingHorizontal="38dp"
+            android:textColor="@color/white" />
+
+
+        <Button
+            android:id="@+id/finProfileSetupBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:font="@font/roboto_regular"
+            android:layout_centerHorizontal="true"
+            android:text="Finish"
+            android:textAllCaps="false"
+            android:background="@drawable/rounded_button_b1"
+            android:textSize="20dp"
+            android:paddingHorizontal="50dp"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+</RelativeLayout>
+

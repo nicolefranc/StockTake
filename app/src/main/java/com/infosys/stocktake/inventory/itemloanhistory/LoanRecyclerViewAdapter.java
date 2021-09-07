@@ -81,6 +81,8 @@ public class LoanRecyclerViewAdapter extends RecyclerView.Adapter<LoanRecyclerVi
             holder.loaneeName.setText(userNames.get(position));
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
             holder.returnDate.setText(dateFormat.format(dueDates.get(position)));
+
+
             //removing checkmark if item is still due
             Date now = new Date();
             if(returnDates.get(position) == null){

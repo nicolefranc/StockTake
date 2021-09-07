@@ -28,7 +28,7 @@
         android:text="ItemName" />
 
     <TextView
-        android:id="@+id/QuantityText"
+        android:id="@+id/loanDetailsQuantityText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/components_xs_margin"
@@ -41,7 +41,7 @@
         android:layout_below="@id/loanItemNameText"/>
 
     <TextView
-        android:id="@+id/loanDetailsQuantityText"
+        android:id="@+id/loanDetailsQuantityLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/components_xs_margin"
@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:text="Return"
         android:layout_marginLeft="@dimen/components_md_margin"
-        android:layout_below="@id/QuantityText" />
+        android:layout_below="@id/loanDetailsQuantityText" />
 
 
 </RelativeLayout>
