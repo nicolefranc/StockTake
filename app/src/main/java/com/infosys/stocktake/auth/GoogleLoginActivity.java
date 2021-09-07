@@ -17,6 +17,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -28,7 +29,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.infosys.stocktake.HomeActivity;
 import com.infosys.stocktake.R;
-//import com.infosys.stocktake.inventory.InventoryActivity;
+import com.infosys.stocktake.Profile;
+import com.infosys.stocktake.firebase.StockTakeFirebase;
+import com.infosys.stocktake.models.User;
+import com.infosys.stocktake.superadmin.SuperadminClubViewActivity;
 
 
 public class GoogleLoginActivity extends AppCompatActivity {
@@ -38,14 +42,15 @@ public class GoogleLoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     Button googleLoginButton;
     ImageView googleLoginIcon;
+
     @Override
     protected void onStart() {
         super.onStart();
 
         FirebaseUser user = mAuth.getCurrentUser();
 
-        if (user!=null) {
-                checkUserExistsAndSetup();
+        if (user != null) {
+            checkUserExistsAndSetup();
 
         }
     }
@@ -134,27 +139,28 @@ public class GoogleLoginActivity extends AppCompatActivity {
     }
 
     private void checkUserExistsAndSetup() {
-        FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
-        String docId= FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        DocumentReference docIdRef = rootRef.collection("users").document(docId);
-        docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        StockTakeFirebase<User> userStockTakeFirebase = new StockTakeFirebase<>(User.class, "users");
+        String docId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        userStockTakeFirebase.query(docId).addOnSuccessListener(new OnSuccessListener<User>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d(TAG, "Document exists!");
+            public void onSuccess(User user) {
+                if (user != null) {
+                    Log.d(TAG, "User exists");
+                    //if user is a SuperAdmin, go to a new activity
+                    if(user.isSuperAdmin()){
+                        Intent superAdminIntent = new Intent(getApplicationContext(), SuperadminClubViewActivity.class);
+                        startActivity(superAdminIntent);
+                    }
+                    else {
+                        //Otherwise, follow the usual flow
                         Intent profileIntent = new Intent(getApplicationContext(), HomeActivity.class);
 //                        Intent profileIntent = new Intent(getApplicationContext(), InventoryActivity.class);
                         startActivity(profileIntent);
-                    } else {
-                        Log.d(TAG, "Document does not exist!");
-                        Intent noProfileIntent = new Intent(getApplicationContext(), ProfileSetupActivity.class);
-                        startActivity(noProfileIntent);
                     }
                 } else {
-                    Log.d(TAG, "Failed with: ", task.getException());
+                    Log.d(TAG, "Document does not exist!");
+                    Intent noProfileIntent = new Intent(getApplicationContext(), ProfileSetupActivity.class);
+                    startActivity(noProfileIntent);
                 }
             }
         });
