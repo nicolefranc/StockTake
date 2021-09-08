@@ -66,17 +66,19 @@ public class InventoryFragment extends Fragment {
     currentUser = (User) getArguments().getSerializable("user");
     currentClub = getArguments().getString("club");
     userClubs = currentUser.getClubMembership();
+
     Log.d(TAG, "onCreateView: currentClub is " + currentClub);
     itemStockTakeFirebase = new StockTakeFirebase<Item>(Item.class, "items");
     userStockTakeFirebase = new StockTakeFirebase<User>(User.class, "users");
 
-    List<String> categories = new ArrayList<String>();
-    categories.add(currentClub);
-    categories.add("Item 2");
-    categories.add("Item 3");
-    categories.add("Item 4");
-    categories.add("Item 5");
-    categories.add("Item 6");
+    List<String> categories = new ArrayList<>(userClubs.keySet());
+//    List<String> categories = new ArrayList<String>();
+//    categories.add(currentClub);
+//    categories.add("Item 2");
+//    categories.add("Item 3");
+//    categories.add("Item 4");
+//    categories.add("Item 5");
+//    categories.add("Item 6");
 
     ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, categories);
 
@@ -84,7 +86,7 @@ public class InventoryFragment extends Fragment {
     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            // TODO: 7/9/2021 change this lmao, u are so close alrdy u got dis felia...one more step away 
+            // TODO: 7/9/2021 change this lmao, u are so close alrdy u got dis felia...one more step away
             currentClub = spinner.getSelectedItem().toString();
             populateItems();
         }
