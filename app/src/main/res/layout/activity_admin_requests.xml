@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".inventory.profile.AdminRequests">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/incomingRequestsSwipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/adminRequestsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Admin Requests"
+        android:textSize="40dp"
+        android:fontFamily="@font/roboto_regular"
+        android:layout_marginLeft="@dimen/components_sm_margin"
+        android:layout_marginTop="@dimen/components_lg_margin"/>
+
+
+    <TextView
+        android:id="@+id/placeholderEmptyRequests"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No Requests"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:layout_below="@id/adminRequestsTitle"
+        android:fontFamily="@font/roboto_regular"
+        android:layout_marginTop="40dp"
+        android:textSize="20dp"
+        android:visibility="invisible"/>
+
+
+
+        <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/incomingRequestsListView"
+        android:layout_below="@id/adminRequestsTitle"
+        android:paddingBottom="@dimen/components_lg_margin"/>
+        </RelativeLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</RelativeLayout>

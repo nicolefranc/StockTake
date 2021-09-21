@@ -148,6 +148,8 @@ public class InventoryFragment extends Fragment {
                     mItems = new ArrayList<Item>();
                 }
                 Log.d(TAG, "Items added: " + mItems.toString());
+
+
                 initRecyclerView();
             }
         });

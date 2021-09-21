@@ -16,24 +16,30 @@
         android:layout_marginTop="-40dp"
         android:background="@drawable/white_rectangle">
 
+
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/stock_take"
             android:layout_marginLeft="10dp">
+
             <TextView
                 android:id="@+id/clubName"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="100dp"
-                android:text="The Club Name"
-                android:textSize="@dimen/text_title"
-                android:textColor="@color/black"
-                android:fontFamily="sans-serif"
                 android:font="@font/orienta"
+                android:fontFamily="sans-serif"
+                android:text="The Club Name"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+
+
         </RelativeLayout>
 
     </RelativeLayout>

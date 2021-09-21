@@ -7,7 +7,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.NFC" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
 
     <uses-feature android:name="android.hardware.nfc" />
@@ -20,8 +21,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".loans.ReturnHealthCheck"></activity>
-        <!-- Inventory Activities -->
+        <activity
+            android:name=".inventory.profile.AdminRequests"
+            android:exported="true" />
+        <activity android:name=".loans.ReturnHealthCheck" /> <!-- Inventory Activities -->
         <activity android:name=".inventory.InventoryActivity" />
         <activity android:name=".inventory.items.ItemDetailsActivity" />
         <activity android:name=".inventory.items.AddItemActivity" /> <!-- QR Activities -->
@@ -35,7 +38,7 @@
         <activity android:name=".auth.ProfileSetupActivity" />
         <activity android:name=".nfc.NfcReaderActivity" />
         <activity android:name=".loans.PersonalLoanHistoryActivity" />
-        <activity android:name=".HomeActivity"/>
+        <activity android:name=".HomeActivity" />
         <activity android:name=".inventory.clubs.ViewClubActivity" /> <!-- Auth Activities -->
         <activity android:name=".auth.GoogleLoginActivity">
             <intent-filter>
@@ -43,19 +46,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-<!--        SuperAdmin Activities-->
-        <activity android:name=".superadmin.SuperadminClubViewActivity"/>
-        <activity android:name=".superadmin.AddClubDetailsActivity"/>
-        <activity android:name=".superadmin.EditClubDetailsActivity"/>
-<!--        <activity-->
-<!--            android:name=".auth.LoginActivity"-->
-<!--            android:label="@string/title_activity_login" />-->
-
-
-
-<!--        <activity android:name=".MainActivity">-->
-<!--        </activity>-->
+        </activity> <!-- SuperAdmin Activities -->
+        <activity android:name=".superadmin.SuperadminClubViewActivity" />
+        <activity android:name=".superadmin.AddClubDetailsActivity" />
+        <activity android:name=".superadmin.EditClubDetailsActivity" />
     </application>
 
 </manifest>
