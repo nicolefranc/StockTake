@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/drawable/check_mark.xml" value="0.2359375" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.2359375" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/layout/activity_add_item.xml" value="0.33" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/layout/activity_admin_requests.xml" value="0.21458333333333332" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/layout/activity_create_club.xml" value="0.1" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/layout/activity_edit_club.xml" value="0.20625" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/layout/activity_item_detail_pichart.xml" value="0.20572916666666666" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/layout/activity_profile_page.xml" value="0.1" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/layout/activity_profile_setup.xml" value="0.30978260869565216" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/layout/activity_profile_setup_add_club.xml" value="0.30978260869565216" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/layout/activity_qr_options.xml" value="0.30978260869565216" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/layout/club_item.xml" value="0.30978260869565216" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/layout/club_list.xml" value="0.30978260869565216" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/layout/clubdata_row_item.xml" value="0.5" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/layout/inventory_list.xml" value="0.30978260869565216" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/layout/inventory_list_2.xml" value="0.30978260869565216" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/layout/my_club_item_list.xml" value="0.20572916666666666" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/layout/my_club_list.xml" value="0.20625" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/layout/request_admin_item.xml" value="0.5" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/layout/request_incoming_admin_item.xml" value="0.20625" />
+        <entry key="..\:/Coding/AndroidStudio/StockTake/app/src/main/res/layout/request_outgoing_admin_item.xml" value="0.5" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

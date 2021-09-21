@@ -31,6 +31,8 @@ import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Membership;
+import com.infosys.stocktake.models.Request;
+import com.infosys.stocktake.models.RequestStatus;
 import com.infosys.stocktake.models.User;
 import com.infosys.stocktake.nfc.NfcReaderActivity;
 
@@ -57,7 +59,9 @@ public class ProfileSetupAddClubActivity extends AppCompatActivity {
     ArrayList<ClubDataModel> dataModels;
     static ArrayAdapter<String> clubdataAdapter;
     private static ClubDataAdapter adapter;
-
+    String userId;
+    FirebaseAuth fbAuth = FirebaseAuth.getInstance();
+    StockTakeFirebase<Request> requestStockTakeFirebase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +73,9 @@ public class ProfileSetupAddClubActivity extends AppCompatActivity {
         addclub = findViewById(R.id.addClub);
         clublist = findViewById(R.id.list);
         profileSetupButton = findViewById(R.id.finProfileSetupBtn);
+
+        userId = fbAuth.getCurrentUser().getUid();
+        requestStockTakeFirebase = new StockTakeFirebase<Request>(Request.class, "requests");
 
         // TODO: Load Spinner Data
         loadClubData();
@@ -106,7 +113,9 @@ public class ProfileSetupAddClubActivity extends AppCompatActivity {
                         newUser.setClubMembership(clubId, Membership.MEMBER );
                     }
                     else{
-                        newUser.setClubMembership(clubId, Membership.ADMIN);
+                        // User must send request to become an admin
+//                        newUser.setClubMembership(clubId, Membership.ADMIN);
+                        sendAdminRequest(clubId);
                     }
                 }
 
@@ -122,6 +131,32 @@ public class ProfileSetupAddClubActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void sendAdminRequest(String clubId) {
+        requestStockTakeFirebase.getCollection().addOnSuccessListener(new OnSuccessListener<ArrayList<Request>>() {
+            @Override
+            public void onSuccess(ArrayList<Request> requests) {
+                int count;
+                if (requests != null) {
+                    count = requests.size();
+                } else {
+                    count = 0;
+                }
+                String reqId = "REQ-" + count;
+
+                Request newRequest = new Request(reqId, clubId, userId, RequestStatus.PENDING);
+
+                requestStockTakeFirebase.create(newRequest, reqId).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "Admin Request Sent Successfully");
+                    }
+                });
+
+
+            }
+        });
     }
 
 

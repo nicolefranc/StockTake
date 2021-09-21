@@ -102,9 +102,12 @@ public class StockTakeFirebase<TEntity> {
         });
     }
 
+
+
     public Task<Void> create(TEntity entity, String uuid){
         final String uuidString = uuid;
         DocumentReference docRef = collectionRef.document(uuidString);
+
         return docRef.set(entity)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

@@ -6,17 +6,25 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.infosys.stocktake.HomeActivity;
 import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
@@ -27,6 +35,8 @@ import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.ItemStatus;
 import com.infosys.stocktake.models.QrCode;
+import com.infosys.stocktake.models.Request;
+import com.infosys.stocktake.models.RequestStatus;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -36,21 +46,33 @@ public class ViewClubActivity extends AppCompatActivity {
     private ArrayList<Item> mItems = new ArrayList<>();
     private Item item;
     private boolean isAdmin = false;
+    private Button sendAdminRequestBtn;
     StockTakeFirebase<Item> itemStockTakeFirebase;
     private static final String TAG = "ViewClub: ";
     TextView clubName;
+    String userId;
+    FirebaseAuth fbAuth = FirebaseAuth.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    StockTakeFirebase<Request> requestStockTakeFirebase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.club_list);
+        userId = fbAuth.getCurrentUser().getUid();
+        requestStockTakeFirebase = new StockTakeFirebase<Request>(Request.class, "requests");
+
         // Populate components with Item data from passed Intent
         club = (Club) getIntent().getSerializableExtra("ClubIntent");
         clubName = findViewById(R.id.clubName);
+
         clubName.setText(club.getClubName());
         itemStockTakeFirebase = new StockTakeFirebase<Item>(Item.class, "items");
         populateItems();
     }
+
+
 
     private void populateItems(){
         Log.d(TAG,"Populating items...");
@@ -95,4 +117,6 @@ public class ViewClubActivity extends AppCompatActivity {
         clubIntent.putExtra("toClub", true);
         startActivity(clubIntent);
     }
+
+
 }

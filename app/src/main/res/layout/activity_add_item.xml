@@ -134,23 +134,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/sharingToggle"
-                    android:layout_marginVertical="@dimen/components_xs_margin"
                     android:layout_marginHorizontal="@dimen/components_sm_margin"
+                    android:layout_marginVertical="@dimen/components_xs_margin"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:hint="Item Name" />
+                    android:hint="Item Name"
+                    android:inputType="textPersonName" />
 
                 <EditText
                     android:id="@+id/editTextItemDescription"
-                    android:layout_below="@id/editTextItemName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/components_xs_margin"
+                    android:layout_below="@id/editTextItemName"
                     android:layout_marginHorizontal="@dimen/components_sm_margin"
+                    android:layout_marginVertical="@dimen/components_xs_margin"
                     android:ems="10"
                     android:gravity="start|top"
-                    android:inputType="textMultiLine"
-                    android:hint="Item Description" />
+                    android:hint="Item Description"
+                    android:inputType="textMultiLine" />
 
 <!--                <EditText-->
 <!--                    android:id="@+id/editTextQty"-->

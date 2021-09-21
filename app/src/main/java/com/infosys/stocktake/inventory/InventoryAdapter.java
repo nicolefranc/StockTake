@@ -80,6 +80,8 @@ public class InventoryAdapter extends FragmentPagerAdapter{
             position = position+1;
             Bundle bundle = new Bundle();
             // TODO: 7/9/2021 Add the args u need here
+            bundle.putSerializable("user", currentUser);
+
             profileFragment.setArguments(bundle);
             return profileFragment;
         }

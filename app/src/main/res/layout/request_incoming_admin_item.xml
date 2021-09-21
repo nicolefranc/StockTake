@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="68"
+            android:layout_height="wrap_content"
+            android:paddingRight="100dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/requestName"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Requester Name"
+                android:textColor="#000"
+                android:layout_margin="5dp"
+                android:textSize="20sp"
+                />
+
+            <TextView
+                android:id="@+id/requestClub"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Club Name"
+                android:textColor="#a9a9a9"
+                android:layout_margin="5dp"
+                android:textSize="15sp"
+                android:layout_below="@id/requestName"
+
+                />
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+        <ImageButton
+            android:id="@+id/requestRejectButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_baseline_cancel_24"
+            android:backgroundTint="@color/design_default_color_error"
+            android:minWidth="50dp"
+            android:minHeight="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Reject" />
+
+        <ImageButton
+            android:id="@+id/requestAcceptButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/ic_baseline_check_circle_24"
+            android:backgroundTint="@color/Available"
+            android:minWidth="50dp"
+            android:minHeight="50dp"
+            android:layout_toRightOf="@id/requestRejectButton" />
+
+    </LinearLayout>
+
+</LinearLayout>

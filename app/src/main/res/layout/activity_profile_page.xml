@@ -8,12 +8,147 @@
     tools:context=".inventory.profile.ProfileFragment"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="HELLO THIS IS THE PROFILE PAGE"
-        android:layout_centerInParent="true"></TextView>
 
 
+ <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/outgoingRequestsSwipeRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/components_sm_margin"
+        >
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/profileTitle"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="Profile"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="40sp"/>
+
+
+
+
+                    <!--        USERNAME-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fProfileUsername"
+            android:text="Username"
+            android:textColor="@color/gray"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="20sp"
+            android:layout_below="@id/profileTitle"/>
+
+        <TextView
+            android:id="@+id/profileUsername"
+            android:paddingLeft="@dimen/components_sm_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fProfileUsername"
+            android:background="@drawable/rounded_rectangle_white"
+            android:fontFamily="@font/roboto_regular"
+            android:text="hey"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+
+                    <!--   ROLE         -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fProfileRole"
+            android:text="Role"
+            android:textColor="@color/gray"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="20sp"
+            android:layout_below="@id/profileUsername"/>
+
+        <TextView
+            android:id="@+id/profileRole"
+            android:paddingLeft="@dimen/components_sm_margin"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fProfileRole"
+            android:background="@drawable/rounded_rectangle_white"
+            android:fontFamily="@font/roboto_regular"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+                <!--   Telegram      -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fProfileTelegram"
+            android:text="Telegram"
+            android:textColor="@color/gray"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="20sp"
+            android:layout_below="@id/profileRole"/>
+
+        <TextView
+            android:id="@+id/profileTelegram"
+            android:paddingLeft="@dimen/components_sm_margin"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fProfileTelegram"
+            android:background="@drawable/rounded_rectangle_white"
+            android:fontFamily="@font/roboto_regular"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+<!--        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
+<!--            android:id="@+id/profileSwipeRefreshLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+
+        <Button
+            android:id="@+id/btnToAdminRequests"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profileTelegram"
+            android:text="View Admin Requests"
+            android:background="@color/design_default_color_primary"
+            android:textColor="@color/white"
+            android:layout_marginVertical="@dimen/components_md_margin"
+           />
+
+        <TextView
+            android:id="@+id/profilfeSelfRequestTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnToAdminRequests"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/gray"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Clubs you're in: "/>
+
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/outgoingRequestsListView"
+            android:layout_below="@id/profilfeSelfRequestTitle"
+            android:paddingBottom="@dimen/components_lg_margin"/>
+
+
+    </RelativeLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </RelativeLayout>
