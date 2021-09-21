@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.inventory.InventoryAdapter;
 import com.infosys.stocktake.inventory.clubs.ClubFragment;
+import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Membership;
 import com.infosys.stocktake.models.User;
 
@@ -44,6 +45,7 @@ import android.widget.Toast;
 import devlight.io.library.ntb.NavigationTabBar;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -63,6 +65,7 @@ public class HomeActivity extends AppCompatActivity {
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private User currentUser;
     private String currentClub;
+    private Map<String, String> currentClubName;
     private final String userUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private final String TAG = "InventoryActivity";
     private boolean toClub;
@@ -73,6 +76,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         getCurrentUser();
+        getClubNames();
         Intent intent = getIntent();
         toClub = intent.getBooleanExtra("toClub", false);
         Log.d(TAG, "toClub: " + toClub);
@@ -88,7 +92,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onSuccess(User user) {
                 currentUser = user;
                 Log.d(TAG, "User is: " + user.getTelegramHandle());
-                setUpViews();
+//                setUpViews();
             }
         });
 
@@ -96,6 +100,37 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d(TAG, "Failed to get user");
+            }
+        });
+
+    }
+
+    private void getClubNames(){
+        Log.d(TAG,"Populating items...");
+        StockTakeFirebase<Club> clubStockTakeFirebase = new StockTakeFirebase<Club>(Club.class,"clubs");
+        Task<ArrayList<Club>> populateTask = clubStockTakeFirebase.getCollection();
+
+        currentClubName = new HashMap<String, String>();
+
+        populateTask.addOnSuccessListener(new OnSuccessListener<ArrayList<Club>>() {
+            @Override
+            public void onSuccess(ArrayList<com.infosys.stocktake.models.Club> clubs) {
+                Log.d(TAG,"Accessed firebase! populating clubs now...");
+
+                for(Club club:clubs) {
+
+//                    if (!club.getClubName().matches("Not a Club Exco")) { //change to top line after testing is done
+                    currentClubName.put(club.getClubID(), club.getClubName());
+                    Log.d(TAG, "club name populated: " + club.getClubID() + club.getClubName());
+
+                }
+                setUpViews();
+            }
+        });
+        populateTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e(TAG,"Failed to retrieve items :(, exception is: ", e);
             }
         });
 
@@ -115,8 +150,10 @@ public class HomeActivity extends AppCompatActivity {
 
 
         viewPager = findViewById(R.id.vp_horizontal_ntb);
-        inventoryAdapter = new InventoryAdapter(getSupportFragmentManager(), currentUser, membershipMap, toClub);
+        inventoryAdapter = new InventoryAdapter(getSupportFragmentManager(), currentUser, membershipMap, toClub, currentClubName);
         viewPager.setAdapter(inventoryAdapter);
+
+
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -149,6 +186,8 @@ public class HomeActivity extends AppCompatActivity {
         final String[] colors = getResources().getStringArray(R.array.default_preview);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
+
+
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -177,6 +216,9 @@ public class HomeActivity extends AppCompatActivity {
         final CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.parent);
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar);
+
+
+
         collapsingToolbarLayout.setTitle(pageTitle);
         collapsingToolbarLayout.setExpandedTitleColor(Color.parseColor("#009F90AF"));
         collapsingToolbarLayout.setCollapsedTitleTextColor(Color.parseColor("#000000"));

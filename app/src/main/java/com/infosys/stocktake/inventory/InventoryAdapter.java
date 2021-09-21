@@ -22,14 +22,16 @@ public class InventoryAdapter extends FragmentPagerAdapter{
 
     private User currentUser;
     private Map<String, Membership> currentClub;
+    private Map<String, String> currentClubNames;
     private boolean hasClub;
     private boolean toClub;
     private static final String TAG = InventoryAdapter.class.getSimpleName();
 
-    public InventoryAdapter(@NonNull FragmentManager fm, User user, Map<String, Membership> club, Boolean toClub) {
+    public InventoryAdapter(@NonNull FragmentManager fm, User user, Map<String, Membership> club, Boolean toClub, Map<String,String> ClubNames) {
         super(fm);
         currentUser = user;
         currentClub = club;
+        currentClubNames = ClubNames;
         this.toClub = toClub;
         if (currentClub.entrySet().iterator().next().getKey().toString() == ""){
             hasClub = false;
@@ -51,6 +53,8 @@ public class InventoryAdapter extends FragmentPagerAdapter{
             bundle.putSerializable("user", currentUser);
 //            bundle.putString("club", currentClub.entrySet().iterator().next().getKey().toString());
             bundle.putString("club", currentClub.entrySet().iterator().next().getKey().toString());
+            bundle.putInt("clublen", currentClubNames.size());
+            inventoryFragment.currentClubName = currentClubNames;
             inventoryFragment.setArguments(bundle);
             return inventoryFragment;
         }

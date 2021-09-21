@@ -26,6 +26,7 @@ import com.infosys.stocktake.R;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
 //import com.infosys.stocktake.inventory.InventoryActivity;
 import com.infosys.stocktake.inventory.items.ItemRecyclerViewAdapter;
+import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Item;
 import com.infosys.stocktake.models.Membership;
 import com.infosys.stocktake.models.User;
@@ -45,10 +46,14 @@ public class InventoryFragment extends Fragment {
     private ArrayList<String> mImages= new ArrayList<>();
     private StockTakeFirebase<Item> itemStockTakeFirebase;
     private StockTakeFirebase<User> userStockTakeFirebase;
+    private StockTakeFirebase<Club> clubStockTakeFirebase;
+    private ArrayList<Club> mClubs;
     private ArrayList<Item> mItems = new ArrayList<>();
     private static final String TAG = "Inventory Fragment: ";
     private User currentUser;
-    private String currentClub;
+    private String currentClubID;
+    private List<String> categories;
+    public static Map<String, String> currentClubName;
     private Map<String, Membership> userClubs;
     private FloatingActionButton fab_add_item;
     private Spinner spinner;
@@ -64,31 +69,36 @@ public class InventoryFragment extends Fragment {
     View view = inflater.inflate(R.layout.inventory_list,container,false);
     String message = getArguments().getString("message");
     currentUser = (User) getArguments().getSerializable("user");
-    currentClub = getArguments().getString("club");
+    currentClubID = getArguments().getString("club");
     userClubs = currentUser.getClubMembership();
 
-    Log.d(TAG, "onCreateView: currentClub is " + currentClub);
+    Log.d(TAG, "onCreateView: currentClubID is " + currentClubID);
+    Log.d(TAG, "onCreateView: currentClubName len is " + getArguments().getInt("clublen"));
+    Log.d(TAG, "onCreateView: currentClubName len is " + currentClubName.toString());
     itemStockTakeFirebase = new StockTakeFirebase<Item>(Item.class, "items");
     userStockTakeFirebase = new StockTakeFirebase<User>(User.class, "users");
+    clubStockTakeFirebase = new StockTakeFirebase<Club>(Club.class, "clubs");
 
-    List<String> categories = new ArrayList<>(userClubs.keySet());
-//    List<String> categories = new ArrayList<String>();
-//    categories.add(currentClub);
-//    categories.add("Item 2");
-//    categories.add("Item 3");
-//    categories.add("Item 4");
-//    categories.add("Item 5");
-//    categories.add("Item 6");
+    categories = new ArrayList<>(userClubs.keySet());
+    List<String> categorieName = new ArrayList<>();
+    for(String i: categories){
+        if (currentClubName.containsKey(i)){
+            categorieName.add(currentClubName.get(i));
+        }
+    }
 
-    ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, categories);
+    Log.d(TAG, "onCreateView: currentClubName len is " + categorieName.toString());
+
+    ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, categorieName);
 
     spinner = (Spinner) view.findViewById(R.id.spinner);
     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             // TODO: 7/9/2021 change this lmao, u are so close alrdy u got dis felia...one more step away
-            currentClub = spinner.getSelectedItem().toString();
+            currentClubID = categories.get(position);
             populateItems();
+
         }
 
         @Override
@@ -109,7 +119,7 @@ public class InventoryFragment extends Fragment {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(getContext(), AddItemActivity.class);
-            intent.putExtra("club", currentClub);
+            intent.putExtra("club", currentClubID);
             intent.putExtra("user", currentUser);
             startActivity(intent);
         }
@@ -126,11 +136,11 @@ public class InventoryFragment extends Fragment {
 
     private void populateItems(){
         Log.d(TAG,"Populating items...");
-        Task<ArrayList<com.infosys.stocktake.models.Item>> populateTask = itemStockTakeFirebase.compoundQuery("clubID", currentClub);
+        Task<ArrayList<com.infosys.stocktake.models.Item>> populateTask = itemStockTakeFirebase.compoundQuery("clubID", currentClubID);
         populateTask.addOnSuccessListener(new OnSuccessListener<ArrayList<Item>>() {
             @Override
             public void onSuccess(ArrayList<com.infosys.stocktake.models.Item> items) {
-                Log.d(TAG,"Accessed firebase! Club is " + currentClub + ". populating items now...");
+                Log.d(TAG,"Accessed firebase! Club is " + currentClubID + ". populating items now...");
                 if(items != null) {
                     mItems = items;
                 }
@@ -149,6 +159,8 @@ public class InventoryFragment extends Fragment {
         });
 
     }
+
+
 
     private void initRecyclerView(){
         Log.d(TAG,"Initializing recycler view...");
