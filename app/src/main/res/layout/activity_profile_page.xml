@@ -19,20 +19,19 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/components_sm_margin"
         >
 
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/profileTitle"
-            android:gravity="center"
-            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
             android:text="Profile"
             android:textColor="@color/black"
-            android:fontFamily="@font/roboto_regular"
-            android:textSize="40sp"/>
+            android:fontFamily="@font/roboto_mono_mid"
+            android:layout_marginVertical="15dp"
+            android:textSize="40dp"/>
 
 
 
@@ -46,18 +45,23 @@
             android:textColor="@color/gray"
             android:fontFamily="@font/roboto_regular"
             android:textSize="20sp"
+            android:layout_marginHorizontal="20dp"
             android:layout_below="@id/profileTitle"/>
 
         <TextView
             android:id="@+id/profileUsername"
-            android:paddingLeft="@dimen/components_sm_margin"
+            android:paddingLeft="30dp"
+            android:paddingVertical="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/fProfileUsername"
             android:background="@drawable/rounded_rectangle_white"
+            android:elevation="5dp"
             android:fontFamily="@font/roboto_regular"
             android:text="hey"
             android:textColor="@color/black"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="20dp"
             android:textSize="20sp" />
 
 
@@ -71,12 +75,14 @@
             android:textColor="@color/gray"
             android:fontFamily="@font/roboto_regular"
             android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="20dp"
             android:layout_below="@id/profileUsername"/>
 
         <TextView
             android:id="@+id/profileRole"
-            android:paddingLeft="@dimen/components_sm_margin"
-
+            android:paddingLeft="30dp"
+            android:paddingVertical="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/fProfileRole"
@@ -84,6 +90,9 @@
             android:fontFamily="@font/roboto_regular"
             android:text=""
             android:textColor="@color/black"
+            android:elevation="5dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="5dp"
             android:textSize="20sp" />
 
                 <!--   Telegram      -->
@@ -95,13 +104,16 @@
             android:text="Telegram"
             android:textColor="@color/gray"
             android:fontFamily="@font/roboto_regular"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="20dp"
+
             android:textSize="20sp"
             android:layout_below="@id/profileRole"/>
 
         <TextView
             android:id="@+id/profileTelegram"
-            android:paddingLeft="@dimen/components_sm_margin"
-
+            android:paddingLeft="30dp"
+            android:paddingVertical="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/fProfileTelegram"
@@ -109,12 +121,11 @@
             android:fontFamily="@font/roboto_regular"
             android:text=""
             android:textColor="@color/black"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="5dp"
+            android:elevation="5dp"
             android:textSize="20sp" />
 
-<!--        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
-<!--            android:id="@+id/profileSwipeRefreshLayout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content">-->
 
         <Button
             android:id="@+id/btnToAdminRequests"
@@ -122,9 +133,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/profileTelegram"
             android:text="View Admin Requests"
-            android:background="@color/design_default_color_primary"
+            android:textAllCaps="false"
+            android:background="@drawable/rounded_rectangle"
+            android:layout_marginHorizontal="20dp"
+            android:fontFamily="@font/roboto_mono_mid"
             android:textColor="@color/white"
-            android:layout_marginVertical="@dimen/components_md_margin"
+            android:textSize="19dp"
+            android:layout_marginVertical="25dp"
            />
 
         <TextView
@@ -132,10 +147,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/btnToAdminRequests"
-            android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/gray"
             android:fontFamily="@font/roboto_regular"
+            android:layout_marginHorizontal="20dp"
             android:text="Clubs you're in: "/>
 
 
@@ -144,6 +159,7 @@
             android:layout_height="match_parent"
             android:id="@+id/outgoingRequestsListView"
             android:layout_below="@id/profilfeSelfRequestTitle"
+            android:layout_marginHorizontal="20dp"
             android:paddingBottom="@dimen/components_lg_margin"/>
 
 

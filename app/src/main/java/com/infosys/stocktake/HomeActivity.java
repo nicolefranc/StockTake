@@ -213,16 +213,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-        final CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.parent);
 
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar);
-
-
-
-        collapsingToolbarLayout.setTitle(pageTitle);
-        collapsingToolbarLayout.setExpandedTitleColor(Color.parseColor("#009F90AF"));
-        collapsingToolbarLayout.setCollapsedTitleTextColor(Color.parseColor("#000000"));
-        collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.text_size);
     }
 
     public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHolder> {

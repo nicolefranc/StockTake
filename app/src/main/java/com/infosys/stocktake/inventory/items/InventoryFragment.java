@@ -57,8 +57,9 @@ public class InventoryFragment extends Fragment {
     private Map<String, Membership> userClubs;
     private FloatingActionButton fab_add_item;
     private Spinner spinner;
-
     private boolean isAdmin = true;
+
+
 
     @Override
     public View onCreateView(
@@ -71,6 +72,8 @@ public class InventoryFragment extends Fragment {
     currentUser = (User) getArguments().getSerializable("user");
     currentClubID = getArguments().getString("club");
     userClubs = currentUser.getClubMembership();
+
+    isAdmin = userClubs.get(currentClubID).equals(Membership.ADMIN);
 
     Log.d(TAG, "onCreateView: currentClubID is " + currentClubID);
     Log.d(TAG, "onCreateView: currentClubName len is " + getArguments().getInt("clublen"));
@@ -95,9 +98,10 @@ public class InventoryFragment extends Fragment {
     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            // TODO: 7/9/2021 change this lmao, u are so close alrdy u got dis felia...one more step away
+
             currentClubID = categories.get(position);
-            populateItems();
+            isAdmin = userClubs.get(currentClubID).equals(Membership.ADMIN);
+            populateItems(isAdmin);
 
         }
 
@@ -130,11 +134,11 @@ public class InventoryFragment extends Fragment {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        populateItems();
-        initRecyclerView();
+        populateItems(isAdmin);
+        initRecyclerView(isAdmin);
     }
 
-    private void populateItems(){
+    private void populateItems(Boolean isAdmin){
         Log.d(TAG,"Populating items...");
         Task<ArrayList<com.infosys.stocktake.models.Item>> populateTask = itemStockTakeFirebase.compoundQuery("clubID", currentClubID);
         populateTask.addOnSuccessListener(new OnSuccessListener<ArrayList<Item>>() {
@@ -150,7 +154,7 @@ public class InventoryFragment extends Fragment {
                 Log.d(TAG, "Items added: " + mItems.toString());
 
 
-                initRecyclerView();
+                initRecyclerView(isAdmin);
             }
         });
         populateTask.addOnFailureListener(new OnFailureListener() {
@@ -164,7 +168,7 @@ public class InventoryFragment extends Fragment {
 
 
 
-    private void initRecyclerView(){
+    private void initRecyclerView(Boolean isAdmin){
         Log.d(TAG,"Initializing recycler view...");
         RecyclerView recyclerView = getView().findViewById(R.id.recyclerView);
         ItemRecyclerViewAdapter recyclerAdapter = new ItemRecyclerViewAdapter(mItems, isAdmin, getActivity());

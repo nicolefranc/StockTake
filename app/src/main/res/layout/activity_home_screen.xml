@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,38 +13,22 @@
     >
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="80dp"
         android:fitsSystemWindows="true"
         android:elevation="0dp"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            app:title="@string/app_name"
-            app:expandedTitleTextAppearance="@null"
-            app:contentScrim="@color/bg_blue"
-            android:elevation="0dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
             <ImageView
                 android:id="@+id/backdrop"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
                 android:background="@color/bg_blue"
                 android:src="@drawable/stocktakelogo_extra_small"
-                android:padding="20dp"
                 android:elevation="0dp"
-                app:layout_collapseMode="pin"
                  />
-
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -52,12 +36,12 @@
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vp_horizontal_ntb"
+        android:layout_below="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingVertical="20dp"
+        android:layout_above="@+id/bottom_navigation"
         android:background="@drawable/top_rounded_rectangle"
-        android:elevation="5dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:elevation="5dp">
 
     </androidx.viewpager.widget.ViewPager>
 
@@ -66,12 +50,13 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:background="@color/blue_main1"
         app:itemBackground="@color/blue_main1"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
-        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         app:menu="@menu/navigation_menu" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</RelativeLayout>
