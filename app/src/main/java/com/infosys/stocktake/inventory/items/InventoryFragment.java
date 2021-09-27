@@ -169,8 +169,9 @@ public class InventoryFragment extends Fragment {
 
 
     private void initRecyclerView(Boolean isAdmin){
-        Log.d(TAG,"Initializing recycler view...");
+        Log.d(TAG,"Initializing recycler view..." + isAdmin);
         RecyclerView recyclerView = getView().findViewById(R.id.recyclerView);
+
         ItemRecyclerViewAdapter recyclerAdapter = new ItemRecyclerViewAdapter(mItems, isAdmin, getActivity());
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

@@ -9,7 +9,7 @@
     android:background="@color/bg_blue"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-
+    tools:context=".inventory.items.ItemDetailsActivity"
     >
 
     <com.google.android.material.appbar.AppBarLayout
@@ -32,20 +32,395 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:layout_below="@+id/appbar"
+        android:id="@+id/top">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/itemdetailsTitle"
+            android:layout_centerHorizontal="true"
+            android:text="Item Details"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto_mono_mid"
+            android:layout_marginVertical="20dp"
+            android:textSize="35dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_below="@id/itemdetailsTitle"
+            android:id="@+id/tvItemName"
+            android:paddingHorizontal="20dp"
+            android:font="@font/roboto_mono_mid"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:text="This is the title"/>
+
+        <ImageView
+            android:id="@+id/ivItemPicture"
+            android:layout_below="@+id/tvItemName"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@color/white"
+            android:layout_marginVertical="10dp"
+            android:paddingVertical="10dp"
+            android:elevation="7dp"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top"
+        android:elevation="6dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TableLayout
+                        android:id="@+id/table"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:elevation="6dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:stretchColumns="0,1">
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/loan_person"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:font="@font/roboto_mono_mid"
+                                android:text="Contact to loan:"
+                                android:textSize="18dp"
+                                />
+                            <TextView
+                                android:id="@+id/telegramhandle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                />
+                        </TableRow>
 
 
-    <androidx.viewpager.widget.ViewPager
+                    </TableLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item"
+                        android:layout_below="@+id/table"
+                        android:orientation="vertical"
+                        android:elevation="6dp">
+
+                        <!--Text view to use of -->
+                        <!-- programming languages text-->
+                        <TextView
+                            android:id="@+id/itemDes"
+                            android:layout_width="wrap_content"
+                            android:font="@font/roboto_mono_mid"
+                            android:layout_height="wrap_content"
+                            android:text="Item Description:"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="20dp"/>
+
+                        <!--View to display the line-->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/gray"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="5dp"/>
+
+                        <!--View to display the line-->
+                        <ScrollView
+                            android:id="@+id/tvItemDescp"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_marginHorizontal="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_below="@id/itemDes"
+                            android:scrollbars="vertical"
+                            android:background="@color/white"
+                            android:fillViewport="true">
+
+
+                        </ScrollView>
+
+                    </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardViewGraph"
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/item"
+                        android:elevation="6dp"
+                        app:cardCornerRadius="8dp">
+
+
+                        <!--Linear layout to display pie chart -->
+                        <!-- and details of pie chart-->
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <!--Pie chart to display the data-->
+
+                            <org.eazegraph.lib.charts.PieChart
+                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/piechart"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:padding="6dp"
+                                android:layout_weight="1"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"
+
+                                />
+
+                            <!--Creating another linear layout -->
+                            <!-- to display pie chart details -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="20dp"
+                                android:orientation="vertical"
+                                android:gravity="center_vertical"
+                                >
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="15dp"
+                                    android:layout_gravity="center_vertical">
+
+                                    <!--View to display the yellow color icon-->
+                                    <View
+                                        android:layout_width="15dp"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/Available"/>
+
+                                    <!--Text view to display R -->
+                                    <TableLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingRight="20dp"
+                                        android:stretchColumns="0,1">
+                                        <TableRow>
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Available:"
+                                                android:paddingLeft="10dp"/>
+
+                                            <TextView
+                                                android:id="@+id/tvQtyAvailable"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAlignment="textEnd"
+                                                android:text="0"
+                                                android:paddingLeft="10dp"/>
+                                        </TableRow>
+
+                                    </TableLayout>
+
+                                </LinearLayout>
+
+                                <!--Linear layout to display Python-->
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="15dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginTop="5dp">
+
+                                    <!--View to display the green color icon-->
+                                    <View
+                                        android:layout_width="15dp"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/Broken"/>
+
+                                    <!--Text view to display python text -->
+                                    <TableLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingRight="20dp"
+                                        android:stretchColumns="0,1">
+                                        <TableRow>
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Broken:"
+                                                android:paddingLeft="10dp"/>
+
+                                            <TextView
+                                                android:id="@+id/tvQtyBroken"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAlignment="textEnd"
+                                                android:text="0"
+                                                android:paddingLeft="10dp"/>
+                                        </TableRow>
+
+                                    </TableLayout>
+
+                                </LinearLayout>
+
+                                <!--Linear layout to display C++-->
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="15dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginTop="5dp">
+
+                                    <!--View to display the red color icon-->
+                                    <View
+                                        android:layout_width="15dp"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/On_Repair"/>
+
+                                    <!--Text view to display C++ text -->
+                                    <TableLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingRight="20dp"
+                                        android:stretchColumns="0,1">
+                                        <TableRow>
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="On Repair:"
+                                                android:paddingLeft="10dp"/>
+
+                                            <TextView
+                                                android:id="@+id/tvQtyOnRepair"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAlignment="textEnd"
+                                                android:text="0"
+                                                android:paddingLeft="10dp"/>
+                                        </TableRow>
+
+                                    </TableLayout>
+
+                                </LinearLayout>
+
+                                <!--Linear layout to display Java-->
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="15dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginTop="5dp">
+
+                                    <!--View to display the blue color icon-->
+                                    <View
+                                        android:layout_width="15dp"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/Loan"/>
+
+                                    <!--Text view to display Java text -->
+                                    <TableLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingRight="20dp"
+                                        android:stretchColumns="0,1">
+                                        <TableRow>
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="On Loan:"
+                                                android:paddingLeft="10dp"/>
+
+                                            <TextView
+                                                android:id="@+id/tvQtyOnLoan"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAlignment="textEnd"
+                                                android:text="0"
+                                                android:paddingLeft="10dp"/>
+                                        </TableRow>
+
+                                    </TableLayout>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardViewGraph"
+                        android:layout_marginVertical="20dp"
+                        android:elevation="6dp">
+
+                        <TextView
+                            android:id="@+id/itemqr"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="20dp"
+                            android:textStyle="bold"
+                            android:elevation="6dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:textSize="18dp"
+                            android:font="@font/roboto_mono_mid"
+                            android:textColor="@color/black"
+                            android:text="Item QR:"/>
+
+
+                        <ImageView
+                            android:id="@+id/ivQrCode"
+                            android:layout_below="@+id/itemqr"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp" />
+                    </RelativeLayout>
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+
+
+    <ImageView
         android:id="@+id/vp_horizontal_ntb"
         android:layout_below="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_navigation"
         android:background="@drawable/top_rounded_rectangle"
         android:elevation="5dp">
-
-    </androidx.viewpager.widget.ViewPager>
-
-
+    </ImageView>
 
 
 </RelativeLayout>

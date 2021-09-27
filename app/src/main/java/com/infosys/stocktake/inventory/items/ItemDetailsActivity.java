@@ -81,6 +81,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         item = (Item) getIntent().getSerializableExtra("ItemIntent");
         club = (Club) getIntent().getSerializableExtra("club");
         isAdmin = getIntent().getBooleanExtra("isAdmin", false);
+        Log.d(TAG, "ItemsDetsAct: " + isAdmin);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail_pichart);
 
@@ -178,7 +179,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         // Display item image from the download url
         Uri imageUri = Uri.parse(item.getItemPicture());
         Picasso.get().load(imageUri)
-                .fit().centerCrop().into(ivItemPicture);
+                .fit().centerInside().into(ivItemPicture);
 
         // Display QR code based on encoded QR string
         QrCode qr = new QrCode(QR_HEIGHT, QR_WIDTH);

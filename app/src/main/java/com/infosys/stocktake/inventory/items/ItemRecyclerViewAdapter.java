@@ -33,7 +33,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         mItems = items;
         isAdmin = Admin;
 
-        Log.d(TAG, "recycler adapter initiated");
+        Log.d(TAG, "recycler adapter initiated " + isAdmin);
     }
 
     @NonNull
@@ -74,7 +74,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
                     intent.putExtra("ItemIntent", mItems.get(position));
                     intent.putExtra("isAdmin", isAdmin);
                     mContext.startActivity(intent);
-                    Log.d(TAG, "tapped");
+                    Log.d(TAG, "tapped" + mItems.get(position));
                 }
             });
         }
