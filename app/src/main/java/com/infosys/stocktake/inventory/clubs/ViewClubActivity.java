@@ -59,7 +59,7 @@ public class ViewClubActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.club_list);
+        setContentView(R.layout.activity_club_item_list);
         userId = fbAuth.getCurrentUser().getUid();
         requestStockTakeFirebase = new StockTakeFirebase<Request>(Request.class, "requests");
 

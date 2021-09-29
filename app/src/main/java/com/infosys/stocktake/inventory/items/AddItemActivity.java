@@ -280,37 +280,5 @@ public class AddItemActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    private void addToFirestore(String storageLocation) {
-//        // Retrieve Item Details
-//        String itemName = etItemName.getText().toString();
-//        String itemDesc = etItemDesc.getText().toString();
-//        int qty = Integer.parseInt(etQty.getNumber());
-//        String loaneeID = null;
-//        String clubID = currentClub;
-//        boolean isPublic = swShare.isChecked();
-//
-//        final Item item = new Item(itemName, itemDesc, storageLocation, qty, loaneeID, clubID, isPublic);
-//
-//        String documentId = item.getItemID();
-//
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        db.collection("items").document(documentId)
-//                .set(item)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        // Pass item to display details in ItemDetailsActivity
-//                        Intent intent = new Intent(AddItemActivity.this, ItemDetailsActivity.class);
-//                        intent.putExtra("ItemIntent", item);
-//                        intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                        startActivity(intent);
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(AddItemActivity.this, "Failed to save", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//    }
+
 }

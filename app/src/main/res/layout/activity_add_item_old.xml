@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".inventory.items.AddItemActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-40dp"
+            android:id="@+id/relative_reg"
+            android:background="@drawable/white_rectangle">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/stock_take"
+                android:layout_marginLeft="10dp">
+                <TextView
+                    android:id="@+id/titleText"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="100dp"
+                    android:text="Add Item"
+                    android:textSize="@dimen/text_title"
+                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif"
+                    android:font="@font/orienta"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/relative_reg"
+            app:layout_constraintTop_toBottomOf="@+id/relative_reg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="20dp"
+                    android:id="@+id/regimgPreview"
+                    android:layout_weight="0.5">
+
+                    <Button
+                        android:id="@+id/imgPreview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="300dp"
+                        android:minHeight="300dp"
+                        android:scaleType="fitCenter"
+                        android:adjustViewBounds="true"
+                        android:padding="10dp"
+                        android:layout_centerHorizontal="true"
+                        android:text="Click here to add image"/>
+
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginVertical="@dimen/components_sm_margin"
+                    android:layout_below="@id/regimgPreview"
+                    android:layout_weight="0.5">
+
+                    <TextView
+                        android:id="@+id/stockCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/components_sm_margin"
+                        android:layout_toStartOf="@+id/editTextQty"
+                        android:text="Stock Count:"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        />
+
+                    <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                        android:id="@+id/editTextQty"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="@dimen/components_sm_margin"
+                        android:gravity="right"
+                        app:backGroundColor="@color/blue_main1" />
+
+                    <TextView
+                        android:id="@+id/sharingToggle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/components_sm_margin"
+                        android:layout_toStartOf="@+id/editTextQty"
+                        android:layout_below="@id/stockCount"
+                        android:text="Share Item:"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        />
+
+                    <Switch
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sharingToggleSwitch"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="14dp"
+                        android:layout_below="@id/editTextQty"
+                        />
+
+
+                    <EditText
+                        android:id="@+id/editTextItemName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/sharingToggle"
+                        android:layout_marginHorizontal="@dimen/components_sm_margin"
+                        android:layout_marginVertical="@dimen/components_xs_margin"
+                        android:ems="10"
+                        android:hint="Item Name"
+                        android:inputType="textPersonName" />
+
+                    <EditText
+                        android:id="@+id/editTextItemDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/editTextItemName"
+                        android:layout_marginHorizontal="@dimen/components_sm_margin"
+                        android:layout_marginVertical="@dimen/components_xs_margin"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:hint="Item Description"
+                        android:inputType="textMultiLine" />
+
+                    <!--                <EditText-->
+                    <!--                    android:id="@+id/editTextQty"-->
+                    <!--                    android:layout_width="match_parent"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_below="@id/editTextItemDescription"-->
+                    <!--                    android:layout_marginVertical="@dimen/components_xs_margin"-->
+                    <!--                    android:layout_marginHorizontal="@dimen/components_sm_margin"-->
+                    <!--                    android:ems="10"-->
+                    <!--                    android:inputType="numberDecimal"-->
+                    <!--                    android:hint="Item Qty"/>-->
+
+
+
+
+
+
+                    <Button
+                        android:id="@+id/uploadBtn"
+                        android:layout_below="@id/editTextItemDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Add Item"
+                        android:font="@font/orienta"
+                        android:layout_marginVertical="@dimen/components_sm_margin"
+                        android:layout_marginHorizontal="@dimen/components_sm_margin"
+                        android:textSize="19dp"
+                        android:textColor="@color/white"
+                        android:background="@drawable/rounded_rectangle"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/layout_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingTop="15dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageMenu"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_baseline_menu_24"
+                app:tint="@color/black" />
+
+        </LinearLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:menu="@menu/navigation_menu"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/navigation_header"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>

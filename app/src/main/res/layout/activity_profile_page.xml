@@ -44,7 +44,7 @@
             android:text="Username"
             android:textColor="@color/gray"
             android:fontFamily="@font/roboto_regular"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:layout_marginHorizontal="20dp"
             android:layout_below="@id/profileTitle"/>
 
@@ -62,7 +62,7 @@
             android:textColor="@color/black"
             android:layout_marginTop="5dp"
             android:layout_marginHorizontal="20dp"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
 
                     <!--   ROLE         -->
@@ -74,8 +74,8 @@
             android:text="Role"
             android:textColor="@color/gray"
             android:fontFamily="@font/roboto_regular"
-            android:textSize="20sp"
-            android:layout_marginTop="20dp"
+            android:textSize="15sp"
+            android:layout_marginTop="15dp"
             android:layout_marginHorizontal="20dp"
             android:layout_below="@id/profileUsername"/>
 
@@ -93,7 +93,7 @@
             android:elevation="5dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="5dp"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
                 <!--   Telegram      -->
 
@@ -104,10 +104,9 @@
             android:text="Telegram"
             android:textColor="@color/gray"
             android:fontFamily="@font/roboto_regular"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_marginHorizontal="20dp"
-
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:layout_below="@id/profileRole"/>
 
         <TextView
@@ -124,7 +123,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="5dp"
             android:elevation="5dp"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
 
         <Button
@@ -138,7 +137,7 @@
             android:layout_marginHorizontal="20dp"
             android:fontFamily="@font/roboto_mono_mid"
             android:textColor="@color/white"
-            android:textSize="19dp"
+            android:textSize="15sp"
             android:layout_marginVertical="25dp"
            />
 
@@ -147,7 +146,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/btnToAdminRequests"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textColor="@color/gray"
             android:fontFamily="@font/roboto_regular"
             android:layout_marginHorizontal="20dp"
@@ -160,7 +159,7 @@
             android:id="@+id/outgoingRequestsListView"
             android:layout_below="@id/profilfeSelfRequestTitle"
             android:layout_marginHorizontal="20dp"
-            android:paddingBottom="@dimen/components_lg_margin"/>
+            />
 
 
     </RelativeLayout>

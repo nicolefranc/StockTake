@@ -38,7 +38,7 @@ public class ItemLoanHistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.club_list);
+        setContentView(R.layout.activity_club_item_list);
         // Populate components with Item data from passed Intent
         item = (Item) getIntent().getSerializableExtra("itemIntent");
         itemStockTakeFirebase = new StockTakeFirebase<Loan>(Loan.class, "loans");

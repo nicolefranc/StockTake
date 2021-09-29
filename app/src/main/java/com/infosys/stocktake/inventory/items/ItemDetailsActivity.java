@@ -189,10 +189,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("btnViewQrImage", "clicked");
-//                Intent intent = new Intent(getApplicationContext(), ViewQrActivity.class);
-//                intent.putExtra("QRBitMap", bitmap);
-//                intent.putExtra("ItemName", item.getItemName());
-//                startActivity(intent);
 
 
                 try {

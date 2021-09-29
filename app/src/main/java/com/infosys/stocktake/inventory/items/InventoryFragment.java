@@ -102,6 +102,12 @@ public class InventoryFragment extends Fragment {
             currentClubID = categories.get(position);
             isAdmin = userClubs.get(currentClubID).equals(Membership.ADMIN);
             populateItems(isAdmin);
+            if(!isAdmin){
+                fab_add_item.hide();
+            }
+            if(isAdmin){
+                fab_add_item.show();
+            }
 
         }
 

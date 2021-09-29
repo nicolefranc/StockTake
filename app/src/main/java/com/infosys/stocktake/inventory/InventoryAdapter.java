@@ -13,6 +13,7 @@ import com.infosys.stocktake.inventory.clubs.ClubFragment;
 import com.infosys.stocktake.inventory.itemloanhistory.ItemLoanHistoryFragment;
 import com.infosys.stocktake.inventory.items.InventoryFragment;
 import com.infosys.stocktake.inventory.profile.ProfileFragment;
+import com.infosys.stocktake.loans.PersonalLoanHistoryActivity;
 import com.infosys.stocktake.models.Membership;
 import com.infosys.stocktake.models.User;
 
@@ -71,12 +72,12 @@ public class InventoryAdapter extends FragmentPagerAdapter{
         }
         else if (position == 2){
             Log.d(TAG, "Inventory Adapter:"+ "Loan History " + position);
-            ItemLoanHistoryFragment itemLoanHistoryFragment = new ItemLoanHistoryFragment();
+            PersonalLoanHistoryActivity personalLoanHistoryActivity = new PersonalLoanHistoryActivity();
             position = position+1;
             Bundle bundle = new Bundle();
             // TODO: 7/9/2021 Add the args u need here
-            itemLoanHistoryFragment.setArguments(bundle);
-            return itemLoanHistoryFragment;
+            personalLoanHistoryActivity.setArguments(bundle);
+            return personalLoanHistoryActivity;
         }
         else{
             Log.d(TAG, "Inventory Adapter:"+ "Profile" + position);
