@@ -1,13 +1,21 @@
 package com.infosys.stocktake.inventory.clubs;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +30,10 @@ import com.infosys.stocktake.models.Membership;
 import com.infosys.stocktake.models.User;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 //import info.androidhive.viewpager2.R;
@@ -37,6 +48,8 @@ public class ClubFragment extends Fragment {
     private String currentClub;
     private Map<String, Membership> userClubs;
     private List<String> clubsId;
+    private Button contactAdmin;
+    private List<String> adminList;
 
 
 
@@ -53,6 +66,8 @@ public class ClubFragment extends Fragment {
     currentUser = (User) getArguments().getSerializable("user");
     userClubs = currentUser.getClubMembership();
     clubsId = new ArrayList<String>(userClubs.keySet());
+
+
     Log.d(TAG, "clubs len: " + clubsId.size());
     Log.d(TAG, "clubs len: " + clubsId.toString());
 
@@ -66,11 +81,15 @@ public class ClubFragment extends Fragment {
 
         super.onActivityCreated(savedInstanceState);
         populateItems();
+
+
+
     }
 
     private void populateItems(){
         Log.d(TAG,"Populating items...");
         Task<ArrayList<Club>> populateTask = stockTakeFirebase.getCollection();
+
         populateTask.addOnSuccessListener(new OnSuccessListener<ArrayList<Club>>() {
             @Override
             public void onSuccess(ArrayList<com.infosys.stocktake.models.Club> clubs) {
@@ -81,6 +100,7 @@ public class ClubFragment extends Fragment {
 //                    if (!club.getClubName().matches("Not a Club Exco")) { //change to top line after testing is done
                         mClubs.add(club);
                         Log.d(TAG, "onSuccess: Club ID is " + club.getClubID() + " and current club is " + currentClub);
+                        adminList = club.getAdminList();
                     }
                 }
                 initRecyclerView();

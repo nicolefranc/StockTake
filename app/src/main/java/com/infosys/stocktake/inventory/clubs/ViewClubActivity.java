@@ -40,6 +40,7 @@ import com.infosys.stocktake.models.RequestStatus;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ViewClubActivity extends AppCompatActivity {
     private Club club;
@@ -47,13 +48,14 @@ public class ViewClubActivity extends AppCompatActivity {
     private Item item;
     private boolean isAdmin = false;
     private Button sendAdminRequestBtn;
+    private Button contactAdmin;
     StockTakeFirebase<Item> itemStockTakeFirebase;
     private static final String TAG = "ViewClub: ";
     TextView clubName;
     String userId;
     FirebaseAuth fbAuth = FirebaseAuth.getInstance();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    private List<String> adminList;
     StockTakeFirebase<Request> requestStockTakeFirebase;
 
     @Override
@@ -66,6 +68,20 @@ public class ViewClubActivity extends AppCompatActivity {
         // Populate components with Item data from passed Intent
         club = (Club) getIntent().getSerializableExtra("ClubIntent");
         clubName = findViewById(R.id.clubName);
+
+        contactAdmin = findViewById(R.id.contactAdmin);
+        contactAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/" + club.getAdminList().get(0)));
+                    telegram.setPackage("org.telegram.messenger");
+                    startActivity(telegram);
+                } catch (Exception e) {
+                    Toast.makeText(v.getContext(), "Telegram app is not installed", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         clubName.setText(club.getClubName());
         itemStockTakeFirebase = new StockTakeFirebase<Item>(Item.class, "items");
