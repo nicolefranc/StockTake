@@ -80,7 +80,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         getCurrentUser();
-        getClubNames();
+
         Intent intent = getIntent();
         toClub = intent.getBooleanExtra("toClub", false);
         Log.d(TAG, "toClub: " + toClub);
@@ -97,6 +97,7 @@ public class HomeActivity extends AppCompatActivity {
                 currentUser = user;
                 Log.d(TAG, "User is: " + user.getTelegramHandle());
 //                setUpViews();
+                getClubNames();
             }
         });
 

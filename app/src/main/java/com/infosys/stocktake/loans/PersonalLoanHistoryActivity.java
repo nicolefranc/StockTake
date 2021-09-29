@@ -54,7 +54,7 @@ public class PersonalLoanHistoryActivity extends Fragment {
     private void getLoans(View view){
         personalLoans = new ArrayList<>();
         //Compound query the loans based on loanee id
-        Task<ArrayList<Loan>> queryLoans = stockTakeFirebaseLoan.compoundQuery("loaneeID",currentUser.getUid());
+        Task<ArrayList<Loan>> queryLoans = stockTakeFirebaseLoan.compoundQuery("loaneeID",currentUser.getUid()) ;
         //On success: initialize the recycler view
         queryLoans
         .addOnSuccessListener(loans -> {
@@ -73,25 +73,33 @@ public class PersonalLoanHistoryActivity extends Fragment {
         itemImages = new ArrayList<>();
         int i;
         for(i =0;i<personalLoans.size()-1;i++){
-            stockTakeFirebaseItem.query(personalLoans.get(i).getItemID()).addOnSuccessListener(new OnSuccessListener<Item>() {
-                @Override
-                public void onSuccess(Item item) {
-                    Log.d(TAG,"Fetching item names");
-                    itemNames.add(item.getItemName());
-                    itemImages.add(item.getItemPicture());
-                }
-            });
+            if (!personalLoans.get(i).getReturned()) {
+                Log.d("PERSONAL LOAN HISTORY",  personalLoans.get(i).getReturned().toString());;
+
+
+                stockTakeFirebaseItem.query(personalLoans.get(i).getItemID()).addOnSuccessListener(new OnSuccessListener<Item>() {
+                    @Override
+                    public void onSuccess(Item item) {
+                        Log.d(TAG, "Fetching item names");
+                        itemNames.add(item.getItemName());
+                        itemImages.add(item.getItemPicture());
+                    }
+                });
+            }
         }
         if(personalLoans.size()!=0){
-            stockTakeFirebaseItem.query(personalLoans.get(i).getItemID()).addOnSuccessListener(new OnSuccessListener<Item>() {
-                @Override
-                public void onSuccess(Item item) {
-                    Log.d(TAG,"Fetching the last item name");
-                    itemNames.add(item.getItemName());
-                    itemImages.add(item.getItemPicture());
-                    getLoanQuantities(view);
-                }
-            });
+            if (!personalLoans.get(i).getReturned()) {
+
+                stockTakeFirebaseItem.query(personalLoans.get(i).getItemID()).addOnSuccessListener(new OnSuccessListener<Item>() {
+                    @Override
+                    public void onSuccess(Item item) {
+                        Log.d(TAG, "Fetching the last item name");
+                        itemNames.add(item.getItemName());
+                        itemImages.add(item.getItemPicture());
+                        getLoanQuantities(view);
+                    }
+                });
+            }
         }
         else{
             getLoanQuantities(view);
