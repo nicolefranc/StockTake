@@ -59,7 +59,12 @@ public class PersonalLoanHistoryActivity extends Fragment {
         queryLoans
         .addOnSuccessListener(loans -> {
             if(loans!=null){
-                personalLoans = loans;
+                for (Loan loan: loans) {
+                    if (!loan.getReturned()) {
+                        personalLoans.add(loan);
+                    }
+                }
+//                personalLoans = loans;
             }
             getItemDetails(view);
         })
@@ -73,7 +78,7 @@ public class PersonalLoanHistoryActivity extends Fragment {
         itemImages = new ArrayList<>();
         int i;
         for(i =0;i<personalLoans.size()-1;i++){
-            if (!personalLoans.get(i).getReturned()) {
+//            if (!personalLoans.get(i).getReturned()) {
                 Log.d("PERSONAL LOAN HISTORY",  personalLoans.get(i).getReturned().toString());;
 
 
@@ -85,10 +90,10 @@ public class PersonalLoanHistoryActivity extends Fragment {
                         itemImages.add(item.getItemPicture());
                     }
                 });
-            }
+
         }
         if(personalLoans.size()!=0){
-            if (!personalLoans.get(i).getReturned()) {
+//            if (!personalLoans.get(i).getReturned()) {
 
                 stockTakeFirebaseItem.query(personalLoans.get(i).getItemID()).addOnSuccessListener(new OnSuccessListener<Item>() {
                     @Override
@@ -99,7 +104,7 @@ public class PersonalLoanHistoryActivity extends Fragment {
                         getLoanQuantities(view);
                     }
                 });
-            }
+
         }
         else{
             getLoanQuantities(view);
