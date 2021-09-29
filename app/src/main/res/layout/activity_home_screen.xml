@@ -32,6 +32,24 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <RelativeLayout
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:background="@drawable/rounded_rectangle_white"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:elevation="5dp">
+
+        <Button
+            android:id="@+id/qrScan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/ic_baseline_qr_code_scanner_24"/>
+    </RelativeLayout>
+
 
 
     <androidx.viewpager.widget.ViewPager

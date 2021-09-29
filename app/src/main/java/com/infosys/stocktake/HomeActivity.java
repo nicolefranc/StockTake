@@ -27,9 +27,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.infosys.stocktake.firebase.StockTakeFirebase;
 import com.infosys.stocktake.inventory.InventoryAdapter;
 import com.infosys.stocktake.inventory.clubs.ClubFragment;
+import com.infosys.stocktake.inventory.items.AddItemActivity;
 import com.infosys.stocktake.models.Club;
 import com.infosys.stocktake.models.Membership;
 import com.infosys.stocktake.models.User;
+import com.infosys.stocktake.qr.QrScannerActivity;
 
 
 //import androidx.viewpager.widget.ViewPager;
@@ -39,6 +41,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,6 +68,7 @@ public class HomeActivity extends AppCompatActivity {
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private User currentUser;
     private String currentClub;
+    private Button qrScan;
     private Map<String, String> currentClubName;
     private final String userUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private final String TAG = "InventoryActivity";
@@ -186,8 +190,6 @@ public class HomeActivity extends AppCompatActivity {
         final String[] colors = getResources().getStringArray(R.array.default_preview);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-
-
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -211,7 +213,14 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 });
 
-
+        qrScan = findViewById(R.id.qrScan);
+        qrScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), QrScannerActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
