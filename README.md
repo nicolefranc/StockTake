@@ -28,7 +28,7 @@ These are used to uniquely identity items in the inventory. Whenever an item is 
 When registering an account, users will be prompted to place their SUTD card at the back of the phone, associating their account with their card via NFC. Whenever a loan is requested, the loanee will present their card to the organisation admin, who will tap the card at the back of their phone. This ensures that the loan is associated with the correct user. 
 
 ### 4. The App
-The app is done in Android Java, and was put together through the efforts of table saltz. 
+The app is done in Android Java, and must be installed on an NFC enabled android phone. 
 
 ### System Overview
 
