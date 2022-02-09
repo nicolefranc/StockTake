@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -36,6 +38,8 @@ public class PersonalLoanHistoryActivity extends Fragment {
     private ArrayList<Date> loanDates;
     StockTakeFirebase<Loan> stockTakeFirebaseLoan = new StockTakeFirebase<>(Loan.class, "loans");
     StockTakeFirebase<Item> stockTakeFirebaseItem = new StockTakeFirebase<>(Item.class, "items");
+
+    SwipeRefreshLayout outgoingRequestsSwipeRefreshLayout;
     LoanAdapter loanAdapter;
     @Override
     public View onCreateView(
@@ -47,6 +51,17 @@ public class PersonalLoanHistoryActivity extends Fragment {
 
         //Instantiate current user and firebase
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        outgoingRequestsSwipeRefreshLayout = view.findViewById(R.id.loanSwipeRefresh);
+        outgoingRequestsSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.i(TAG, "onRefresh called from Personal Loan History Activity");
+                getLoans(view);
+                Log.i(TAG, "onRefresh done");
+            }
+        });
+
         getLoans(view);
         return view;
     };
@@ -72,6 +87,8 @@ public class PersonalLoanHistoryActivity extends Fragment {
             Log.w(TAG,"Failure to fetch loan history");
         }
         );
+
+        outgoingRequestsSwipeRefreshLayout.setRefreshing(false);
     }
     private void getItemDetails(View view){
         itemNames = new ArrayList<>();
@@ -132,10 +149,21 @@ public class PersonalLoanHistoryActivity extends Fragment {
     private void initRecyclerView(View view) {
         Log.d(TAG,"Initializing Loan Recycler View");
         RecyclerView loanRecyclerView = view.findViewById(R.id.loanRecyclerView);
+        TextView emptyView = (TextView) getView().findViewById(R.id.empty_view);
         Log.d(TAG,"Recycler View: "+R.id.loanRecyclerView);
         loanAdapter = new LoanAdapter(this.getActivity(), personalLoans,itemNames,itemImages,loanQuantities,loanDates);
         loanRecyclerView.setAdapter(loanAdapter);
         Log.d(TAG,"Loan Adapter SET");
         loanRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+
+        if (personalLoans.isEmpty()) {
+            loanRecyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+        else {
+            loanRecyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
+
     }
 }

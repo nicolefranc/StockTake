@@ -80,8 +80,9 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         }
         else{
             Log.d(TAG, "onBindViewHolder: setting empty message");
-            holder.itemDescription.setText("Not Applicable.");
-            holder.itemName.setText("oops.");
+            holder.itemDescription.setText("");
+            holder.itemName.setText("There are no items");
+
             holder.itemImage.setImageResource(R.drawable.ic_outline_help_outline_24);
         }
     }

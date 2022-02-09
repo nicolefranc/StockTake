@@ -497,16 +497,16 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_height="35dp"/>
 
-                    <Button
-                        android:id="@+id/loan_requests"
-                        android:layout_width="wrap_content"
-                        android:text="Loan Request"
-                        android:paddingHorizontal="20dp"
-                        android:textColor="@color/white"
-                        android:layout_marginHorizontal="10dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/rounded_rectangle"
-                        android:layout_height="35dp"/>
+<!--                    <Button-->
+<!--                        android:id="@+id/loan_requests"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:text="Loan Request"-->
+<!--                        android:paddingHorizontal="20dp"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:layout_marginHorizontal="10dp"-->
+<!--                        android:layout_gravity="center_horizontal"-->
+<!--                        android:background="@drawable/rounded_rectangle"-->
+<!--                        android:layout_height="35dp"/>-->
 
                 </TableRow>
 

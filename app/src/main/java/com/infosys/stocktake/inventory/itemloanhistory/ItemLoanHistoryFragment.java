@@ -24,6 +24,8 @@ import java.util.List;
 
 public class ItemLoanHistoryFragment extends Fragment {
 
+    private static final String TAG = "ItemLoanHistoryFragment";
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,

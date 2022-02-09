@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_blue"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+
+    >
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:fitsSystemWindows="true"
+        android:elevation="0dp"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <ImageView
+            android:id="@+id/backdrop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:background="@color/bg_blue"
+            android:src="@drawable/stocktakelogo_extra_small"
+            android:elevation="0dp"
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:background="@drawable/rounded_rectangle_white"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:elevation="5dp">
+
+        <Button
+            android:id="@+id/qrScan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/ic_baseline_qr_code_scanner_24"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation"
+        android:background="@drawable/top_rounded_rectangle"
+        android:elevation="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/profileTitle"
+            android:layout_centerHorizontal="true"
+            android:text="Loan Item"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto_mono_mid"
+            android:layout_marginVertical="15dp"
+            android:textSize="35dp"/>
+
+        <ImageView
+            android:id="@+id/ivItemPicture"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@id/profileTitle"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/itemNameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Item Name"
+            android:textAlignment="center"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:font="@font/orienta"
+            android:textColor="@color/black"
+            android:layout_below="@id/ivItemPicture" />
+
+        <LinearLayout
+            android:id="@+id/counter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/itemNameText"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/decrease"
+                android:layout_width="85dp"
+                android:layout_height="50dp"
+                android:background="@drawable/card_rectangle"
+                android:onClick="decreaseInteger"
+                android:textSize="30dp"
+                android:textAlignment="center"
+                android:text="-" />
+
+            <TextView
+                android:id="@+id/loanCounterText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:textColor="@color/black"
+                android:text="0"
+                android:textStyle="bold"
+                android:textSize="70sp" />
+
+            <Button
+                android:id="@+id/increase"
+                android:layout_width="85dp"
+                android:layout_height="50dp"
+                android:background="@drawable/card_rectangle"
+                android:onClick="increaseInteger"
+                android:textSize="30dp"
+                android:textAlignment="center"
+                android:text="+" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/DOL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/counter"
+            android:textSize="20dp"
+            android:layout_marginHorizontal="@dimen/components_sm_margin"
+            android:textColor="@color/black"
+            android:text="Date of Loan"/>
+
+        <TextView
+            android:id="@+id/date_of_loan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/components_xs_margin"
+            android:layout_marginHorizontal="@dimen/components_sm_margin"
+            android:background="@drawable/rounded_rectangle_white"
+            android:elevation="5dp"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="20dp"
+            android:paddingHorizontal="@dimen/components_sm_margin"
+            android:text="2/12/2020"
+            android:layout_below="@+id/DOL"/>
+
+        <TextView
+            android:id="@+id/DOR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/date_of_loan"
+            android:layout_marginTop="@dimen/components_xs_margin"
+            android:layout_marginHorizontal="@dimen/components_sm_margin"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:text="Date of Return"/>
+
+        <EditText
+            android:id="@+id/date_of_return"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/components_sm_margin"
+            android:text="DD/MM/YY"
+            android:textColor="@color/gray_light"
+            android:background="@drawable/rounded_rectangle_white"
+            android:elevation="5dp"
+            android:fontFamily="@font/roboto_regular"
+            android:paddingHorizontal="@dimen/components_sm_margin"
+            android:drawableRight="@drawable/ic_baseline_calendar_today_24"
+            android:layout_below="@+id/DOR"/>
+
+
+
+        <Button
+            android:id="@+id/loanButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Loan"
+            android:gravity="center"
+            android:background="@drawable/rounded_rectangle"
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            android:layout_marginHorizontal="@dimen/components_xs_margin"
+            android:layout_below="@id/date_of_return"/>
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

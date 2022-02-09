@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,9 +50,8 @@ public class ClubFragment extends Fragment {
     private Map<String, Membership> userClubs;
     private List<String> clubsId;
     private Button contactAdmin;
+    SwipeRefreshLayout outgoingRequestsSwipeRefreshLayout;
     private List<String> adminList;
-
-
 
     @Override
     public View onCreateView(
@@ -67,22 +67,28 @@ public class ClubFragment extends Fragment {
     userClubs = currentUser.getClubMembership();
     clubsId = new ArrayList<String>(userClubs.keySet());
 
-
     Log.d(TAG, "clubs len: " + clubsId.size());
     Log.d(TAG, "clubs len: " + clubsId.toString());
 
     stockTakeFirebase = new StockTakeFirebase<Club>(Club.class, "clubs");
+
+    outgoingRequestsSwipeRefreshLayout = view.findViewById(R.id.clubSwipeRefresh);
+    outgoingRequestsSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            Log.i(TAG, "onRefresh called from club SwipeRefreshLayout");
+            populateItems();
+            Log.i(TAG, "onRefresh done");
+        }
+    });
+
     return view;
     }
 
 
-
     public void onActivityCreated(Bundle savedInstanceState) {
-
         super.onActivityCreated(savedInstanceState);
         populateItems();
-
-
 
     }
 
@@ -113,13 +119,26 @@ public class ClubFragment extends Fragment {
             }
         });
 
+        outgoingRequestsSwipeRefreshLayout.setRefreshing(false);
+
     }
 
 
     private void initRecyclerView(){
         RecyclerView recyclerView = getView().findViewById(R.id.recyclerView);
+        TextView emptyView = (TextView) getView().findViewById(R.id.empty_view);
         ClubRecyclerViewAdapter recyclerAdapter = new ClubRecyclerViewAdapter(mClubs, getActivity());
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+
+        if (mClubs.isEmpty()) {
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+        else {
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
+
     }
 }

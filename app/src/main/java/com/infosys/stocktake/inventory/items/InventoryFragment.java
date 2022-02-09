@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -56,6 +57,8 @@ public class InventoryFragment extends Fragment {
     public static Map<String, String> currentClubName;
     private Map<String, Membership> userClubs;
     private FloatingActionButton fab_add_item;
+
+    SwipeRefreshLayout outgoingRequestsSwipeRefreshLayout;
     private Spinner spinner;
     private boolean isAdmin = true;
 
@@ -135,6 +138,16 @@ public class InventoryFragment extends Fragment {
         }
     });
 
+    outgoingRequestsSwipeRefreshLayout = view.findViewById(R.id.inventorySwipeRefresh);
+    outgoingRequestsSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
+            populateItems(isAdmin);
+            Log.i(TAG, "onRefresh done");
+        }
+    });
+
     return view;
     }
 
@@ -159,7 +172,6 @@ public class InventoryFragment extends Fragment {
                 }
                 Log.d(TAG, "Items added: " + mItems.toString());
 
-
                 initRecyclerView(isAdmin);
             }
         });
@@ -170,6 +182,9 @@ public class InventoryFragment extends Fragment {
             }
         });
 
+
+        outgoingRequestsSwipeRefreshLayout.setRefreshing(false);
+
     }
 
 
@@ -178,9 +193,19 @@ public class InventoryFragment extends Fragment {
         Log.d(TAG,"Initializing recycler view..." + isAdmin);
         RecyclerView recyclerView = getView().findViewById(R.id.recyclerView);
 
+        TextView emptyView = (TextView) getView().findViewById(R.id.empty_view);
+
         ItemRecyclerViewAdapter recyclerAdapter = new ItemRecyclerViewAdapter(mItems, isAdmin, getActivity());
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        if (mItems.isEmpty()) {
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+        else {
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
 //        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
     }
 }

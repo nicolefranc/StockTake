@@ -53,7 +53,7 @@ public class AddLoanActivity extends AppCompatActivity {
     protected void onCreate( Bundle savedInstanceState) {
         //Linking components to the XML
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loan_add);
+        setContentView(R.layout.activity_add_load_item);
         loanButton = findViewById(R.id.loanButton);
         itemNameText = findViewById(R.id.itemNameText);
         date_of_return = findViewById(R.id.date_of_return);
@@ -85,7 +85,7 @@ public class AddLoanActivity extends AppCompatActivity {
 //        stockTakeFirebaseItem.query(itemID).addOnSuccessListener(item -> {
 //            TODO set the item image
         Picasso.get().load(currentItem.getItemPicture())
-                .fit().centerCrop().into(ivItemPicture);
+                .fit().centerInside().into(ivItemPicture);
 //            currentItem = item;
             itemNameText.setText(currentItem.getItemName());
 
